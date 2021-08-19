@@ -17,6 +17,7 @@ library(plyr)
 library(tidyverse)
 library(doBy)
 library(ggplot2)
+library(ggpubr)
 library(here)
 
 # data
@@ -24,6 +25,7 @@ prey_fish <- read_csv(here("./clean_data/prey_fish_data.csv"))
 pred_fish <- read_csv(here("./clean_data/pred_fish_data.csv"))
 prey_meta <- read_csv(here("./clean_data/prey_metadata.csv"))
 pred_meta <- read_csv(here("./clean_data/pred_metadata.csv"))
+SVC_meta <- read_csv(here("./clean_data/SVC_data.csv"))
 SVC_lengths <- read_csv(here("./clean_data/SVC_lengths.csv"))
 traits <- read_csv(here("./clean_data/fish_traits.csv"))
 
@@ -94,7 +96,7 @@ pred_density <- join(pred_species, pred_area, by = NULL, type = "full",
 SVC_density <- SVC_lengths[,c(1,2,5)]
 
 # select SVC area column
-SVC_area <- SVC_meta[,c(1,5)]
+SVC_area <- SVC_meta[,c(1,12)]
 
 # join SVC_area and SVC_density
 SVC_density <- join(SVC_density, SVC_area, by = NULL, type = "left", 
@@ -116,7 +118,7 @@ pred_density$pred_density <-
 
 # SVC density calculation 
 SVC_density$SVC_density <- 
-  (SVC_density$SVC_abundance)/(SVC_density$SVC_area)
+  (SVC_density$SVC_abundance)/(SVC_density$SVC_cylinder_area)
 
 
 # Join Dataframes ==============================================================
@@ -242,12 +244,15 @@ SVCpred_bar <- SVCpred_bar[SVCpred_bar$species !=0,]
 # The following removes single-order species from the dataframes as these 
 # species were not used in analyses.
 
-# remove silversides, trumpetfish, eels, and flounder from SVC vs. transect data
-SVCprey_family <- SVCprey_family[c(1:2,5:6,8:24,27:38),] 
+# remove silversides (Atherinopsidae), trumpetfish (Aulostomidae), eels 
+# (Muraenidae and Ophichthidae), and flounder (Bothidae) from SVC vs. transect 
+# data
+SVCprey_family <- SVCprey_family[c(1:2,4:38),] 
+SVCprey_family <- na.omit(SVCprey_family)
 
 # remove trumpetfish, gray snapper, amberjack, and black margate from SVC vs. 
 # roving data
-SVCpred_bar <- SVCpred_bar[c(2:3,5:8,10:23),]
+SVCpred_bar <- SVCpred_bar[c(1:8,10:23),]
 
 
 # Density Difference Barplots ==================================================
@@ -259,34 +264,38 @@ SVCpred_bar <- SVCpred_bar[c(2:3,5:8,10:23),]
 # SVC vs. transect survey barplot
 SVCprey_barplot <- ggplot(data=SVCprey_family, 
                           aes(x=family, y=avg_density_dif)) +
-  geom_bar(stat="identity", fill="blue") +
-  ylim(-0.3, 0.15) +
+  geom_bar(stat="identity", fill="darkcyan", color = "black") +
   theme_classic() + xlab("Family") + 
-  ylab(bquote("Mean Density Difference" (individuals/m^2))) +
+  ylab(bquote("Mean Density Difference: SVC - Transect" (individuals/m^2))) +
   theme(axis.title = element_text(size = 20)) +
-  theme(axis.text= element_text(size = 14)) +
+  theme(axis.text= element_text(size = 18)) +
   theme(legend.text = element_text(size = 18)) +
-  theme(legend.title = element_text(size = 20)) 
+  theme(legend.title = element_text(size = 20)) +
+  ylim(-0.7, 0.2)
 SVCprey_bar <- SVCprey_barplot + coord_flip() +
   geom_hline(yintercept = 0, linetype = "dashed", colour = "black")
 ggsave(here("./visuals/SVCprey_density_barplot.png"), SVCprey_bar)
 
 # SVC vs. roving survey barplot
 SVCpred_barplot <- ggplot(data=SVCpred_bar, aes(x=species, y=avg_density_dif)) +
-  geom_bar(stat="identity", fill="blue") +
+  geom_bar(stat="identity", fill="darkcyan", color = "black") +
   theme_classic() + 
   xlab("Species") + 
-  ylab(bquote("Mean Density Difference" (individuals/m^2))) +
+  ylab(bquote("Mean Density Difference: SVC - Roving" (individuals/m^2))) +
   theme(axis.title = element_text(size = 20)) +
-  theme(axis.text= element_text(size = 14)) +
+  theme(axis.text= element_text(size = 18)) +
   theme(legend.text = element_text(size = 18)) +
-  theme(legend.title = element_text(size = 20)) +
-  ylim(-0.003, 0.005)
-SVCpred_bar <- SVCpred_barplot + coord_flip() +
+  theme(legend.title = element_text(size = 20)) 
+SVCpred_bar2 <- SVCpred_barplot + coord_flip() +
   geom_hline(yintercept = 0,
              linetype = "dashed",
              colour = "black") 
-ggsave(here("./visuals/SVCpred_density_barplot.png"), SVCpred_bar)
+ggsave(here("./visuals/SVCpred_density_barplot.png"), SVCpred_bar2)
+
+# arrange on same page
+density_barplots <- ggarrange(SVCprey_bar, SVCpred_bar2, 
+                                 labels = c("a", "b"), ncol = 2, nrow = 1)
+ggsave(here("./visuals/density_barplots.png"), density_barplots)
 
 
 # Density Difference Barplots with Error Bars ==================================

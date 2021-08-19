@@ -7654,56 +7654,140 @@ session,species,size_bin,SVC_abundance,prey_abundance,pred_abundance,size_bin_le
 265,white grunt,2,0,1,0,7.533217
 265,yellowhead wrasse,3,0,1,0,12.91456
 266,queen angelfish,4,1,0,0,17.94356
-266,butter hamlet,2,2,0,0,7.533217
+266,butter hamlet,2,2,1,0,7.533217
 266,foureye butterflyfish,2,2,0,0,7.533217
-266,sharpnose puffer,1,2,0,0,3.63321
-266,redband parrotfish,2,1,0,0,7.533217
-266,bicolor damselfish,1,67,0,0,3.63321
-266,french grunt,2,10.5,0,0,7.533217
+266,sharpnose puffer,1,2,7,0,3.63321
+266,redband parrotfish,2,1,2,0,7.533217
+266,bicolor damselfish,1,67,82,0,3.63321
+266,french grunt,2,10.5,3,0,7.533217
 266,blue tang,2,1,0,0,7.533217
-266,striped parrotfish,1,1,0,0,3.63321
-266,yellowhead wrasse,1,3,0,0,3.63321
-266,tomtate,2,150,0,0,7.533217
+266,striped parrotfish,1,1,26,0,3.63321
+266,yellowhead wrasse,1,3,7,0,3.63321
+266,tomtate,2,150,181,0,7.533217
 266,blue tang,3,4,0,0,12.91456
-266,striped parrotfish,2,5,0,0,7.533217
-266,black grouper,6,1,0,0,47.70199
-266,harlequin bass,2,1,0,0,7.533217
+266,striped parrotfish,2,5,10,0,7.533217
+266,black grouper,6,1,4,0,47.70199
+266,harlequin bass,2,1,6,0,7.533217
 266,blue chromis,1,1,0,0,3.63321
 266,hogfish,6,1,0,0,47.70199
 266,smooth trunkfish,2,1,0,0,7.533217
 266,spotfin butterflyfish,2,1,0,0,7.533217
 266,cero,5,1,0,0,24.92844
-266,cocoa damselfish,1,1,0,0,3.63321
-266,beaugregory,2,1,0,0,7.533217
+266,cocoa damselfish,1,1,1,0,3.63321
+266,beaugregory,2,1,1,0,7.533217
 266,redband parrotfish,3,2,0,0,12.91456
-266,yellowhead wrasse,2,9,0,0,7.533217
-266,french grunt,3,3.5,0,0,12.91456
+266,yellowhead wrasse,2,9,18,0,7.533217
+266,french grunt,3,3.5,22,0,12.91456
 266,queen angelfish,5,1,0,0,24.92844
+266,balloonfish,4,0,1,0,17.94356
+266,bar jack,3,0,12,0,12.91456
+266,bar jack,5,0,7,0,24.92844
+266,beaugregory,1,0,3,0,3.63321
+266,bicolor damselfish,2,0,26,0,7.533217
+266,blue chromis,2,0,2,0,7.533217
+266,blue parrotfish,1,0,1,0,3.63321
+266,bluehead wrasse,1,0,60,0,3.63321
+266,bluehead wrasse,2,0,7,0,7.533217
+266,bridled goby,1,0,14,0,3.63321
+266,bridled goby,2,0,4,0,7.533217
+266,clown wrasse,1,0,1,0,3.63321
+266,clown wrasse,2,0,9,0,7.533217
+266,colon goby,1,0,14,0,3.63321
+266,colon goby,2,0,1,0,7.533217
+266,goldspot goby,1,0,8,0,3.63321
+266,gray angelfish,6,0,5,0,47.70199
+266,graysby,3,0,1,0,12.91456
+266,graysby,5,0,1,0,24.92844
+266,green moray,6,0,1,0,47.70199
+266,greenblotch parrotfish,1,0,1,0,3.63321
+266,harlequin bass,1,0,1,0,3.63321
+266,highhat,2,0,1,0,7.533217
+266,masked goby,1,0,51,0,3.63321
+266,pallid goby,1,0,2,0,3.63321
+266,redband parrotfish,1,0,11,0,3.63321
+266,redband parrotfish,5,0,1,0,24.92844
+266,sergeant major,2,0,1,0,7.533217
+266,sharpnose puffer,2,0,2,0,7.533217
+266,slender filefish,1,0,1,0,3.63321
+266,slippery dick,1,0,2,0,3.63321
+266,slippery dick,2,0,8,0,7.533217
+266,slippery dick,3,0,1,0,12.91456
+266,spanish hogfish,2,0,2,0,7.533217
+266,stoplight parrotfish,1,0,4,0,3.63321
+266,stoplight parrotfish,2,0,1,0,7.533217
+266,striped parrotfish,3,0,5,0,12.91456
+266,striped parrotfish,6,0,1,0,47.70199
+266,tomtate,1,0,7,0,3.63321
+266,tomtate,3,0,39,0,12.91456
+266,wrasse spp.,1,0,1,0,3.63321
+266,yellowhead wrasse,3,0,3,0,12.91456
 267,rainbow parrotfish,5,1,0,0,24.92844
-267,cocoa damselfish,1,1,0,0,3.63321
-267,harlequin bass,2,2,0,0,7.533217
+267,cocoa damselfish,1,1,1,0,3.63321
+267,harlequin bass,2,2,7,0,7.533217
 267,french angelfish,3,1,0,0,12.91456
-267,blue tang,3,3,0,0,12.91456
-267,yellowhead wrasse,1,1,0,0,3.63321
-267,bicolor damselfish,2,53.25,0,0,7.533217
+267,blue tang,3,3,2,0,12.91456
+267,yellowhead wrasse,1,1,9,0,3.63321
+267,bicolor damselfish,2,53.25,26,0,7.533217
 267,tomtate,1,10.5,0,0,3.63321
-267,bluehead wrasse,2,20,0,0,7.533217
-267,french grunt,2,25.5,0,0,7.533217
-267,striped parrotfish,2,12,0,0,7.533217
+267,bluehead wrasse,2,20,15,0,7.533217
+267,french grunt,2,25.5,13,0,7.533217
+267,striped parrotfish,2,12,36,0,7.533217
 267,spanish grunt,2,1,0,0,7.533217
-267,yellowhead wrasse,2,4,0,0,7.533217
+267,yellowhead wrasse,2,4,30,0,7.533217
 267,spanish grunt,3,5,0,0,12.91456
-267,clown wrasse,1,1,0,0,3.63321
+267,clown wrasse,1,1,2,0,3.63321
 267,blue parrotfish,5,1,0,0,24.92844
-267,tomtate,2,31.5,0,0,7.533217
-267,bicolor damselfish,1,17.75,0,0,3.63321
+267,tomtate,2,31.5,121,0,7.533217
+267,bicolor damselfish,1,17.75,158,0,3.63321
 267,french grunt,3,8.5,0,0,12.91456
-267,striped parrotfish,1,4,0,0,3.63321
+267,striped parrotfish,1,4,41,0,3.63321
 267,spanish grunt,4,2,0,0,17.94356
-267,rainbow parrotfish,6,1,0,0,47.70199
-267,cocoa damselfish,2,1,0,0,7.533217
+267,rainbow parrotfish,6,1,1,0,47.70199
+267,cocoa damselfish,2,1,6,0,7.533217
 267,french angelfish,4,1,0,0,17.94356
 267,bluehead wrasse,3,1,0,0,12.91456
+267,balloonfish,3,0,2,0,12.91456
+267,beaugregory,1,0,5,0,3.63321
+267,beaugregory,2,0,2,0,7.533217
+267,blackear wrasse,2,0,1,0,7.533217
+267,blue angelfish,5,0,1,0,24.92844
+267,blue tang,2,0,2,0,7.533217
+267,bluehead wrasse,1,0,66,0,3.63321
+267,bluelip parrotfish,1,0,1,0,3.63321
+267,bridled goby,1,0,21,0,3.63321
+267,bridled goby,2,0,6,0,7.533217
+267,brown chromis,2,0,1,0,7.533217
+267,bucktooth parrotfish,2,0,1,0,7.533217
+267,butter hamlet,2,0,2,0,7.533217
+267,clown wrasse,2,0,10,0,7.533217
+267,colon goby,1,0,22,0,3.63321
+267,colon goby,2,0,1,0,7.533217
+267,french grunt,1,0,1,0,3.63321
+267,goldspot goby,1,0,4,0,3.63321
+267,goldspot goby,2,0,3,0,7.533217
+267,gray angelfish,5,0,1,0,24.92844
+267,graysby,2,0,2,0,7.533217
+267,greenblotch parrotfish,1,0,1,0,3.63321
+267,greenblotch parrotfish,2,0,1,0,7.533217
+267,harlequin bass,1,0,1,0,3.63321
+267,lantern bass,1,0,1,0,3.63321
+267,masked goby,1,0,10,0,3.63321
+267,mutton snapper,6,0,1,0,47.70199
+267,pallid goby,1,0,1,0,3.63321
+267,redband parrotfish,1,0,22,0,3.63321
+267,redband parrotfish,2,0,5,0,7.533217
+267,saddled blenny,2,0,1,0,7.533217
+267,sharpnose puffer,1,0,2,0,3.63321
+267,sharpnose puffer,2,0,2,0,7.533217
+267,silverside,1,0,100,0,3.63321
+267,slippery dick,1,0,5,0,3.63321
+267,slippery dick,2,0,27,0,7.533217
+267,slippery dick,3,0,2,0,12.91456
+267,spotted moray,6,0,1,0,47.70199
+267,stoplight parrotfish,1,0,2,0,3.63321
+267,sunshinefish,1,0,2,0,3.63321
+267,threespot damselfish,1,0,1,0,3.63321
+267,yellowhead wrasse,3,0,2,0,12.91456
 268,cocoa damselfish,2,2,0,0,7.533217
 268,stoplight parrotfish,3,3,0,0,12.91456
 268,bluestriped grunt,2,2,4,0,7.533217

@@ -60,15 +60,58 @@ source(here("./src/model_dataframes.R"))
 source(here("./src/model_selection.R"))
 
 
-# Presence/Absence Comparison ==================================================
+# Density Comparison ===========================================================
 
-# This script creates dataframes of presence/absence recordings of species
+# This script creates a dataframe of the average densities of each fish species
+# between SVC and transect surveys and SVC and roving surveys. It then tests
+# for differences in the average densities of species between surveys using 
+# Kruskal-Wallis one-way analysis of variance tests. 
+
+source(here("./src/density_comparison.R"))
+
+
+# SVC vs. Transect: Presence/Absence Comparison ================================
+
+# This script creates a dataframe of the total number of sessions each of 8 SVC
+# focal species was present in between SVC and transect surveys. The difference
+# in the total number of sessions across species as well as for each species
+# individually is then analyzed using Chi-Square tests and a barplot of the 
+# totals is created. 
+
+source(here("./src/SVCprey_presabs.R"))
+
+
+# SVC vs. Transect: Focal Species Density Comparison ===========================
+
+# This script creates a dataframe of the average density of each of 8 SVC focal
+# species recorded in SVC and transect surveys. The difference in average 
+# densities of all 8 species as well as each species individually between 
+# surveys are determined using Kruskal-Wallis one-way analysis of variance 
+# tests. A barplot of the average densities between surveys is also created. 
+
+source(here("./src/SVCprey_density.R"))
+
+
+# SVC vs. Roving: Presence/Absence Comparison ==================================
+
+# This script creates a dataframe of presence/absence recordings of species
 # across sessions for SVC and roving surveys in order to compare differences in 
-# recordings. A t-test is used to compare differences in recordings across all 
-# species and Chi-Square tests are used to examine differences in recordings for
-# individual species. 
+# recordings. A Chi-Square test is performed to determine whether a difference
+# between SVC and roving presence recordings exists. A barplot is created of 
+# presence recordings in sessions across the surveys for every species. 
 
-source(here("./src/presabs_analysis.R"))
+source(here("./src/SVCpred_chisquare.R"))
+
+
+# SVC vs. Roving: Focal Species Density Comparison =============================
+
+# This script creates a dataframe of the average density of each of 3 SVC focal
+# species recorded in both SVC and roving surveys. The difference in average 
+# densities of all 3 species as well as each species individually between 
+# surveys are determined using Kruskal-Wallis one-way analysis of variance 
+# tests. A barplot of the average densities between surveys is also created. 
+
+source(here("./src/SVCpred_density.R"))
 
 
 # Covariate Plots ==============================================================

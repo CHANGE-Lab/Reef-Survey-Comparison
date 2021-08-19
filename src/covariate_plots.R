@@ -65,15 +65,16 @@ SVCprey_model_data$shape <-
 # the SVC vs. transect survey linear mixed effects model. 
 
 # habitat type boxplot
+TukeyHSD(aov(log_difference~habitat, SVCprey_model_data))
 prey_hab <- ggplot(SVCprey_model_data, aes(x = habitat, y = log_difference, 
                                fill = habitat)) + 
   geom_boxplot() +
   theme_classic() + xlab("Reef Type") + 
   ylab(bquote("Log Density Difference " (individuals/m^2))) +
-  theme(axis.title = element_text(size = 14)) +
-  theme(axis.text= element_text(size = 14)) +
+  theme(axis.title = element_text(size = 24)) +
+  theme(axis.text= element_text(size = 22)) +
   theme(legend.position = "none") +
-  scale_fill_brewer(palette = "Set3") +
+  scale_fill_manual(values = c("gray88", "gray44")) +
   geom_hline(yintercept = 0,
              linetype = "dashed",
              colour = "grey40")
@@ -81,12 +82,12 @@ ggsave(here("./visuals/SVCprey_habitat_box.png"), prey_hab)
 
 # stony coral scatterplot
 prey_stony <- ggplot(SVCprey_model_data, aes(x = stony, y = log_difference)) + 
-  geom_point(size = 2) +
+  geom_jitter(width = 2, height = 0.1) +
   theme_classic() + xlab("Percent Stony Coral") + 
   ylab(bquote("Log Density Difference " (individuals/m^2))) +
-  theme(axis.title = element_text(size = 14)) +
-  theme(axis.text= element_text(size = 14)) +
-  geom_smooth(method=lm, se = FALSE) +
+  theme(axis.title = element_text(size = 24)) +
+  theme(axis.text= element_text(size = 22)) +
+  geom_smooth(method=lm, color = "gray44", se = FALSE) +
   geom_hline(yintercept = 0,
              linetype = "dashed",
              colour = "grey40")
@@ -95,12 +96,12 @@ ggsave(here("./visuals/SVCprey_stony_scatter.png"), prey_stony)
 # octocoral scatterplot
 prey_octo <- ggplot(SVCprey_model_data, aes(x = octocoral, 
                                             y = log_difference)) + 
-  geom_point(size = 2) +
+  geom_jitter(width = 2, height = 0.1) +
   theme_classic() + xlab("Percent Octocoral") + 
   ylab(bquote("Log Density Difference " (individuals/m^2))) +
-  theme(axis.title = element_text(size = 14)) +
-  theme(axis.text= element_text(size = 14)) +
-  geom_smooth(method=lm, se = FALSE) +
+  theme(axis.title = element_text(size = 24)) +
+  theme(axis.text= element_text(size = 22)) +
+  geom_smooth(method=lm, color = "gray44", se = FALSE) +
   geom_hline(yintercept = 0,
              linetype = "dashed",
              colour = "grey40")
@@ -112,82 +113,88 @@ prey_cryptic <- ggplot(SVCprey_model_data, aes(x = cryptic_behaviour2,
   geom_boxplot() +
   theme_classic() + xlab("Cryptic Behaviour") + 
   ylab(bquote("Log Density Difference " (individuals/m^2))) +
-  theme(axis.title = element_text(size = 14)) +
-  theme(axis.text= element_text(size = 14)) +
+  theme(axis.title = element_text(size = 24)) +
+  theme(axis.text= element_text(size = 22)) +
   theme(legend.position = "none") +
-  scale_fill_brewer(palette = "Set3") +
+  scale_fill_brewer(palette = "YlGnBu") +
+  # scale_fill_manual(values = c("gray88", "gray44")) +
   geom_hline(yintercept = 0,
              linetype = "dashed",
              colour = "grey40")
 ggsave(here("./visuals/SVCprey_cryptic_box.png"), prey_cryptic)
 
 # size bin boxplot
+TukeyHSD(aov(log_difference~size_bin_char, SVCprey_model_data))
 prey_size <- ggplot(SVCprey_model_data, aes(x = size_bin_char, 
              y = log_difference, fill = size_bin_char)) + 
   geom_boxplot(show.legend = FALSE) + 
   theme_classic() + 
   xlab("Size Bin") + 
   ylab(bquote("Log Density Difference " (individuals/m^2))) +
-  theme(axis.title = element_text(size = 14)) + 
-  theme(axis.text= element_text(size = 14)) + 
+  theme(axis.title = element_text(size = 28)) + 
+  theme(axis.text= element_text(size = 26)) + 
   theme(legend.position = "none") + 
   scale_fill_brewer(palette = "YlGnBu") + 
   geom_hline(yintercept = 0, linetype = "dashed", colour = "grey40")
 ggsave(here("./visuals/SVCprey_size_box.png"), prey_size)
 
 # colouration boxplot
+TukeyHSD(aov(log_difference~colouration, SVCprey_model_data))
 prey_colour <- ggplot(SVCprey_model_data, aes(x = colouration, 
                y = log_difference, fill = colouration)) + 
   geom_boxplot(show.legend = FALSE) + 
   theme_classic() + 
   xlab("Colouration") + 
   ylab(bquote("Log Density Difference " (individuals/m^2))) +
-  theme(axis.title = element_text(size = 14)) + 
-  theme(axis.text= element_text(size = 14)) + 
+  theme(axis.title = element_text(size = 24)) + 
+  theme(axis.text= element_text(size = 22)) + 
   theme(legend.position = "none") + 
-  scale_fill_brewer(palette = "YlGnBu") + 
+  scale_fill_manual(name = "Colouration", values = c("goldenrod4", "wheat1", 
+                                                     "gray85", "yellow")) +
   geom_hline(yintercept = 0, linetype = "dashed", colour = "grey40")
 ggsave(here("./visuals/SVCprey_colouration_box.png"), prey_colour)
 
 # behaviour boxplot
+TukeyHSD(aov(log_difference~behavior, SVCprey_model_data))
 prey_behav <- ggplot(SVCprey_model_data, aes(x = behavior, y = log_difference, 
                                fill = behavior)) + 
   geom_boxplot(show.legend = FALSE) + 
   theme_classic() + 
   xlab("Aggregation Behaviour") + 
   ylab(bquote("Log Density Difference " (individuals/m^2))) +
-  theme(axis.title = element_text(size = 14)) + 
-  theme(axis.text= element_text(size = 14)) + 
+  theme(axis.title = element_text(size = 24)) + 
+  theme(axis.text= element_text(size = 22)) + 
   theme(legend.position = "none") + 
-  scale_fill_brewer(palette = "YlGnBu") + 
+  scale_fill_brewer(palette = "Greys") + 
   geom_hline(yintercept = 0, linetype = "dashed", colour = "grey40")
 ggsave(here("./visuals/SVCprey_behaviour_box.png"), prey_behav)
 
 # maximum lengths scatterplot
 prey_max <- ggplot(SVCprey_model_data, aes(x = max_length, 
                                            y = log_difference)) + 
-  geom_point(size = 2) +
+  geom_jitter(width = 1, height = 0.1)  +
   theme_classic() + xlab("Maximum Length") + 
   ylab(bquote("Log Density Difference " (individuals/m^2))) +
-  theme(axis.title = element_text(size = 14)) +
-  theme(axis.text= element_text(size = 14)) +
-  geom_smooth(method=lm, se = FALSE) +
+  theme(axis.title = element_text(size = 24)) +
+  theme(axis.text= element_text(size = 22)) +
+  geom_smooth(method=lm, color = "gray44", se = FALSE) +
   geom_hline(yintercept = 0,
              linetype = "dashed",
              colour = "grey40")
 ggsave(here("./visuals/SVCprey_maxlength_scatter.png"), prey_max)
 
 # shape boxplot
+TukeyHSD(aov(log_difference~shape, SVCprey_model_data))
 prey_shape <- ggplot(SVCprey_model_data, aes(x = shape, y = log_difference, 
                                fill = shape)) + 
   geom_boxplot(show.legend = FALSE) + 
   theme_classic() + 
   xlab("Body Shape") + 
   ylab(bquote("Log Density Difference " (individuals/m^2))) +
-  theme(axis.title = element_text(size = 14)) + 
-  theme(axis.text= element_text(size = 14)) + 
+  theme(axis.title = element_text(size = 28)) + 
+  theme(axis.text= element_text(size = 26)) + 
   theme(legend.position = "none") + 
-  scale_fill_brewer(palette = "YlGnBu") + 
+  scale_fill_brewer(palette = "Greys") + 
   geom_hline(yintercept = 0, linetype = "dashed", colour = "grey40")
 ggsave(here("./visuals/SVCprey_shape_box.png"), prey_shape)
 
@@ -198,10 +205,10 @@ prey_sizecol <- ggplot(SVCprey_model_data, aes(colouration, log_difference,
   theme_classic() + 
   xlab("Colouration") + 
   ylab(bquote("Log Density Difference " (individuals/m^2))) +
-  theme(axis.title = element_text(size = 14)) +
-  theme(axis.text= element_text(size = 14)) +
-  theme(legend.text = element_text(size = 14)) +
-  theme(legend.title = element_text(size = 14)) +
+  theme(axis.title = element_text(size = 24)) +
+  theme(axis.text= element_text(size = 22)) +
+  theme(legend.text = element_text(size = 22)) +
+  theme(legend.title = element_text(size = 24)) +
   scale_fill_brewer(name = "Size Bin", palette = "YlGnBu") +
   geom_hline(yintercept = 0,
                linetype = "dashed",
@@ -209,16 +216,18 @@ prey_sizecol <- ggplot(SVCprey_model_data, aes(colouration, log_difference,
 ggsave(here("./visuals/SVCprey_sizecolour_box.png"), prey_sizecol)
 
 # shape*size bin boxplot
+options(max.print = 10000)
+TukeyHSD(aov(log_difference~shape*size_bin_char, SVCprey_model_data))
 prey_sizesha <- ggplot(SVCprey_model_data, aes(shape, log_difference, 
                                fill = size_bin_char)) + 
   geom_boxplot(show.legend = TRUE) + 
   theme_classic() + 
   xlab("Body Shape") + 
   ylab(bquote("Log Density Difference " (individuals/m^2))) +
-  theme(axis.title = element_text(size = 14)) +
-  theme(axis.text= element_text(size = 14)) +
-  theme(legend.text = element_text(size = 14)) +
-  theme(legend.title = element_text(size = 14)) +
+  theme(axis.title = element_text(size = 24)) +
+  theme(axis.text= element_text(size = 22)) +
+  theme(legend.text = element_text(size = 22)) +
+  theme(legend.title = element_text(size = 24)) +
   scale_fill_brewer(name = "Size Bin", palette = "YlGnBu") +
   geom_hline(yintercept = 0,
              linetype = "dashed",
@@ -228,10 +237,10 @@ ggsave(here("./visuals/SVCprey_sizeshape_box.png"), prey_sizesha)
 # arrange habitat traits on one page
 habitat_trait_plots <- ggarrange(prey_hab, prey_stony, prey_octo, 
           labels = c("", "", "", ""), ncol = 2, nrow = 2)
-ggsave(here("./visuals/SVCprey_habitat_trait_plots.png"), habi)
+ggsave(here("./visuals/SVCprey_habitat_trait_plots.png"), habitat_trait_plots)
 
 # arrange fish traits on one page
-fish_trait_plots <- ggarrange(prey_cryptic, prey_max, prey_behav,  
+fish_trait_plots <- ggarrange(prey_cryptic, prey_max, prey_behav, prey_colour,  
           labels = c("", "", "", ""), ncol = 2, nrow = 2)
 ggsave(here("./visuals/SVCprey_fish_trait_plots.png"), fish_trait_plots)
 
@@ -257,7 +266,7 @@ ggsave(here("./visuals/SVCprey_sizeshape_plots.png"), sizesha_plots)
 
 # stony coral scatterplot
 pred_stony <- ggplot(SVCpred_model_data, aes(x = stony, y = log_difference)) + 
-  geom_point(size = 2) +
+  geom_jitter(width = 2, height = 1)  +
   theme_classic() + xlab("Percent Stony Coral") + 
   ylab(bquote("Log Density Difference " (individuals/m^2))) +
   theme(axis.title = element_text(size = 14)) +
@@ -284,16 +293,17 @@ pred_size <- ggplot(SVCpred_model_data, aes(x = size_bin_char,
 ggsave(here("./visuals/SVCpred_size_box.png"), pred_size)
 
 # colouration boxplot
+TukeyHSD(aov(log_difference~colouration, SVCpred_model_data))
 pred_colour <- ggplot(SVCpred_model_data, aes(x = colouration, 
                       y = log_difference, fill = colouration)) + 
   geom_boxplot() +
   theme_classic() + xlab("Colouration") + 
   ylab(bquote("Log Density Difference " (individuals/m^2))) +
-  theme(axis.title = element_text(size = 14)) +
-  theme(axis.text= element_text(size = 14)) +
+  theme(axis.title = element_text(size = 24)) +
+  theme(axis.text= element_text(size = 22)) +
   theme(legend.position = "none") +
   scale_fill_manual(name = "Colouration", values = c("goldenrod4", "wheat1", 
-                                                     "paleturquoise3")) +
+                                                     "gray85")) +
   geom_hline(yintercept = 0,
              linetype = "dashed",
              colour = "grey40")
@@ -318,3 +328,18 @@ ggsave(here("./visuals/SVCpred_shape_box.png"), pred_shape)
 SVCpred_plots <- ggarrange(pred_stony, pred_size, pred_colour, pred_shape, 
           labels = c("", "", "", ""), ncol = 2, nrow = 2)
 ggsave(here("./visuals/SVCpred_plots.png"), SVCpred_plots)
+
+pred_sizecol <- ggplot(SVCpred_model_data, aes(colouration, log_difference, 
+                                               fill = size_bin_char)) + 
+  geom_boxplot(show.legend = TRUE) + 
+  theme_classic() + 
+  xlab("Colouration") + 
+  ylab(bquote("Log Density Difference " (individuals/m^2))) +
+  theme(axis.title = element_text(size = 14)) +
+  theme(axis.text= element_text(size = 14)) +
+  theme(legend.text = element_text(size = 14)) +
+  theme(legend.title = element_text(size = 14)) +
+  scale_fill_brewer(name = "Size Bin", palette = "YlGnBu") +
+  geom_hline(yintercept = 0,
+             linetype = "dashed",
+             colour = "grey40")

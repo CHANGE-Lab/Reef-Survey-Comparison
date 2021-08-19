@@ -561,26 +561,36 @@ saveRDS(SVCprey_global_dredge, "SVCprey_global_dredge.rds")
 
 # SVC vs. Roving: Global Model Creation ========================================
 
+# full model:
+SVCpred_full <- lme(log_difference~habitat+octocoral+stony+relief_cm+nocturnal+max_length+cryptic_behaviour+average_depth+colouration+size_bin_lengths+shape+position, random = list(~1|site, ~1|species_order), SVCpred_model_data) 
+summary(SVCpred_full)
+vif(SVCpred_full)
+AICc(SVCpred_full)
+
 # Colouration Model:
-SVCpred_colour <- lme(log_difference~habitat+octocoral+stony+relief_cm+nocturnal+max_length+cryptic_behaviour+average_depth+colouration2+size_bin, random = list(~1|site, ~1|species_order), SVCpred_model_data) # removed shape and position
-summary(SVCpred_colour) # AIC = 1628.087
-vif(SVCpred_colour) # colouration GVIF = 5.983913
+SVCpred_colour <- lme(log_difference~habitat+octocoral+stony+relief_cm+nocturnal+max_length+cryptic_behaviour+average_depth+colouration+size_bin, random = list(~1|site, ~1|species_order), SVCpred_model_data) # removed shape and position
+summary(SVCpred_colour) # AIC = 1795.605
+AICc(SVCpred_colour) # 1796.432
+vif(SVCpred_colour) # colouration GVIF = 5.877840
 
 # Shape Model:
-SVCpred_shape <- lme(log_difference~habitat+octocoral+stony+relief_cm+nocturnal+position+max_length+cryptic_behaviour+average_depth+shape+size_bin, random = list(~1|site, ~1|species_order), SVCpred_model_data) # removed colouration
-summary(SVCpred_shape) # AIC = 1625.848 (delta AIC 2.239)
-vif(SVCpred_shape) # shape GVIF = 7.764891
+SVCpred_shape <- lme(log_difference~habitat+octocoral+stony+relief_cm+nocturnal+position+max_length+cryptic_behaviour+average_depth+shape+size_bin_lengths, random = list(~1|site, ~1|species_order), SVCpred_model_data) # removed colouration
+summary(SVCpred_shape) # AIC = 1802.129 
+AICc(SVCpred_shape) # 1803.188
+vif(SVCpred_shape) # shape GVIF = 6.727650 
 
 # Habitat Model (from colouration model):
 SVCpred_hab <- lme(log_difference~habitat+octocoral+stony+relief_cm+nocturnal+max_length+cryptic_behaviour+colouration+size_bin, random = list(~1|site, ~1|species_order), SVCpred_model_data) # removed shape, position, and depth
-summary(SVCpred_hab) # AIC = 1618.384
-vif(SVCpred_hab) # colouration GVIF = 5.935428, all else under 5
+summary(SVCpred_hab) # AIC = 1785.537
+AICc(SVCpred_hab)
+vif(SVCpred_hab) # colouration GVIF = 5.843345, all else under 5
 
 # Depth Model (from colouration model):
 SVCpred_depth <- lme(log_difference~octocoral+stony+relief_cm+nocturnal+max_length+cryptic_behaviour+average_depth+colouration+size_bin, random = list(~1|site, ~1|species_order), SVCpred_model_data) # removed shape, position, and habitat
-summary(SVCpred_depth) # AIC = 1625.478; higher than habitat model
-vif(SVCpred_depth) # colouration GVIF = 5.927274
-
+summary(SVCpred_depth) # AIC = 1792.709; higher than habitat model
+AICc(SVCpred_depth)
+vif(SVCpred_depth) # colouration GVIF = 5.844267 
+1793.432-1786.26
 # Habitat Model (from shape model):
 SVCpred_hab2 <- lme(log_difference~habitat+octocoral+stony+relief_cm+nocturnal+position+max_length+cryptic_behaviour+shape+size_bin, random = list(~1|site, ~1|species_order), SVCpred_model_data) # removed colouration and depth
 summary(SVCpred_hab2) # AIC = 1616.189
@@ -593,11 +603,19 @@ vif(SVCpred_depth2) # shape GVIF = 7.659066
 
 # HABITAT MODELS FOR BOTH SHAPE AND COLOURATION RESULT IN BEST FIT, BUT COLOURATION MODEL'S GVIF VALUES ARE LOWER AND COLOURATION HAS MORE ECOLOGICAL SIGNIFICANCE 
 
+SVCpred <- lme(log_difference~octocoral+stony+relief_cm+nocturnal+position+max_length+cryptic_behaviour+average_depth+size_bin, random = list(~1|site, ~1|species_order), SVCpred_model_data) # removed colouration and habitat
+summary(SVCpred) # AIC = 1623.182; higher than habitat model
+vif(SVCpred) # shape GVIF = 7.659066
+
+SVCpred2 <- lme(log_difference~octocoral+stony+relief_cm+nocturnal+position+max_length+cryptic_behaviour+average_depth+size_bin*colouration, random = list(~1|site, ~1|species_order), SVCpred_model_data) # removed colouration and habitat
+summary(SVCpred2) # AIC = 1623.182; higher than habitat model
+vif(SVCpred2) # shape GVIF = 7.659066
+
 
 # SVC vs. Roving: Dredging =====================================================
 
 # Global Model:
-SVCpred_global <- lme(log_difference~habitat+octocoral+stony+relief_cm+nocturnal+position+max_length+cryptic_behaviour+average_depth+colouration2+shape+size_bin, random = list(~1|site, ~1|species_order), SVCpred_model_data) 
+SVCpred_global <- lme(log_difference~habitat+octocoral+stony+relief_cm+nocturnal+position+max_length+cryptic_behaviour+average_depth+colouration+shape+size_bin_lengths, random = list(~1|site, ~1|species_order), SVCpred_model_data) 
 summary(SVCpred_global) 
 # model summary:
 # AIC = 1695.676

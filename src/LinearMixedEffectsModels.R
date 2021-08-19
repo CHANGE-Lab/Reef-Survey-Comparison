@@ -492,7 +492,7 @@ saveRDS(SVCprey_global_dredge, "SVCprey_global_dredge.rds")
 # SVC vs. Roving: Global Model Creation ========================================
 
 # Colouration Model:
-SVCpred_colour <- lme(log_difference~habitat+octocoral+stony+relief_cm+nocturnal+max_length+cryptic_behaviour+average_depth+colouration2+size_bin, random = list(~1|site, ~1|species_order), SVCpred_model_data) # removed shape and position
+SVCpred_colour <- lme(log_difference~habitat+octocoral+stony+relief_cm+nocturnal+max_length+cryptic_behaviour+average_depth+colouration+size_bin_lengths, random = list(~1|site, ~1|species_order), SVCpred_model_data) # removed shape and position
 summary(SVCpred_colour) # AIC = 1681.823
 vif(SVCpred_colour) # colouration GVIF = 5.983913
 
@@ -502,12 +502,12 @@ summary(SVCpred_shape) # AIC = 1681.276 (not different from colouration model)
 vif(SVCpred_shape) # shape GVIF = 7.764891
 
 # Habitat Model (from colouration model):
-SVCpred_hab <- lme(log_difference~habitat+octocoral+stony+relief_cm+nocturnal+max_length+cryptic_behaviour+colouration2+size_bin, random = list(~1|site, ~1|species_order), SVCpred_model_data) # removed shape, position, and depth
+SVCpred_hab <- lme(log_difference~habitat+octocoral+stony+relief_cm+nocturnal+max_length+cryptic_behaviour+colouration+size_bin_lengths, random = list(~1|site, ~1|species_order), SVCpred_model_data) # removed shape, position, and depth
 summary(SVCpred_hab) # AIC = 1672.4
 vif(SVCpred_hab) # colouration GVIF = 5.935428, all else under 5
 
 # Depth Model (from colouration model):
-SVCpred_depth <- lme(log_difference~octocoral+stony+relief_cm+nocturnal+max_length+cryptic_behaviour+average_depth+colouration2+size_bin, random = list(~1|site, ~1|species_order), SVCpred_model_data) # removed shape, position, and habitat
+SVCpred_depth <- lme(log_difference~octocoral+stony+relief_cm+nocturnal+max_length+cryptic_behaviour+average_depth+colouration+size_bin_lengths, random = list(~1|site, ~1|species_order), SVCpred_model_data) # removed shape, position, and habitat
 summary(SVCpred_depth) # AIC = 1679.494 # higher than habitat model
 vif(SVCpred_depth) # colouration GVIF = 5.927274
 
@@ -574,3 +574,4 @@ boxplot(SVCpred_model_data$pres_abs ~ SVCpred_model_data$size_bin)
 write_csv(SVCprey_noeels, here("./dataframes/SVCprey_model_data.csv"))
 write_csv(SVCpred_model_data, here("./dataframes/SVCpred_model_data.csv"))
 
+1631.894-1624.746
