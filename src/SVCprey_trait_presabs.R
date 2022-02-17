@@ -269,3 +269,85 @@ saveRDS(SVCprey_shape_chi, here("./outputs/SVCprey_shape_chi.rds"))
 
 # post-hoc test
 chisq.posthoc.test(SVCprey_shape_chi, method = "bonferroni")
+
+
+# Maximum Length Presence/Absence Analysis =====================================
+
+# The following compares the frequency of occurrence of different levels of 
+# species' maximum lengths, after binning the continuous variable, between 
+# SVC and transect surveys by conducting a Chi-Square Test. 
+
+# plot maximum length
+plot(SVCprey_data$log_difference ~ SVCprey_data$max_length)
+
+# bin by 10cm to 100cm
+SVCprey_data$max_length_bins <- ifelse(SVCprey_data$max_length <= 10, 1, ifelse(SVCprey_data$max_length > 10 & SVCprey_data$max_length <= 20, 2, ifelse(SVCprey_data$max_length > 20 & SVCprey_data$max_length <= 30, 3, ifelse(SVCprey_data$max_length > 30 & SVCprey_data$max_length <= 40, 4, ifelse(SVCprey_data$max_length > 40 & SVCprey_data$max_length <= 50, 5, ifelse(SVCprey_data$max_length > 50 & SVCprey_data$max_length <= 60, 6, ifelse(SVCprey_data$max_length > 60 & SVCprey_data$max_length <= 70, 7, ifelse(SVCprey_data$max_length > 70 & SVCprey_data$max_length <= 80, 8, ifelse(SVCprey_data$max_length > 80 & SVCprey_data$max_length <= 90, 9, ifelse(SVCprey_data$max_length > 90 & SVCprey_data$max_length <= 100, 10, ifelse(SVCprey_data$max_length > 100, 11, NA)))))))))))
+
+# make maximum length bins categorical
+SVCprey_data$max_length_bins <- as.character(SVCprey_data$max_length_bins)
+
+# number of observations of each maximum length bin 
+sum(SVCprey_data$max_length_bins == 1)
+sum(SVCprey_data$max_length_bins == 2)
+sum(SVCprey_data$max_length_bins == 3)
+sum(SVCprey_data$max_length_bins == 4)
+sum(SVCprey_data$max_length_bins == 5)
+sum(SVCprey_data$max_length_bins == 6)
+sum(SVCprey_data$max_length_bins == 7)
+sum(SVCprey_data$max_length_bins == 8)
+sum(SVCprey_data$max_length_bins == 9)
+sum(SVCprey_data$max_length_bins == 10)
+sum(SVCprey_data$max_length_bins == 11)
+
+# select max_length columns and SVC density 
+SVC_max_length_presence <- SVCprey_data[,c(1,34,25)]
+
+# rename density column
+SVC_max_length_presence <- rename(SVC_max_length_presence, density = SVC_density)
+
+# aggregate by session and max_length
+SVC_max_length_presence <- aggregate(.~session+max_length_bins, SVC_max_length_presence, sum)
+
+# create presence column
+SVC_max_length_presence$presence <- ifelse(SVC_max_length_presence$density > 0, 1, 0)
+
+# create survey column
+SVC_max_length_presence$survey <- "SVC"
+
+# select max_length columns and transect density
+prey_max_length_presence <- SVCprey_data[,c(1,34,29)]
+
+# rename density column
+prey_max_length_presence <- rename(prey_max_length_presence, density = prey_density)
+
+# aggregate by session and max_length
+prey_max_length_presence <- aggregate(.~session+max_length_bins, prey_max_length_presence, sum)
+
+# create presence column
+prey_max_length_presence$presence <- ifelse(prey_max_length_presence$density > 0, 1, 0)
+
+# create survey column
+prey_max_length_presence$survey <- "transect"
+
+# bind SVC and transect presence values together 
+SVCprey_max_length_presence <- bind_rows(SVC_max_length_presence, prey_max_length_presence)
+
+# remove session and density columns
+SVCprey_max_length_presence <- SVCprey_max_length_presence[,c(2,4,5)]
+
+# remove rows where presence = 0
+SVCprey_max_length_presence <- SVCprey_max_length_presence[!(SVCprey_max_length_presence$presence == 0),]
+
+# convert dataframe to table
+SVCprey_max_length_chi <- table(SVCprey_max_length_presence$max_length, 
+                           SVCprey_max_length_presence$survey)
+
+# Chi-Square Test
+SVCprey_max_length_chi <- chisq.test(SVCprey_max_length_chi)
+# X-squared = 8.7777, df = 10, p-value = 0.5533
+
+# save Chi-Square results
+saveRDS(SVCprey_max_length_chi, here("./outputs/SVCprey_max_length_chi.rds"))
+
+# post-hoc test
+chisq.posthoc.test(SVCprey_max_length_chi, method = "bonferroni")

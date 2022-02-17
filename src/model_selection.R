@@ -19,10 +19,12 @@
 # packages
 library(tidyverse)
 library(nlme)
+library(lme4)
 library(car)
 library(arm)
 library(MuMIn)
 library(data.table)
+library(emmeans)
 library(ggplot2)
 library(here)
 
@@ -40,6 +42,8 @@ SVCpred_model_data <- read_csv(here("./dataframes/SVCpred_dataframe.csv"))
 # the VIF values for each predictor, and model fit is determined through 
 # random effects plots, residual plots, qq plots, and model plots. 
 
+SVCprey_model_data$size_bin_lengths <- as.character(SVCprey_model_data$size_bin_lengths)
+
 # global lme model
 SVCprey_global <- lme(log_difference~habitat+octocoral+stony+relief_cm+
                       size_bin_lengths*colouration+nocturnal+position+
@@ -51,6 +55,16 @@ SVCprey_global <- lme(log_difference~habitat+octocoral+stony+relief_cm+
 # model summary
 summary(SVCprey_global) 
 AICc(SVCprey_global)
+
+# comparison of predictor levels
+emmeans(SVCprey_global, pairwise~behavior, adjust = "tukey")
+emmeans(SVCprey_global, pairwise~colouration, adjust = "tukey")
+emmeans(SVCprey_global, pairwise~size_bin_lengths, adjust = "tukey")
+emmeans(SVCprey_global, pairwise~shape, adjust = "tukey")
+emmeans_sizeshape <- pairs(emmeans(SVCprey_global, pairwise~size_bin_lengths*shape, adjust = "tukey"))
+# contrast(emmeans_sizeshape, "consec", simple = "each", combine = FALSE, adjust = "mvt")
+# joint_tests(SVCprey_global, by = "size_bin_lengths")
+# emmip(SVCprey_global, size_bin_lengths~shape, mult.name = "variety", cov.reduce = FALSE)
 
 # covariate VIF values
 vif(SVCprey_global) 
@@ -92,12 +106,15 @@ SVCprey_model_avg_summary <- summary(SVCprey_model_average)
 
 # save model average
 saveRDS(SVCprey_model_average, here("./outputs/SVCprey_drege_average.rds"))
+SVCprey_model_average <- read_rds(here("./outputs/SVCprey_drege_average.rds"))
+SVCprey_model_avg_summary <- summary(SVCprey_model_average)
 
 # confidence intervals of predictors
 SVCprey_confidence <- confint(SVCprey_model_average)
 
 # save confidence intervals
 saveRDS(SVCprey_confidence, here("./outputs/SVCprey_dredge_CI.rds"))
+SVCprey_confidence <- read_rds(here("./outputs/SVCprey_dredge_CI.rds"))
 
 
 # SVC vs. Transect: Model Plot =================================================
@@ -126,34 +143,46 @@ names(SVCprey_model_avg_plot) <- gsub(" ", "", names(SVCprey_model_avg_plot))
 SVCprey_model_avg_plot$significance <- 
   ifelse(SVCprey_model_avg_plot$`Pr(>|z|)` < 0.05, "sig", "nonsig")
 
+# change names of coefficients
+SVCprey_model_avg_plot[2,1] = "Shoaling"
+SVCprey_model_avg_plot[3,1] = "Solitary"
+SVCprey_model_avg_plot[4,1] = "Colorful"
+SVCprey_model_avg_plot[5,1] = "Neutral"
+SVCprey_model_avg_plot[6,1] = "Silvering"
+SVCprey_model_avg_plot[7,1] = "Crypsis"
+SVCprey_model_avg_plot[8,1] = "Patch"
+SVCprey_model_avg_plot[9,1] = "Max. length"
+SVCprey_model_avg_plot[10,1] = "Octocoral cover"
+SVCprey_model_avg_plot[11,1] = "Elongated"
+SVCprey_model_avg_plot[12,1] = "Fusiform"
+SVCprey_model_avg_plot[13,1] = "Globiform"
+SVCprey_model_avg_plot[14,1] = "Size class"
+SVCprey_model_avg_plot[15,1] = "Coral cover"
+SVCprey_model_avg_plot[16,1] = "Elongated:Size class"
+SVCprey_model_avg_plot[17,1] = "Fusiform:Size class"
+SVCprey_model_avg_plot[18,1] = "Globiform:Size class"
+SVCprey_model_avg_plot[19,1] = "Demersal"
+SVCprey_model_avg_plot[20,1] = "Nocturnal"
+
 # change order of rows
-SVCprey_model_avg_plot$Coefficient <- factor(SVCprey_model_avg_plot$Coefficient, 
-                                      levels = c("stony", "octocoral", 
-                                      "habitatPatch", 
-                                      "shapeglobiform:size_bin_lengths", 
-                                      "shapefusiform:size_bin_lengths", 
-                                      "shapeelongated:size_bin_lengths", 
-                                      "size_bin_lengths", "max_length", 
-                                      "shapeglobiform", "shapefusiform", 
-                                      "shapeelongated", "colourationcolourful", 
-                                      "colourationsilvering", 
-                                      "colourationneutral", "cryptic_behaviour", 
-                                      "behaviorshoaling", "behaviorsolitary", 
-                                      "positiondemersal", "nocturnal", 
-                                      "(Intercept)"))
+SVCprey_model_avg_plot$sort <- c(20,18,19,15,17,16,6,3,5,2,14,13,12,4,1,11,10,9,7,8)
+SVCprey_model_avg_plot <- SVCprey_model_avg_plot %>% arrange(sort)
+SVCprey_model_avg_plot$Coefficient <- factor(SVCprey_model_avg_plot$Coefficient, levels = SVCprey_model_avg_plot$Coefficient)
 
 # plot with confidence intervals 
-SVCprey_coef_CI <- ggplot(data=SVCprey_model_avg_plot[2:20], 
+SVCprey_coef_CI <- ggplot(data=SVCprey_model_avg_plot[1:19], 
                           aes(x=Coefficient, y=Estimate))+ 
-  geom_point(size=5, aes(shape = significance))+ 
-  theme_classic(base_size = 20)+ 
-  scale_shape_manual(values = c(16,8))+
+  geom_hline(yintercept=0, color = "grey40",linetype="dashed", lwd=1.5)+
   geom_errorbar(aes(ymin=CI.min, ymax=CI.max), colour="grey65", 
                 width=.2,lwd=1) +
-  geom_hline(yintercept=0, color = "grey40",linetype="dashed", lwd=1.5)+
+  geom_point(size=7, aes(shape = significance))+ 
+  theme_classic(base_size = 20)+ 
+  scale_shape_manual(values = c(16,8))+
   ylim(c(-2.2, 2.2)) +
   coord_flip() +
-  theme(legend.position = "none")
+  theme(legend.position = "none",
+        axis.title = element_text(size = 30),
+        axis.text = element_text(size = 26, color = "black"))
 ggsave(here("./visuals/SVCprey_coef_plot_CIs.png"), SVCprey_coef_CI)
 
 # plot with adjusted standard error bars
@@ -254,6 +283,9 @@ SVCpred_global <- SVCpred_hab
 # model summary 
 summary(SVCpred_global) 
 
+# post-hoc test on predictors
+emmeans(SVCpred_global, pairwise~colouration, adjust = "tukey")
+
 # covariate VIF values
 vif(SVCpred_global)
 
@@ -294,6 +326,8 @@ SVCpred_model_avg_summary <- summary(SVCpred_model_average)
 
 # save model average
 saveRDS(SVCpred_model_average, here("./outputs/SVCpred_dredge_average.rds"))
+SVCpred_model_average <- read_rds(here("./outputs/SVCpred_dredge_average.rds"))
+SVCpred_model_avg_summary <- summary(SVCpred_model_average)
 
 # covariate confidence intervals
 SVCpred_confidence <- confint(SVCpred_model_average)
@@ -301,6 +335,7 @@ summary(SVCpred_confidence)
 
 # save confidence intervals
 saveRDS(SVCpred_confidence, here("./outputs/SVCpred_dredge_CI.rds"))
+SVCpred_confidence <- read_rds(here("./outputs/SVCpred_dredge_CI.rds"))
 
 
 # SVC vs. Roving: Model Plot ===================================================
@@ -329,18 +364,30 @@ names(SVCpred_model_avg_plot) <- gsub(" ", "", names(SVCpred_model_avg_plot))
 SVCpred_model_avg_plot$significance <- 
   ifelse(SVCpred_model_avg_plot$`Pr(>|z|)` < 0.05, "sig", "nonsig")
 
+# change labels
+SVCpred_model_avg_plot[2,1] <- "Neutral"
+SVCpred_model_avg_plot[3,1] <- "Silvering"
+SVCpred_model_avg_plot[4,1] <- "Crypsis"
+
+# change order of rows
+SVCpred_model_avg_plot$sort <- c(1,3,4,2)
+SVCpred_model_avg_plot <- SVCpred_model_avg_plot %>% arrange(sort)
+SVCpred_model_avg_plot$Coefficient <- factor(SVCpred_model_avg_plot$Coefficient, levels = SVCpred_model_avg_plot$Coefficient)
+
 # plot with confidence intervals 
 SVCpred_coef_CI <- ggplot(data=SVCpred_model_avg_plot[2:4,], 
                           aes(x=Coefficient, y=Estimate))+ 
-  geom_point(size=5, aes(shape = significance))+ 
-  theme_classic(base_size = 20)+ 
-  scale_shape_manual(values = c(16,8))+
+  geom_hline(yintercept=0, color = "grey40",linetype="dashed", lwd=1.5)+
   geom_errorbar(aes(ymin=CI.min, ymax=CI.max), colour="grey65", 
                 width=.2,lwd=1) +
-  ylim(c(-1.8,1.8)) +
-  geom_hline(yintercept=0, color = "grey40",linetype="dashed", lwd=1.5)+
+  geom_point(size=7, aes(shape = significance))+ 
+  theme_classic(base_size = 20)+ 
+  scale_shape_manual(values = c(16,8))+
+  ylim(c(-2.2,2.2)) +
   coord_flip() +
-  theme(legend.position = "none")
+  theme(legend.position = "none",
+        axis.title = element_text(size = 34),
+        axis.text = element_text(size = 30, color = "black"))
 ggsave(here("./visuals/SVCpred_coef_plot_CIs.png"), SVCpred_coef_CI)
 
 # plot with adjusted standard error bars

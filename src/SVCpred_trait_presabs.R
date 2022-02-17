@@ -25,6 +25,8 @@ library(plyr)
 library(tidyverse)
 library(ggplot2)
 library(here)
+library(chisq.posthoc.test)
+library(data.table)
 
 # data
 SVCpred_data <- read_csv(here("./dataframes/SVCpred_dataframe.csv"))
@@ -76,16 +78,35 @@ SVCpred_colouration_presence <- SVCpred_colouration_presence[,c(2,4,5)]
 SVCpred_colouration_presence <- SVCpred_colouration_presence[!(SVCpred_colouration_presence$presence == 0),]
 
 # convert dataframe to table
-SVCpred_colouration_chi <- table(SVCpred_colouration_presence$colouration, 
-                                 SVCpred_colouration_presence$survey)
+SVCpred_colouration_chi <- table(SVCpred_colouration_presence$colouration, SVCpred_colouration_presence$survey)
 
 # Chi-Square Test
-SVCpred_colouration_chi <- chisq.test(SVCpred_colouration_chi)
+SVCpred_colouration_chitest <- chisq.test(SVCpred_colouration_chi)
 # X-squared = 18.157, df = 2, p-value = 0.0001141
 
 # save Chi-Square results
-saveRDS(SVCpred_colouration_chi, here("./outputs/SVCpred_colouration_chi.rds"))
+saveRDS(SVCpred_colouration_chitest, here("./outputs/SVCpred_colouration_chi.rds"))
 
 # post-hoc test
 chisq.posthoc.test(SVCpred_colouration_chi, method = "bonferroni")
 
+
+abundance <- c(5,100,5,5,5,5,5,5,5,5,5,5,100,100,100,100)
+survey <- c("SVC", "SVC", "transect", "transect", "transect", "transect")
+species <- c("fish1", "fish1", "fish2", "fish2","fish1", "fish1", "fish2", "fish2")
+data <- data.frame(abundance, survey, species)
+chi.data <- table(data$species, data$survey)
+chisq.test(chi.data)
+chisq.posthoc.test(chi.data, method = "bonferroni")
+
+test.df <- as.table(cbind(c(1,2,3,4,5), c(101,102,103,104,105)))
+test.df <- transpose(test.df)
+
+chisq.posthoc.test(test.df)
+
+
+test.df <- as.table(cbind(c(30,40,60,120), c(50,70,60,80)))
+
+library(chisq.posthoc.test)
+
+chisq.posthoc.test(test.df)

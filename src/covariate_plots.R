@@ -45,17 +45,27 @@ SVCpred_model_data$cryptic_behaviour <-
 # re-name cryptic behaviour column
 SVCprey_model_data$cryptic_behaviour2 <- 
   ifelse(SVCprey_model_data$cryptic_behaviour == 1, 
-                                 "cryptic behaviour", "none")
+                                 "Cryptic behaviour", "None")
 
 # re-order colouration levels
-SVCprey_model_data$colouration <- 
-  factor(SVCprey_model_data$colouration, 
-         levels = c("camouflage", "neutral", "silvering", "colourful"))
+SVCprey_model_data$coloration2 <- ifelse(SVCprey_model_data$colouration == "camouflage", 
+       "Camouflage", ifelse(SVCprey_model_data$colouration == "neutral", "Neutral", ifelse(SVCprey_model_data$colouration == "silvering", "Silvering", ifelse(SVCprey_model_data$colouration == "colourful", "Colorful", NA))))
+SVCprey_model_data$coloration2 <- 
+  factor(SVCprey_model_data$coloration2, 
+         levels = c("Camouflage", "Neutral", "Silvering", "Colorful"))
 
 # re-order shape levels
-SVCprey_model_data$shape <- 
-  factor(SVCprey_model_data$shape, 
-         levels = c("elongated", "fusiform", "compressiform", "globiform"))
+SVCprey_model_data$shape2 <- ifelse(SVCprey_model_data$shape == "elongated", "Elongated", ifelse(SVCprey_model_data$shape == "fusiform", "Fusiform", ifelse(SVCprey_model_data$shape == "compressiform", "Compressiform", ifelse(SVCprey_model_data$shape == "globiform", "Globiform", NA))))
+SVCprey_model_data$shape2 <- 
+  factor(SVCprey_model_data$shape2, 
+         levels = c("Elongated", "Fusiform", "Compressiform", "Globiform"))
+
+# capitalize aggregation behaviour levels
+SVCprey_model_data$behavior2 <- ifelse(SVCprey_model_data$behavior == "schooling", "Schooling", ifelse(SVCprey_model_data$behavior == "shoaling", "Shoaling", ifelse(SVCprey_model_data$behavior == "solitary", "Solitary", NA)))
+
+# capitalize SVC vs roving coloration levels
+SVCpred_model_data$coloration2 <- ifelse(SVCpred_model_data$colouration == "camouflage", 
+                                         "Camouflage", ifelse(SVCpred_model_data$colouration == "neutral", "Neutral", ifelse(SVCpred_model_data$colouration == "silvering", "Silvering", NA)))
 
 
 
@@ -71,8 +81,8 @@ prey_hab <- ggplot(SVCprey_model_data, aes(x = habitat, y = log_difference,
   geom_boxplot() +
   theme_classic() + xlab("Reef Type") + 
   ylab(bquote("Log Density Difference " (individuals/m^2))) +
-  theme(axis.title = element_text(size = 24)) +
-  theme(axis.text= element_text(size = 22)) +
+  theme(axis.title = element_text(size = 30)) +
+  theme(axis.text= element_text(size = 28)) +
   theme(legend.position = "none") +
   scale_fill_manual(values = c("gray88", "gray44")) +
   geom_hline(yintercept = 0,
@@ -85,8 +95,8 @@ prey_stony <- ggplot(SVCprey_model_data, aes(x = stony, y = log_difference)) +
   geom_jitter(width = 2, height = 0.1) +
   theme_classic() + xlab("Percent Stony Coral") + 
   ylab(bquote("Log Density Difference " (individuals/m^2))) +
-  theme(axis.title = element_text(size = 24)) +
-  theme(axis.text= element_text(size = 22)) +
+  theme(axis.title = element_text(size = 30)) +
+  theme(axis.text= element_text(size = 28)) +
   geom_smooth(method=lm, color = "gray44", se = FALSE) +
   geom_hline(yintercept = 0,
              linetype = "dashed",
@@ -99,8 +109,8 @@ prey_octo <- ggplot(SVCprey_model_data, aes(x = octocoral,
   geom_jitter(width = 2, height = 0.1) +
   theme_classic() + xlab("Percent Octocoral") + 
   ylab(bquote("Log Density Difference " (individuals/m^2))) +
-  theme(axis.title = element_text(size = 24)) +
-  theme(axis.text= element_text(size = 22)) +
+  theme(axis.title = element_text(size = 30)) +
+  theme(axis.text= element_text(size = 28)) +
   geom_smooth(method=lm, color = "gray44", se = FALSE) +
   geom_hline(yintercept = 0,
              linetype = "dashed",
@@ -113,11 +123,11 @@ prey_cryptic <- ggplot(SVCprey_model_data, aes(x = cryptic_behaviour2,
   geom_boxplot() +
   theme_classic() + xlab("Cryptic Behaviour") + 
   ylab(bquote("Log Density Difference " (individuals/m^2))) +
-  theme(axis.title = element_text(size = 24)) +
-  theme(axis.text= element_text(size = 22)) +
+  theme(axis.title = element_text(size = 30)) +
+  theme(axis.text= element_text(size = 28)) +
   theme(legend.position = "none") +
-  scale_fill_brewer(palette = "YlGnBu") +
-  # scale_fill_manual(values = c("gray88", "gray44")) +
+  # scale_fill_brewer(palette = "YlGnBu") +
+  scale_fill_manual(values = c("gray88", "gray44")) +
   geom_hline(yintercept = 0,
              linetype = "dashed",
              colour = "grey40")
@@ -129,41 +139,41 @@ prey_size <- ggplot(SVCprey_model_data, aes(x = size_bin_char,
              y = log_difference, fill = size_bin_char)) + 
   geom_boxplot(show.legend = FALSE) + 
   theme_classic() + 
-  xlab("Size Bin") + 
+  xlab("Size Class") + 
   ylab(bquote("Log Density Difference " (individuals/m^2))) +
-  theme(axis.title = element_text(size = 28)) + 
-  theme(axis.text= element_text(size = 26)) + 
+  theme(axis.title = element_text(size = 48)) + 
+  theme(axis.text= element_text(size = 44)) + 
   theme(legend.position = "none") + 
   scale_fill_brewer(palette = "YlGnBu") + 
   geom_hline(yintercept = 0, linetype = "dashed", colour = "grey40")
 ggsave(here("./visuals/SVCprey_size_box.png"), prey_size)
 
 # colouration boxplot
-TukeyHSD(aov(log_difference~colouration, SVCprey_model_data))
-prey_colour <- ggplot(SVCprey_model_data, aes(x = colouration, 
-               y = log_difference, fill = colouration)) + 
+TukeyHSD(aov(log_difference~coloration2, SVCprey_model_data))
+prey_colour <- ggplot(SVCprey_model_data, aes(x = coloration2, 
+               y = log_difference, fill = coloration2)) + 
   geom_boxplot(show.legend = FALSE) + 
   theme_classic() + 
-  xlab("Colouration") + 
+  xlab("Coloration") + 
   ylab(bquote("Log Density Difference " (individuals/m^2))) +
-  theme(axis.title = element_text(size = 24)) + 
-  theme(axis.text= element_text(size = 22)) + 
+  theme(axis.title = element_text(size = 30)) + 
+  theme(axis.text= element_text(size = 28)) + 
   theme(legend.position = "none") + 
-  scale_fill_manual(name = "Colouration", values = c("goldenrod4", "wheat1", 
+  scale_fill_manual(name = "Coloration", values = c("goldenrod4", "wheat1", 
                                                      "gray85", "yellow")) +
   geom_hline(yintercept = 0, linetype = "dashed", colour = "grey40")
 ggsave(here("./visuals/SVCprey_colouration_box.png"), prey_colour)
 
 # behaviour boxplot
 TukeyHSD(aov(log_difference~behavior, SVCprey_model_data))
-prey_behav <- ggplot(SVCprey_model_data, aes(x = behavior, y = log_difference, 
-                               fill = behavior)) + 
+prey_behav <- ggplot(SVCprey_model_data, aes(x = behavior2, y = log_difference, 
+                               fill = behavior2)) + 
   geom_boxplot(show.legend = FALSE) + 
   theme_classic() + 
   xlab("Aggregation Behaviour") + 
   ylab(bquote("Log Density Difference " (individuals/m^2))) +
-  theme(axis.title = element_text(size = 24)) + 
-  theme(axis.text= element_text(size = 22)) + 
+  theme(axis.title = element_text(size = 30)) + 
+  theme(axis.text= element_text(size = 28)) + 
   theme(legend.position = "none") + 
   scale_fill_brewer(palette = "Greys") + 
   geom_hline(yintercept = 0, linetype = "dashed", colour = "grey40")
@@ -175,8 +185,8 @@ prey_max <- ggplot(SVCprey_model_data, aes(x = max_length,
   geom_jitter(width = 1, height = 0.1)  +
   theme_classic() + xlab("Maximum Length") + 
   ylab(bquote("Log Density Difference " (individuals/m^2))) +
-  theme(axis.title = element_text(size = 24)) +
-  theme(axis.text= element_text(size = 22)) +
+  theme(axis.title = element_text(size = 30)) +
+  theme(axis.text= element_text(size = 28)) +
   geom_smooth(method=lm, color = "gray44", se = FALSE) +
   geom_hline(yintercept = 0,
              linetype = "dashed",
@@ -185,62 +195,45 @@ ggsave(here("./visuals/SVCprey_maxlength_scatter.png"), prey_max)
 
 # shape boxplot
 TukeyHSD(aov(log_difference~shape, SVCprey_model_data))
-prey_shape <- ggplot(SVCprey_model_data, aes(x = shape, y = log_difference, 
-                               fill = shape)) + 
+prey_shape <- ggplot(SVCprey_model_data, aes(x = shape2, y = log_difference, 
+                               fill = shape2)) + 
   geom_boxplot(show.legend = FALSE) + 
   theme_classic() + 
   xlab("Body Shape") + 
   ylab(bquote("Log Density Difference " (individuals/m^2))) +
-  theme(axis.title = element_text(size = 28)) + 
-  theme(axis.text= element_text(size = 26)) + 
+  theme(axis.title = element_text(size = 48)) + 
+  theme(axis.text= element_text(size = 44)) + 
   theme(legend.position = "none") + 
   scale_fill_brewer(palette = "Greys") + 
   geom_hline(yintercept = 0, linetype = "dashed", colour = "grey40")
 ggsave(here("./visuals/SVCprey_shape_box.png"), prey_shape)
 
-# colouration*size bin boxplot
-prey_sizecol <- ggplot(SVCprey_model_data, aes(colouration, log_difference, 
-                               fill = size_bin_char)) + 
-  geom_boxplot(show.legend = TRUE) + 
-  theme_classic() + 
-  xlab("Colouration") + 
-  ylab(bquote("Log Density Difference " (individuals/m^2))) +
-  theme(axis.title = element_text(size = 24)) +
-  theme(axis.text= element_text(size = 22)) +
-  theme(legend.text = element_text(size = 22)) +
-  theme(legend.title = element_text(size = 24)) +
-  scale_fill_brewer(name = "Size Bin", palette = "YlGnBu") +
-  geom_hline(yintercept = 0,
-               linetype = "dashed",
-               colour = "grey40")
-ggsave(here("./visuals/SVCprey_sizecolour_box.png"), prey_sizecol)
-
 # shape*size bin boxplot
 options(max.print = 10000)
 TukeyHSD(aov(log_difference~shape*size_bin_char, SVCprey_model_data))
-prey_sizesha <- ggplot(SVCprey_model_data, aes(shape, log_difference, 
+prey_sizesha <- ggplot(SVCprey_model_data, aes(shape2, log_difference, 
                                fill = size_bin_char)) + 
   geom_boxplot(show.legend = TRUE) + 
   theme_classic() + 
   xlab("Body Shape") + 
   ylab(bquote("Log Density Difference " (individuals/m^2))) +
-  theme(axis.title = element_text(size = 24)) +
-  theme(axis.text= element_text(size = 22)) +
-  theme(legend.text = element_text(size = 22)) +
-  theme(legend.title = element_text(size = 24)) +
-  scale_fill_brewer(name = "Size Bin", palette = "YlGnBu") +
+  theme(axis.title = element_text(size = 30)) +
+  theme(axis.text= element_text(size = 28)) +
+  theme(legend.text = element_text(size = 28)) +
+  theme(legend.title = element_text(size = 30)) +
+  scale_fill_brewer(name = "Size Class", labels = c("1 (0-5cm)", "2 (5-10cm)", "3 (10-15cm)", "4 (15-20cm)", "5 (20-30cm)", "6 (>30cm)"), palette = "YlGnBu") +
   geom_hline(yintercept = 0,
              linetype = "dashed",
              colour = "grey40")
 ggsave(here("./visuals/SVCprey_sizeshape_box.png"), prey_sizesha)
 
 # arrange habitat traits on one page
-habitat_trait_plots <- ggarrange(prey_hab, prey_stony, prey_octo, 
+habitat_trait_plots <- ggarrange(prey_stony, prey_octo, prey_hab,
           labels = c("", "", "", ""), ncol = 2, nrow = 2)
 ggsave(here("./visuals/SVCprey_habitat_trait_plots.png"), habitat_trait_plots)
 
 # arrange fish traits on one page
-fish_trait_plots <- ggarrange(prey_cryptic, prey_max, prey_behav, prey_colour,  
+fish_trait_plots <- ggarrange(prey_max, prey_colour, prey_behav, prey_cryptic,  
           labels = c("", "", "", ""), ncol = 2, nrow = 2)
 ggsave(here("./visuals/SVCprey_fish_trait_plots.png"), fish_trait_plots)
 
@@ -294,15 +287,15 @@ ggsave(here("./visuals/SVCpred_size_box.png"), pred_size)
 
 # colouration boxplot
 TukeyHSD(aov(log_difference~colouration, SVCpred_model_data))
-pred_colour <- ggplot(SVCpred_model_data, aes(x = colouration, 
-                      y = log_difference, fill = colouration)) + 
+pred_colour <- ggplot(SVCpred_model_data, aes(x = coloration2, 
+                      y = log_difference, fill = coloration2)) + 
   geom_boxplot() +
-  theme_classic() + xlab("Colouration") + 
+  theme_classic() + xlab("Coloration") + 
   ylab(bquote("Log Density Difference " (individuals/m^2))) +
-  theme(axis.title = element_text(size = 24)) +
-  theme(axis.text= element_text(size = 22)) +
+  theme(axis.title = element_text(size =  40)) +
+  theme(axis.text= element_text(size = 38)) +
   theme(legend.position = "none") +
-  scale_fill_manual(name = "Colouration", values = c("goldenrod4", "wheat1", 
+  scale_fill_manual(name = "Coloration2", values = c("goldenrod4", "wheat1", 
                                                      "gray85")) +
   geom_hline(yintercept = 0,
              linetype = "dashed",
