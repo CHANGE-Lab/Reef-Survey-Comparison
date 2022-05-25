@@ -67,7 +67,7 @@ emmeans_sizeshape <- pairs(emmeans(SVCprey_global, pairwise~size_bin_lengths*sha
 # emmip(SVCprey_global, size_bin_lengths~shape, mult.name = "variety", cov.reduce = FALSE)
 
 # covariate VIF values
-vif(SVCprey_global) 
+vif(SVCprey_global) # aggregation behaviour VIF = 5.841751
 
 # random effects plot
 plot(ranef(SVCprey_global))
@@ -106,6 +106,8 @@ SVCprey_model_avg_summary <- summary(SVCprey_model_average)
 
 # save model average
 saveRDS(SVCprey_model_average, here("./outputs/SVCprey_drege_average.rds"))
+
+# read in saved average and summary
 SVCprey_model_average <- read_rds(here("./outputs/SVCprey_drege_average.rds"))
 SVCprey_model_avg_summary <- summary(SVCprey_model_average)
 
@@ -114,6 +116,8 @@ SVCprey_confidence <- confint(SVCprey_model_average)
 
 # save confidence intervals
 saveRDS(SVCprey_confidence, here("./outputs/SVCprey_dredge_CI.rds"))
+
+# read in saved CIs
 SVCprey_confidence <- read_rds(here("./outputs/SVCprey_dredge_CI.rds"))
 
 
@@ -198,6 +202,46 @@ SVCprey_coef_SE <- ggplot(data=SVCprey_model_avg_plot[2:20,],
   coord_flip() +
   theme(legend.position = "none")
 ggsave(here("./visuals/SVCprey_coef_plot_SEs.png"), SVCprey_coef_SE)
+
+
+# SVC vs. Transect: Global Model W/O Crypsis ###################################
+
+SVCprey_model_data$size_bin_lengths <- as.character(SVCprey_model_data$size_bin_lengths)
+
+# global lme model
+SVCprey_global_nocrypsis <- lme(log_difference~habitat+octocoral+stony+relief_cm+
+                        size_bin_lengths*colouration+nocturnal+position+
+                        max_length+behavior+average_depth+
+                        size_bin_lengths*shape, 
+                      random = list(~1|site, ~1|species_order), 
+                      SVCprey_model_data) 
+
+# model summary
+summary(SVCprey_global_nocrypsis) 
+AICc(SVCprey_global_nocrypsis)
+
+# covariate VIF values
+vif(SVCprey_global_nocrypsis) # aggregation behaviour VIF = 5.676662
+
+
+# SVC vs. Transect: Dredge W/O Crypsis =========================================
+
+# dredge
+SVCprey_dredge_nocrypsis <- dredge(SVCprey_global_nocrypsis)
+SVCprey_dredge_nocrypsis
+
+# save dredge output 
+saveRDS(SVCprey_dredge_nocrypsis, here("./outputs/SVCprey_dredge_nocrypsis.rds"))
+
+# subset dredge
+SVCprey_dredge_sub_nocrypsis <- subset(SVCprey_dredge_nocrypsis, delta < 4) 
+
+# model average 
+SVCprey_model_average_nocrypsis <- model.avg(SVCprey_dredge_sub_nocrypsis)
+SVCprey_model_avg_summary_nocrypsis <- summary(SVCprey_model_average_nocrypsis)
+
+# save model average
+saveRDS(SVCprey_model_average_nocrypsis, here("./outputs/SVCprey_drege_average_nocrypsis.rds"))
 
 
 # SVC vs. Roving: Global Model =================================================
@@ -326,6 +370,8 @@ SVCpred_model_avg_summary <- summary(SVCpred_model_average)
 
 # save model average
 saveRDS(SVCpred_model_average, here("./outputs/SVCpred_dredge_average.rds"))
+
+# read in saved average and summary
 SVCpred_model_average <- read_rds(here("./outputs/SVCpred_dredge_average.rds"))
 SVCpred_model_avg_summary <- summary(SVCpred_model_average)
 
@@ -335,6 +381,8 @@ summary(SVCpred_confidence)
 
 # save confidence intervals
 saveRDS(SVCpred_confidence, here("./outputs/SVCpred_dredge_CI.rds"))
+
+# read in saved CIs
 SVCpred_confidence <- read_rds(here("./outputs/SVCpred_dredge_CI.rds"))
 
 
@@ -403,3 +451,191 @@ SVCpred_coef_SE <- ggplot(data=SVCpred_model_avg_plot[2:4,],
   coord_flip() +
   theme(legend.position = "none")
 ggsave(here("./visuals/SVCpred_coef_plot_SEs.png"), SVCpred_coef_SE)
+
+
+# SVC vs. Roving: Global Model Re-Do ###########################################
+
+SVCpred_model_data$size_bin_lengths <- as.character(SVCpred_model_data$size_bin_lengths)
+
+# boxplot showing singularity in size*coloration
+ggplot(SVCpred_model_data, aes(colouration, log_difference, 
+                                               fill = size_bin_lengths)) + 
+  geom_boxplot(show.legend = TRUE) + 
+  theme_classic() + 
+  xlab("Coloration") + 
+  ylab(bquote("Log Density Difference " (individuals/m^2))) +
+  theme(axis.title = element_text(size = 30)) +
+  theme(axis.text= element_text(size = 28)) +
+  theme(legend.text = element_text(size = 28)) +
+  theme(legend.title = element_text(size = 30)) +
+  scale_fill_brewer(name = "Size Class", labels = c("1 (0-5cm)", "2 (5-10cm)", "3 (10-15cm)", "4 (15-20cm)", "5 (20-30cm)", "6 (>30cm)"), palette = "YlGnBu") +
+  geom_hline(yintercept = 0,
+             linetype = "dashed",
+             colour = "grey40")
+
+# boxplot showing singularity in size*shape
+ggplot(SVCpred_model_data, aes(shape, log_difference, 
+                               fill = size_bin_lengths)) + 
+  geom_boxplot(show.legend = TRUE) + 
+  theme_classic() + 
+  xlab("Body Shape") + 
+  ylab(bquote("Log Density Difference " (individuals/m^2))) +
+  theme(axis.title = element_text(size = 30)) +
+  theme(axis.text= element_text(size = 28)) +
+  theme(legend.text = element_text(size = 28)) +
+  theme(legend.title = element_text(size = 30)) +
+  scale_fill_brewer(name = "Size Class", labels = c("1 (0-5cm)", "2 (5-10cm)", "3 (10-15cm)", "4 (15-20cm)", "5 (20-30cm)", "6 (>30cm)"), palette = "YlGnBu") +
+  geom_hline(yintercept = 0,
+             linetype = "dashed",
+             colour = "grey40")
+
+# global model
+SVCpred_1 <- lme(log_difference~habitat+octocoral+stony+relief_cm+nocturnal+
+                      max_length+cryptic_behaviour+average_depth+
+                      shape+position, 
+                    random = list(~1|site, ~1|species_order), 
+                    SVCpred_model_data) 
+summary(SVCpred_1) # AIC = 1764.004
+AICc(SVCpred_1) # AICc = 1764.739
+vif(SVCpred_1) # habitat, depth, shape > 5
+
+# remove habitat from 1
+SVCpred_2 <- lme(log_difference~octocoral+stony+relief_cm+nocturnal+
+                   max_length+cryptic_behaviour+average_depth+
+                   shape+position, 
+                 random = list(~1|site, ~1|species_order), 
+                 SVCpred_model_data) 
+summary(SVCpred_2) # AIC = 1761.087
+AICc(SVCpred_2) # AICc = 1761.723
+vif(SVCpred_2) # shape = 5.007866
+
+# remove shape from 2
+SVCpred_4 <- lme(log_difference~octocoral+stony+relief_cm+nocturnal+
+                   max_length+cryptic_behaviour+average_depth+
+                   position, 
+                 random = list(~1|site, ~1|species_order), 
+                 SVCpred_model_data) 
+summary(SVCpred_4) # AIC = 1765.492
+AICc(SVCpred_4) # AICc = 1766.035
+vif(SVCpred_4) # all under 5 
+
+# remove depth from 1
+SVCpred_5 <- lme(log_difference~habitat+octocoral+stony+relief_cm+nocturnal+
+                   max_length+cryptic_behaviour+
+                   shape+position, 
+                 random = list(~1|site, ~1|species_order), 
+                 SVCpred_model_data) 
+summary(SVCpred_5) # AIC = 1753.985
+AICc(SVCpred_5) # AICc = 1754.62
+vif(SVCpred_5) # all good
+
+
+# SVC vs. Roving: Dredge Re-Do #################################################
+
+# dredge
+SVCpred_dredge_redo <- dredge(SVCpred_5)
+SVCpred_dredge_redo
+
+# save dredge results 
+saveRDS(SVCpred_dredge_redo, here("./outputs/SVCpred_dredge_redo.rds"))
+
+# subset dredge
+SVCpred_dredge_sub_redo <- subset(SVCpred_dredge_redo, delta < 4) 
+
+# model average 
+SVCpred_model_average_redo <- model.avg(SVCpred_dredge_sub_redo)
+SVCpred_model_avg_summary_redo <- summary(SVCpred_model_average_redo)
+
+# save model average
+saveRDS(SVCpred_model_average_redo, here("./outputs/SVCpred_dredge_average_redo.rds"))
+
+# read in saved average
+SVCpred_model_average_redo <- read_rds(here("./outputs/SVCpred_dredge_average_redo.rds"))
+
+# covariate confidence intervals
+SVCpred_confidence_redo <- confint(SVCpred_model_average_redo)
+summary(SVCpred_confidence_redo)
+
+# save confidence intervals
+saveRDS(SVCpred_confidence_redo, here("./outputs/SVCpred_dredge_CI_redo.rds"))
+
+# read in saved CIs
+SVCpred_confidence_redo <- read_rds(here("./outputs/SVCpred_dredge_CI_redo.rds"))
+
+
+# SVC vs. Roving: Global Model W/O Crypsis #####################################
+
+SVCpred_model_data$size_bin_lengths <- as.character(SVCpred_model_data$size_bin_lengths)
+
+SVCpred_nocrypsis <- lme(log_difference~habitat+octocoral+stony+relief_cm+nocturnal+
+                   max_length+average_depth+
+                   shape+position, 
+                 random = list(~1|site, ~1|species_order), 
+                 SVCpred_model_data) 
+summary(SVCpred_nocrypsis) # AIC = 1770.965
+AICc(SVCpred_nocrypsis) # AICc = 1771.6
+vif(SVCpred_nocrypsis) # habitat, depth > 5
+
+# remove habitat from nocrypsis
+SVCpred_nocrypsis2 <- lme(log_difference~octocoral+stony+relief_cm+nocturnal+
+                           max_length+average_depth+
+                           shape+position, 
+                         random = list(~1|site, ~1|species_order), 
+                         SVCpred_model_data) 
+summary(SVCpred_nocrypsis2) # AIC = 1768.086
+AICc(SVCpred_nocrypsis2) # AICc = 1768.63
+vif(SVCpred_nocrypsis2) # all good
+
+# remove depth from nocrypsis
+SVCpred_nocrypsis3 <- lme(log_difference~habitat+octocoral+stony+relief_cm+nocturnal+
+                           max_length+
+                           shape+position, 
+                         random = list(~1|site, ~1|species_order), 
+                         SVCpred_model_data) 
+summary(SVCpred_nocrypsis3) # AIC = 1761.36
+AICc(SVCpred_nocrypsis3) # AICc = 1761.903
+vif(SVCpred_nocrypsis3) # all good
+
+
+# SVC vs. Roving: Dredge W/O Crypsis ###########################################
+
+# dredge
+SVCpred_dredge_nocrypsis <- dredge(SVCpred_nocrypsis3)
+SVCpred_dredge_nocrypsis
+
+# save dredge results 
+saveRDS(SVCpred_dredge_nocrypsis, here("./outputs/SVCpred_dredge_nocrypsis.rds"))
+
+# subset dredge
+SVCpred_dredge_sub_nocrypsis <- subset(SVCpred_dredge_nocrypsis, delta < 4) 
+
+# model average 
+SVCpred_model_average_nocrypsis <- model.avg(SVCpred_dredge_sub_nocrypsis)
+SVCpred_model_avg_summary_nocrypsis <- summary(SVCpred_model_average_nocrypsis)
+
+# save model average
+saveRDS(SVCpred_model_average_redo, here("./outputs/SVCpred_dredge_average_redo.rds"))
+
+# read in saved average
+SVCpred_model_average_redo <- read_rds(here("./outputs/SVCpred_dredge_average_redo.rds"))
+
+# covariate confidence intervals
+SVCpred_confidence_redo <- confint(SVCpred_model_average_redo)
+summary(SVCpred_confidence_redo)
+
+# save confidence intervals
+saveRDS(SVCpred_confidence_redo, here("./outputs/SVCpred_dredge_CI_redo.rds"))
+
+# read in saved CIs
+SVCpred_confidence_redo <- read_rds(here("./outputs/SVCpred_dredge_CI_redo.rds"))
+
+
+
+
+
+
+
+
+
+
+

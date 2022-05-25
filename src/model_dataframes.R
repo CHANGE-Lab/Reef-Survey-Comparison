@@ -212,8 +212,8 @@ full_dataframe$prey_pred_difference <-
 # a final version.
 
 # re-order columns
-full_dataframe <- full_dataframe[,c(2,1,21:23,3,4,8,10,13,14,21,25:33,9,11,12,
-                                    34,15:17,35,18:20,36:39)]
+full_dataframe <- full_dataframe[,c(2,1,22:24,3,4,8,25,10,13,14,21,26:33,9,11,12,
+                                    34,15:17,35,18:20,36:38)]
 
 # re-name columns
 full_dataframe <- full_dataframe %>% rename(habitat = SVC_habitat) 
@@ -283,7 +283,10 @@ SVCpred_data <- SVCpred_data[SVCpred_data$species !="gray snapper",]
 SVCpred_data <- SVCpred_data[SVCpred_data$species !="amberjack",]
 
 # remove black margate (only compressiform species)
-# SVCpred_data <- SVCpred_data[SVCpred_data$species !="black margate",]
+SVCpred_data <- SVCpred_data[SVCpred_data$species !="black margate",]
+
+# remove barracuda (only elongated species)
+SVCpred_data <- SVCpred_data[SVCpred_data$species !="barracuda",]
 
 # remove sessions with un-matched dates between surveys
 SVCpred_data <- SVCpred_data[SVCpred_data$session !=178,]

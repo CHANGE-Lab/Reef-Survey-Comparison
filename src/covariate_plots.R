@@ -227,6 +227,27 @@ prey_sizesha <- ggplot(SVCprey_model_data, aes(shape2, log_difference,
              colour = "grey40")
 ggsave(here("./visuals/SVCprey_sizeshape_box.png"), prey_sizesha)
 
+# elongated vs fusiform density differences for size classes 1-4
+mean(SVCprey_model_data$log_difference[SVCprey_model_data$shape == 'elongated' & SVCprey_model_data$size_bin <= 4]) # -2.712606
+mean(SVCprey_model_data$log_difference[SVCprey_model_data$shape == 'fusiform' & SVCprey_model_data$size_bin <= 4]) # -1.089659 
+
+# elongated mean density differences for small vs. large size classes
+mean(SVCprey_model_data$SVC_density[SVCprey_model_data$shape == 'elongated' & SVCprey_model_data$size_bin <= 4]) # 0.007240227
+mean(SVCprey_model_data$prey_density[SVCprey_model_data$shape == 'elongated' & SVCprey_model_data$size_bin <= 4]) # 0.1256763
+# prey is 1635.81% larger density than SVC
+mean(SVCprey_model_data$SVC_density[SVCprey_model_data$shape == 'elongated' & SVCprey_model_data$size_bin >=5]) # 0.005192337
+mean(SVCprey_model_data$prey_density[SVCprey_model_data$shape == 'elongated' & SVCprey_model_data$size_bin >=5]) # 0.004320175
+# prey is 16.8% smaller density than SVC
+
+# fusiform mean density differences for small vs. large size classes
+mean(SVCprey_model_data$SVC_density[SVCprey_model_data$shape == 'fusiform' & SVCprey_model_data$size_bin <= 4]) # 0.04535966
+mean(SVCprey_model_data$prey_density[SVCprey_model_data$shape == 'fusiform' & SVCprey_model_data$size_bin <= 4]) # 0.0870417
+# prey is 91.89% larger density than SVC
+mean(SVCprey_model_data$SVC_density[SVCprey_model_data$shape == 'fusiform' & SVCprey_model_data$size_bin >=5]) # 0.03065944
+mean(SVCprey_model_data$prey_density[SVCprey_model_data$shape == 'fusiform' & SVCprey_model_data$size_bin >=5]) # 0.01974114
+# prey is 35.61% smaller density than SVC
+
+
 # arrange habitat traits on one page
 habitat_trait_plots <- ggarrange(prey_stony, prey_octo, prey_hab,
           labels = c("", "", "", ""), ncol = 2, nrow = 2)
@@ -303,6 +324,7 @@ pred_colour <- ggplot(SVCpred_model_data, aes(x = coloration2,
 ggsave(here("./visuals/SVCpred_colour_box.png"), pred_colour)
 
 # shape boxplot
+TukeyHSD(aov(log_difference~shape, SVCpred_model_data))
 pred_shape <- ggplot(SVCpred_model_data, aes(x = shape, y = log_difference, 
                                fill = shape)) + 
   geom_boxplot() +
