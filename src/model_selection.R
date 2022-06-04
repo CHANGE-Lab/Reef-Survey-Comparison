@@ -67,7 +67,7 @@ emmeans_sizeshape <- pairs(emmeans(SVCprey_global, pairwise~size_bin_lengths*sha
 # emmip(SVCprey_global, size_bin_lengths~shape, mult.name = "variety", cov.reduce = FALSE)
 
 # covariate VIF values
-vif(SVCprey_global) # aggregation behaviour VIF = 5.841751
+vif(SVCprey_global) # aggregation behaviour VIF = 5.872522
 
 # random effects plot
 plot(ranef(SVCprey_global))
@@ -496,7 +496,7 @@ SVCpred_1 <- lme(log_difference~habitat+octocoral+stony+relief_cm+nocturnal+
                     random = list(~1|site, ~1|species_order), 
                     SVCpred_model_data) 
 summary(SVCpred_1) # AIC = 1764.004
-AICc(SVCpred_1) # AICc = 1764.739
+AICc(SVCpred_1) # AICc = 1773.015
 vif(SVCpred_1) # habitat, depth, shape > 5
 
 # remove habitat from 1
@@ -506,8 +506,8 @@ SVCpred_2 <- lme(log_difference~octocoral+stony+relief_cm+nocturnal+
                  random = list(~1|site, ~1|species_order), 
                  SVCpred_model_data) 
 summary(SVCpred_2) # AIC = 1761.087
-AICc(SVCpred_2) # AICc = 1761.723
-vif(SVCpred_2) # shape = 5.007866
+AICc(SVCpred_2) # AICc = 1770.041
+vif(SVCpred_2) # shape = 6.467980
 
 # remove shape from 2
 SVCpred_4 <- lme(log_difference~octocoral+stony+relief_cm+nocturnal+
@@ -516,7 +516,7 @@ SVCpred_4 <- lme(log_difference~octocoral+stony+relief_cm+nocturnal+
                  random = list(~1|site, ~1|species_order), 
                  SVCpred_model_data) 
 summary(SVCpred_4) # AIC = 1765.492
-AICc(SVCpred_4) # AICc = 1766.035
+AICc(SVCpred_4) # AICc = 1769.909
 vif(SVCpred_4) # all under 5 
 
 # remove depth from 1
@@ -526,14 +526,24 @@ SVCpred_5 <- lme(log_difference~habitat+octocoral+stony+relief_cm+nocturnal+
                  random = list(~1|site, ~1|species_order), 
                  SVCpred_model_data) 
 summary(SVCpred_5) # AIC = 1753.985
-AICc(SVCpred_5) # AICc = 1754.62
-vif(SVCpred_5) # all good
+AICc(SVCpred_5) # AICc = 1763.278
+vif(SVCpred_5) # shape = 6.450637
+
+# remove shape from 5 
+SVCpred_6 <- lme(log_difference~habitat+octocoral+stony+relief_cm+nocturnal+
+                   max_length+cryptic_behaviour+
+                   position, 
+                 random = list(~1|site, ~1|species_order), 
+                 SVCpred_model_data) 
+summary(SVCpred_6) # AIC = 1762.442
+AICc(SVCpred_6) # AICc = 1762.986
+vif(SVCpred_6) # all good
 
 
 # SVC vs. Roving: Dredge Re-Do #################################################
 
 # dredge
-SVCpred_dredge_redo <- dredge(SVCpred_5)
+SVCpred_dredge_redo <- dredge(SVCpred_6)
 SVCpred_dredge_redo
 
 # save dredge results 
