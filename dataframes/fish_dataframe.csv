@@ -2186,7 +2186,7 @@ session,species,size_bin,SVC_abundance,prey_abundance,pred_abundance,size_bin_le
 175,masked goby,1,7,15,0,3.63321
 175,tomtate,1,2.2,0,0,3.63321
 175,yellowhead wrasse,2,6.5,23,0,7.533217
-175,tomtate,2,215.60000000000002,102,0,7.533217
+175,tomtate,2,215.6,102,0,7.533217
 175,stoplight parrotfish,5,1,0,0,24.92844
 175,cero,6,1,0,0,47.70199
 175,sharpnose puffer,1,1,5,0,3.63321
@@ -4146,7 +4146,7 @@ session,species,size_bin,SVC_abundance,prey_abundance,pred_abundance,size_bin_le
 204,white grunt,6,1,0,0,47.70199
 204,bluehead wrasse,2,1,6,0,7.533217
 204,striped parrotfish,3,1,0,0,12.91456
-204,bicolor damselfish,2,1.1500000000000001,56,0,7.533217
+204,bicolor damselfish,2,1.15,56,0,7.533217
 204,balloonfish,4,0,1,0,17.94356
 204,beaugregory,2,0,5,0,7.533217
 204,black grouper,6,0,2,0,47.70199

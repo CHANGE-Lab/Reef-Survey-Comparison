@@ -125,7 +125,6 @@ c7 <- SVC %>%
 # bind SVC lengths
 SVC_lengths <- bind_rows(c2, c3, c4, c5, c6, c7)
 
-
 # SVC Dataframe ================================================================
 
 # The following section transforms the SVC length data into a format matching 
@@ -187,7 +186,7 @@ pred_fish$size_bin = ifelse(pred_fish$pred_tl <= 5, 1,
     ifelse(pred_fish$pred_tl > 30, 6, NA))))))
 
 # selecting session, species, and size_bin columns from roving
-pred_bins <- pred_fish[,c(1,3,15)] 
+pred_bins <- pred_fish[,c(1,3,14)] 
 
 
 # Adding Abundance =============================================================

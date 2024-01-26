@@ -156,6 +156,7 @@ fish_traits <- fish_traits[,c(1:4,7,18,36,38,39,60,61,70,74)]
 # rename columns
 fish_traits <- fish_traits %>% rename(colouration = colouration_cat3)
 fish_traits <- fish_traits %>% rename(species = common_name)
+#fish_traits <- fish_traits %>% rename(shape_ratio = final_ratio)
 
 # join fish trait data to meta and fish dataframe
 full_dataframe <- join(fish_meta, fish_traits, by = NULL, type = "full", 
@@ -314,7 +315,7 @@ SVCpred_data <- na.omit(SVCpred_data)
 
 # Density differences between the survey types did not meet normality 
 # assumptions required for analyses, so the following conducts a log 
-# transformation of raw densities before taking the difference to improved 
+# transformation of raw densities before taking the difference to improve 
 # normality.
 
 # calculate log SVC density in SVC vs. transect dataframe

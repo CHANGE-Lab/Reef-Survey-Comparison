@@ -91,71 +91,11 @@ saveRDS(SVCprey_behaviour_chi, here("./outputs/SVCprey_behaviour_chi.rds"))
 chisq.posthoc.test(SVCprey_behaviour_chi, method = "bonferroni")
 
 
-# Cryptic Behaviour Presence/Absence Analysis ==================================
+# Colouration Presence/Absence Analysis ==================================
 
 # The following compares the frequency of occurrence of different levels of 
-# species' cryptic behaviour (present or absent) between SVC and transect 
-# surveys by conducting a Chi-Square Test. 
-
-# select crypsis columns and SVC density 
-SVC_crypsis_presence <- SVCprey_data[,c(1,19,25)]
-
-# rename density column
-SVC_crypsis_presence <- rename(SVC_crypsis_presence, density = SVC_density)
-
-# aggregate by session and crypsis
-SVC_crypsis_presence <- aggregate(.~session+cryptic_behaviour, SVC_crypsis_presence, sum)
-
-# create presence column
-SVC_crypsis_presence$presence <- ifelse(SVC_crypsis_presence$density > 0, 1, 0)
-
-# create survey column
-SVC_crypsis_presence$survey <- "SVC"
-
-# select crypsis columns and transect density
-prey_crypsis_presence <- SVCprey_data[,c(1,19,29)]
-
-# rename density column
-prey_crypsis_presence <- rename(prey_crypsis_presence, density = prey_density)
-
-# aggregate by session and crypsis
-prey_crypsis_presence <- aggregate(.~session+cryptic_behaviour, prey_crypsis_presence, sum)
-
-# create presence column
-prey_crypsis_presence$presence <- ifelse(prey_crypsis_presence$density > 0, 1, 0)
-
-# create survey column
-prey_crypsis_presence$survey <- "transect"
-
-# bind SVC and transect presence values together 
-SVCprey_crypsis_presence <- bind_rows(SVC_crypsis_presence, prey_crypsis_presence)
-
-# remove session and density columns
-SVCprey_crypsis_presence <- SVCprey_crypsis_presence[,c(2,4,5)]
-
-# remove rows where presence = 0
-SVCprey_crypsis_presence <- SVCprey_crypsis_presence[!(SVCprey_crypsis_presence$presence == 0),]
-
-# convert dataframe to table
-SVCprey_crypsis_chi <- table(SVCprey_crypsis_presence$cryptic_behaviour, 
-                               SVCprey_crypsis_presence$survey)
-
-# Chi-Square Test
-SVCprey_crypsis_chi <- chisq.test(SVCprey_crypsis_chi)
-# X-squared = 0, df = 1, p-value = 1
-
-# save Chi-Square results
-saveRDS(SVCprey_crypsis_chi, here("./outputs/SVCprey_crypsis_chi.rds"))
-
-# post-hoc test
-chisq.posthoc.test(SVCprey_crypsis_chi, method = "bonferroni")
-
-
-# Colouration Presence/Absence Analysis ========================================
-
-# The following compares the frequency of occurrence of different levels of 
-# species' colouration (camouflaged, neutral, silvering, or colourful) between 
-# SVC and transect surveys by conducting a Chi-Square Test. 
+# species' colouration between SVC and transect surveys by conducting a 
+# Chi-Square Test. 
 
 # select colouration columns and SVC density 
 SVC_colouration_presence <- SVCprey_data[,c(1,18,25)]
@@ -201,11 +141,11 @@ SVCprey_colouration_chi <- table(SVCprey_colouration_presence$colouration,
                                SVCprey_colouration_presence$survey)
 
 # Chi-Square Test
-SVCprey_colouration_chi <- chisq.test(SVCprey_colouration_chi)
+SVCprey_colouration_chi1 <- chisq.test(SVCprey_colouration_chi)
 # X-squared = 10.567, df = 3, p-value = 0.01431
 
 # save Chi-Square results
-saveRDS(SVCprey_colouration_chi, here("./outputs/SVCprey_colouration_chi.rds"))
+saveRDS(SVCprey_colouration_chi1, here("./outputs/SVCprey_colouration_chi.rds"))
 
 # post-hoc test
 chisq.posthoc.test(SVCprey_colouration_chi, method = "bonferroni")

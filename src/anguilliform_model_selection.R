@@ -34,6 +34,30 @@ SVCprey_anguilliform_data <-
   read_csv(here("./dataframes/SVCprey_dataframe_anguilliformes.csv"))
 
 
+# SVC vs. Transect: Centring Variables =========================================
+
+# The following centres all continuous and dummy variables from the global 
+# model by subtracting the sample mean from all variable values.
+
+# octocoral
+SVCprey_anguilliform_data$octocoral_c <- SVCprey_anguilliform_data$octocoral - mean(SVCprey_anguilliform_data$octocoral)
+
+# stony coral
+SVCprey_anguilliform_data$stony_c <- SVCprey_anguilliform_data$stony - mean(SVCprey_anguilliform_data$stony)
+
+# vertical relief
+SVCprey_anguilliform_data$relief_c <- SVCprey_anguilliform_data$relief_cm - mean(SVCprey_anguilliform_data$relief_cm)
+
+# size bins
+SVCprey_anguilliform_data$size_bin_c <- SVCprey_anguilliform_data$size_bin_lengths - mean(SVCprey_anguilliform_data$size_bin_lengths)
+
+# maximum length
+SVCprey_anguilliform_data$max_length_c <- SVCprey_anguilliform_data$max_length - mean(SVCprey_anguilliform_data$max_length)
+
+# depth
+SVCprey_anguilliform_data$depth_c <- SVCprey_anguilliform_data$average_depth - mean(SVCprey_anguilliform_data$average_depth)
+
+
 # SVC vs. Transect: Anguilliform Global Model ==================================
 
 # In the following, a linear mixed model is created to compare fish density 
@@ -43,12 +67,10 @@ SVCprey_anguilliform_data <-
 # the VIF values for each predictor, and model fit is determined through 
 # random effects plots, residual plots, qq plots, and model plots. 
 
-SVCprey_anguilliform_data$size_bin_lengths <- as.character(SVCprey_anguilliform_data$size_bin_lengths)
-
 # global lme model
-SVCprey_anguilliform_global <- lme(log_difference~habitat+octocoral+stony+relief_cm+
-                                     size_bin_lengths*colouration+nocturnal+position+
-                        max_length+behavior+cryptic_behaviour+average_depth, 
+SVCprey_anguilliform_global <- lme(log_difference~habitat+octocoral_c+stony_c+relief_c+
+                                     size_bin_c*colouration+nocturnal+position+
+                        max_length+behavior+cryptic_behaviour+depth_c+shape, 
                       random = list(~1|site, ~1|species_order), 
                       SVCprey_anguilliform_data) 
 
@@ -59,19 +81,33 @@ AICc(SVCprey_anguilliform_global)
 # covariate VIF values
 vif(SVCprey_anguilliform_global) 
 
+# remove shape
+SVCprey_anguilliform_global2 <- lme(log_difference~habitat+octocoral+stony+relief_cm+
+                                     size_bin_lengths*colouration+nocturnal+position+
+                                     max_length+behavior+cryptic_behaviour+average_depth, 
+                                   random = list(~1|site, ~1|species_order), 
+                                   SVCprey_anguilliform_data) 
+
+# model summary
+summary(SVCprey_anguilliform_global2) 
+AICc(SVCprey_anguilliform_global2)
+
+# covariate VIF values
+vif(SVCprey_anguilliform_global2) 
+
 # random effects plot
-plot(ranef(SVCprey_anguilliform_global))
+plot(ranef(SVCprey_anguilliform_global2))
 
 # residuals plot
-res_SVCprey_global = residuals(SVCprey_anguilliform_global)
-plot(res_SVCprey_global) 
+res_SVCprey_global = residuals(SVCprey_anguilliform_global2)
+plot(res_SVCprey_global2) 
 
 # qq plot
-qqnorm(res_SVCprey_global) 
-qqline(res_SVCprey_global)
+qqnorm(res_SVCprey_global2) 
+qqline(res_SVCprey_global2)
 
 # model plot
-plot(SVCprey_anguilliform_global) 
+plot(SVCprey_anguilliform_global2) 
 
 
 # SVC vs. Transect: Anguilliform Dredging ==========================================
@@ -81,7 +117,7 @@ plot(SVCprey_anguilliform_global)
 # determine which combination of predictors results in the most likely model.
 
 # dredge
-SVCprey_anguilliform_dredge <- dredge(SVCprey_anguilliform_global)
+SVCprey_anguilliform_dredge <- dredge(SVCprey_anguilliform_global2)
 SVCprey_anguilliform_dredge
 
 # save dredge output 

@@ -113,6 +113,10 @@ source(here("./src/SVCpred_chisquare.R"))
 
 source(here("./src/SVCpred_density.R"))
 
+# Supplementary Trait FO Analyses ==============================================
+source(here("./src/SVCprey_trait_presabs.R"))
+source(here("./src/SVCpred_trait_presabs.R"))
+
 
 # Covariate Plots ==============================================================
 
