@@ -38,8 +38,8 @@ vert_relief <- read_csv(here("./clean_data/vertical_relief.csv"))
 # Joining SVC Metadata: 
 
 # select wanted metadata columns: session, site, date, diver, habitat, 
-# cylinder_area, max_depth, octocoral, stony coral
-SVC_meta <- SVC[,c(1,3,4,12,16,17,33,34)] 
+# cylinder_area, max_depth, octocoral, stony coral, total time
+SVC_meta <- SVC[,c(1,3,4,12,16,17,33,34,10)] 
 
 # aggregate rows by session
 SVC_meta <- SVC_meta %>% group_by(session, site, SVC_date, SVC_habitat) %>% 
@@ -47,6 +47,12 @@ SVC_meta <- SVC_meta %>% group_by(session, site, SVC_date, SVC_habitat) %>%
 
 # rename area column
 SVC_meta <- SVC_meta %>% rename(SVC_area = SVC_cylinder_area) 
+
+# rename total time column
+SVC_meta <- SVC_meta %>% rename(SVC_time = SVC_total_sample_time) 
+
+# calculate proportion of sessions with no recorded time
+sum(is.na(SVC_meta$SVC_time))/119 # 0.3866
 
 # join meta data to fish data
 SVC_full <- join(fish_data, SVC_meta, by = NULL, type = "left", match = "first")
@@ -91,11 +97,12 @@ SVCprey_full <- join(SVC_full, prey_meta, by = NULL, type = "left",
 # Joining Roving Metadata:
 
 # select wanted metadata columns: session, site, date, transect_area, depth
-pred_meta <- pred_meta[,c(1,4,8,17,21)] 
+pred_meta <- pred_meta[,c(1,4,8,17,21,16)] 
 
 # rename columns
 pred_meta <- pred_meta %>% rename(pred_depth = pred_depth_ft)
 pred_meta <- pred_meta %>% rename(pred_area = pred_trans_area) 
+pred_meta <- pred_meta %>% rename(pred_time = pred_total_time_min)
 
 # want to aggregate depth by mean and area by sum: splitting up
 
@@ -111,9 +118,24 @@ pred_area <- pred_meta[,c(1:3,5)]
 # aggregate area rows by session
 pred_area <- aggregate(.~session+site+pred_date, pred_area, sum) 
 
+# remove time column
+pred_time <- pred_meta[,c(1:3,6)]
+
+# remove time NA values 
+pred_time <- na.omit(pred_time)
+
+# aggregate time rows by session
+pred_time <- aggregate(.~session+site+pred_date, pred_time, mean)
+
 # join roving depth and area to create full roving metadata
 pred_meta <- join(pred_depth, pred_area, by = NULL, type = "full", 
                   match = "all") 
+
+# join roving time
+pred_meta <- join(pred_meta, pred_time, by = NULL, type = "left", match = "all")
+
+# calculate proportion of sessions with no recorded time
+sum(is.na(pred_meta$pred_time))/107 # 0.1495
 
 # join roving metadata to fish, SVC, and transect dataframe
 fish_meta <- join(SVCprey_full, pred_meta, by = NULL, type = "left", 
@@ -156,10 +178,9 @@ fish_traits <- fish_traits[,c(1:4,7,18,36,38,39,60,61,70,74)]
 # rename columns
 fish_traits <- fish_traits %>% rename(colouration = colouration_cat3)
 fish_traits <- fish_traits %>% rename(species = common_name)
-#fish_traits <- fish_traits %>% rename(shape_ratio = final_ratio)
 
 # join fish trait data to meta and fish dataframe
-full_dataframe <- join(fish_meta, fish_traits, by = NULL, type = "full", 
+full_dataframe <- join(fish_meta, fish_traits, by = NULL, type = "left", 
                        match = "all")
 
 # remove un-recorded species
@@ -171,6 +192,10 @@ na_values <- which(is.na(full_dataframe), arr.ind=TRUE)
 full_dataframe$pred_date[is.na(full_dataframe$pred_date)] <- "2014-01-01"
 full_dataframe$pred_depth[is.na(full_dataframe$pred_depth)] <- 0
 full_dataframe$pred_area[is.na(full_dataframe$pred_area)] <- 0
+
+# replace time NAs with 0s
+full_dataframe$SVC_time[is.na(full_dataframe$SVC_time)] <- 0
+full_dataframe$pred_time[is.na(full_dataframe$pred_time)] <- 0
 
 # remove NA values
 full_dataframe <- na.omit(full_dataframe) 
@@ -213,8 +238,8 @@ full_dataframe$prey_pred_difference <-
 # a final version.
 
 # re-order columns
-full_dataframe <- full_dataframe[,c(2,1,22:24,3,4,8,25,10,13,14,21,26:33,9,11,12,
-                                    34,15:17,35,18:20,36:38)]
+full_dataframe <- full_dataframe[,c(2,1,24:26,3,4,8,27,10,13,14,23,28:35,9,11,
+                                    12,15,36,16:18,37,19:22,38:40)]
 
 # re-name columns
 full_dataframe <- full_dataframe %>% rename(habitat = SVC_habitat) 
@@ -227,10 +252,10 @@ full_dataframe <- full_dataframe %>% rename(species_order = order)
 # transect surveys.
 
 # select SVC and transect columns
-SVCprey <- full_dataframe[,c(1:29,34)] 
+SVCprey <- full_dataframe[,c(1:30,36)] 
 
 # calculate total density for SVC and transect surveys
-SVCprey$total_density <- SVCprey$SVC_density+SVCprey$prey_density
+SVCprey$total_density <- SVCprey$SVC_density + SVCprey$prey_density
 
 # remove rows where total density = 0
 SVCprey_data <- SVCprey[SVCprey$total_density !=0,] 
@@ -247,14 +272,14 @@ SVCprey_data <- SVCprey_data[SVCprey_data$species_order !="Pleuronectiformes",]
 # remove mackerel scad (only pelagic species)
 SVCprey_data <- SVCprey_data[SVCprey_data$species !="mackerel scad",]
 
-# remove eels 
-SVCprey_data <- SVCprey_data[SVCprey_data$species_order !="Anguilliformes",]
-
 # remove sessions with un-matched dates between surveys
 SVCprey_data <- SVCprey_data[SVCprey_data$session !=178,]
 SVCprey_data <- SVCprey_data[SVCprey_data$session !=179,]
 SVCprey_data <- SVCprey_data[SVCprey_data$session !=180,]
 SVCprey_data <- SVCprey_data[SVCprey_data$session !=268,]
+
+# calculate area difference between surveys 
+SVCprey_data$SVCprey_area_dif <- SVCprey_data$SVC_area - SVCprey_data$prey_area
 
 
 # SVC vs. Roving Survey Dataframe ==============================================
@@ -263,7 +288,7 @@ SVCprey_data <- SVCprey_data[SVCprey_data$session !=268,]
 # roving surveys.
 
 # select SVC and roving columns
-SVCpred <- full_dataframe[,c(1:25,30:33,35)] 
+SVCpred <- full_dataframe[,c(1:26,31:35,37)] 
 
 # filter for species recorded on predator surveys
 SVCpred <- filter(SVCpred, predator_presence == 1) 
@@ -309,6 +334,20 @@ SVCpred_data <- SVCpred_data[SVCpred_data$session !=274,]
 
 # remove NA values
 SVCpred_data <- na.omit(SVCpred_data) 
+
+# calculate area difference
+SVCpred_data$SVCpred_area_dif <- SVCpred_data$SVC_area - SVCpred_data$pred_area
+
+# calculate time difference
+SVCpred_data$SVCpred_time_dif <- SVCpred_data$SVC_time - SVCpred_data$pred_time
+
+# calculate survey speeds
+SVCpred_data$SVC_speed <- SVCpred_data$SVC_area / SVCpred_data$SVC_time
+SVCpred_data$pred_speed <- SVCpred_data$pred_area / SVCpred_data$pred_time
+
+# calculate speed differences 
+SVCpred_data$SVCpred_speed_dif <- 
+  SVCpred_data$SVC_speed - SVCpred_data$pred_speed
 
 
 # Density Log Transformation ===================================================
@@ -356,8 +395,27 @@ SVCprey_data$average_depth <- (SVCprey_data$SVC_max_depth +
 SVCpred_data$average_depth <- (SVCpred_data$SVC_max_depth + 
                                  SVCpred_data$pred_depth)/2
 
-# export SVC vs. transect survey dataframe
-write_csv(SVCprey_data, here("./dataframes/SVCprey_dataframe.csv"))
+
+# Export Full Dataframes =======================================================
+
+
+# export SVC vs. transect survey dataframe with anguilliform species included 
+write_csv(SVCprey_data, 
+          here("./dataframes/SVCprey_dataframe_anguilliformes.csv"))
 
 # export SVC vs. roving survey dataframe
-write_csv(SVCpred_data, here("./dataframes/SVCpred_dataframe.csv"))
+write_csv(SVCprey_data, here("./dataframes/SVCpred_dataframe.csv"))
+
+# remove anguilliform species from SVC vs. transect survey dataframe
+SVCprey_data <- SVCprey_data[SVCprey_data$species_order !="Anguilliformes",]
+
+# export SVC vs. transect survey dataframe with anguilliform species removed 
+write_csv(SVCprey_data, here("./dataframes/SVCprey_dataframe.csv"))
+
+# remove rows from SVCpred dataframe where survey time was not recorded 
+# (time = 0 in these cases due to previous transformation)
+SVCpred_data <- SVCpred_data[!(SVCpred_data$SVC_time %in% "0"),]
+SVCpred_data <- SVCpred_data[!(SVCpred_data$pred_time %in% "0"),]
+
+# export SVC vs. roving survey dataframe for survey area & duration comparison
+write_csv(SVCpred_data, here("./dataframes/SVCpred_dataframe_time_area.csv"))

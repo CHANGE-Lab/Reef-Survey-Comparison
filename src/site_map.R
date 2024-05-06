@@ -63,7 +63,8 @@ fte_theme_map_small <- function(){
     theme(panel.background = element_rect(fill= 'white',color = 'white')) +
     theme(plot.background = element_rect(fill = color.background, 
                                          color = color.background)) +
-    theme(panel.border = element_rect(colour = 'white', fill = NA, size = 0.15)) +
+    theme(panel.border = element_rect(colour = 'white', 
+                                      fill = NA, size = 0.15)) +
     theme(panel.grid.major = element_blank()) + 
     theme(panel.grid.minor = element_blank()) + 
     theme(axis.ticks = element_blank()) +
@@ -87,7 +88,8 @@ fte_theme_map_sites <- function(){
     theme(panel.background = element_rect(fill = 'white', color = 'white')) +
     theme(plot.background = element_rect(fill=color.background,
                                          color = color.background)) +
-    theme(panel.border = element_rect(colour = 'white', fill = NA, size = 0.15)) +
+    theme(panel.border = element_rect(colour = 'white', 
+                                      fill = NA, size = 0.15)) +
     theme(panel.grid.major = element_blank()) + 
     theme(panel.grid.minor = element_blank()) + 
     theme(axis.ticks = element_line(color="black", size = 0.15)) +
@@ -120,7 +122,7 @@ continent = ggplot()+
                colour = 'black', size = 0.01, #put in FL shapefile
                fill = 'grey70')+
   coord_cartesian(xlim = c(-93.9,-75.85), ylim = c(24.1,32.5)) + 
-  #delimit where we are
+  # delimit where we are
   fte_theme_map_small() + #bring in the map
   annotate("rect", xmin = -79, xmax = -82, ymin = 24.5, ymax = 25.5, 
            alpha = .7)+ #shaded study area
@@ -134,7 +136,7 @@ continent = ggplot()+
            dist_unit = 'km', st.size = 6, #add scalebar
            transform = TRUE, model = 'WGS84', location = 'bottomleft', 
            st.dist = 0.42, height = 0.18) 
-#transform = TRUE assumes coordinates are in decimal degrees
+# transform = TRUE assumes coordinates are in decimal degrees
 
 
 # Map of Study Area ============================================================
@@ -145,7 +147,8 @@ map <- ggplot()+
                colour = 'white', size = 0.01, 
                fill = 'grey60')+ 
   coord_cartesian(xlim = c(-81.1, -80.0), ylim = c(24.75,25.75)) +
-  geom_point(data = keys_fish_data, aes(x = X, y = Y, shape = Management_Area, size = 2)) +
+  geom_point(data = keys_fish_data, 
+             aes(x = X, y = Y, shape = Management_Area, size = 2)) +
   geom_sf(data = BISC_boundary, fill = "grey90")+
   geom_sf(data = FKNMS_boundary, fill = "white")+
   coord_sf()
@@ -155,16 +158,14 @@ site_map = ggplot() +
   geom_polygon(data = us.states,aes(x=long,y=lat,group=group), 
                colour = 'white', size = 0.01, 
                fill = 'grey60') +
-  #following lines are for boundary layers:
-  #geom_sf(data = BISC_boundary, fill = "grey90")+
-  #geom_sf(data = FKNMS_boundary, fill = "grey90")+
-  #coord_sf()+
   coord_cartesian(xlim = c(-81.1, -80.0), ylim = c(24.75,25.75)) +
-  geom_point(data = keys_fish_data, aes(x = X, y = Y, shape = Management_Area, size = 2)) +
+  geom_point(data = keys_fish_data, 
+             aes(x = X, y = Y, shape = Management_Area, size = 2)) +
   theme(legend.position = c(0.85, 0.2), 
         legend.text = element_text(size = 26),
         legend.title = element_text(size = 28),
-        legend.background = element_rect(fill = "gray90", linetype = "solid", color = "black"),
+        legend.background = element_rect(fill = "gray90", 
+                                         linetype = "solid", color = "black"),
         axis.title = element_text(size = 30),
         axis.text = element_text(size = 28)) +
   theme(panel.background = element_rect(fill = 'white', color = 'white')) +
@@ -179,12 +180,12 @@ site_map = ggplot() +
            dist = 10, dist_unit = 'km', #add scalebar
            transform = TRUE, model = 'WGS84', location = 'bottomleft', 
            st.dist = 0.49, height = 0.18, st.size = 10) 
-#transform = TRUE assumes coordinates are in decimal degrees
+# transform = TRUE assumes coordinates are in decimal degrees
 
 
 # Inset Maps ===================================================================
 
-#make the one plot inset with the other
+# make the one plot inset with the other
 insetmap = ggdraw()+
   draw_plot(site_map) + 
   draw_plot(continent, x=0.125, y=0.58, width=0.42, height=0.39) 

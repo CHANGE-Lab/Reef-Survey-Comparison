@@ -29,7 +29,7 @@ pred_fish <- read_csv(here("./clean_data/pred_fish_data.csv"))
 # The following data estimates individual fish lengths from the SVC data using a 
 # triangle distribution. This accounts for the abundance of a species observed, 
 # the maximum length of the group, the minimum length of the group, and their 
-# mean length. 
+# mean length. This is based on the rvc package from Ganz and Blondeau (2015).
 
 # calculate length of species with abundance = 1
 c2 <- SVC %>%
@@ -125,10 +125,11 @@ c7 <- SVC %>%
 # bind SVC lengths
 SVC_lengths <- bind_rows(c2, c3, c4, c5, c6, c7)
 
+
 # SVC Dataframe ================================================================
 
 # The following section transforms the SVC length data into a format matching 
-# that of the transect and roving survey data. 
+# that of the belt transect and roving survey data. 
 
 # select session, species, length, and abundance columns
 SVC_fish <- SVC_lengths[,c(1, 37, 42:51)] 

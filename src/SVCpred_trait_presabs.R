@@ -75,10 +75,12 @@ SVCpred_shape_presence <- bind_rows(SVC_shape_presence, pred_shape_presence)
 SVCpred_shape_presence <- SVCpred_shape_presence[,c(2,4,5)]
 
 # remove rows where presence = 0
-SVCpred_shape_presence <- SVCpred_shape_presence[!(SVCpred_shape_presence$presence == 0),]
+SVCpred_shape_presence <- 
+  SVCpred_shape_presence[!(SVCpred_shape_presence$presence == 0),]
 
 # convert dataframe to table
-SVCpred_shape_chi <- table(SVCpred_shape_presence$shape, SVCpred_shape_presence$survey)
+SVCpred_shape_chi <- 
+  table(SVCpred_shape_presence$shape, SVCpred_shape_presence$survey)
 
 # Chi-Square Test
 SVCpred_shape_chitest <- chisq.test(SVCpred_shape_chi)
@@ -101,13 +103,16 @@ chisq.posthoc.test(SVCpred_shape_chi, method = "bonferroni")
 SVC_colouration_presence <- SVCpred_data[,c(1,18,25)]
 
 # rename density column
-SVC_colouration_presence <- rename(SVC_colouration_presence, density = SVC_density)
+SVC_colouration_presence <- 
+  rename(SVC_colouration_presence, density = SVC_density)
 
 # aggregate by session and colouration
-SVC_colouration_presence <- aggregate(.~session+colouration, SVC_colouration_presence, sum)
+SVC_colouration_presence <- 
+  aggregate(.~session+colouration, SVC_colouration_presence, sum)
 
 # create presence column
-SVC_colouration_presence$presence <- ifelse(SVC_colouration_presence$density > 0, 1, 0)
+SVC_colouration_presence$presence <- 
+  ifelse(SVC_colouration_presence$density > 0, 1, 0)
 
 # create survey column
 SVC_colouration_presence$survey <- "SVC"
@@ -116,56 +121,43 @@ SVC_colouration_presence$survey <- "SVC"
 pred_colouration_presence <- SVCpred_data[,c(1,18,29)]
 
 # rename density column
-pred_colouration_presence <- rename(pred_colouration_presence, density = pred_density)
+pred_colouration_presence <- 
+  rename(pred_colouration_presence, density = pred_density)
 
 # aggregate by session and colouration
-pred_colouration_presence <- aggregate(.~session+colouration, pred_colouration_presence, sum)
+pred_colouration_presence <- 
+  aggregate(.~session+colouration, pred_colouration_presence, sum)
 
 # create presence column
-pred_colouration_presence$presence <- ifelse(pred_colouration_presence$density > 0, 1, 0)
+pred_colouration_presence$presence <- 
+  ifelse(pred_colouration_presence$density > 0, 1, 0)
 
 # create survey column
 pred_colouration_presence$survey <- "roving"
 
 # bind SVC and roving presence values together 
-SVCpred_colouration_presence <- bind_rows(SVC_colouration_presence, pred_colouration_presence)
+SVCpred_colouration_presence <- 
+  bind_rows(SVC_colouration_presence, pred_colouration_presence)
 
 # remove session and density columns
 SVCpred_colouration_presence <- SVCpred_colouration_presence[,c(2,4,5)]
 
 # remove rows where presence = 0
-SVCpred_colouration_presence <- SVCpred_colouration_presence[!(SVCpred_colouration_presence$presence == 0),]
+SVCpred_colouration_presence <- 
+  SVCpred_colouration_presence[!(SVCpred_colouration_presence$presence == 0),]
 
 # convert dataframe to table
-SVCpred_colouration_chi <- table(SVCpred_colouration_presence$colouration, SVCpred_colouration_presence$survey)
+SVCpred_colouration_chi <- 
+  table(SVCpred_colouration_presence$colouration, 
+        SVCpred_colouration_presence$survey)
 
 # Chi-Square Test
 SVCpred_colouration_chitest <- chisq.test(SVCpred_colouration_chi)
 # X-squared = 18.157, df = 2, p-value = 0.0001141
 
 # save Chi-Square results
-saveRDS(SVCpred_colouration_chitest, here("./outputs/SVCpred_colouration_chi.rds"))
+saveRDS(SVCpred_colouration_chitest, 
+        here("./outputs/SVCpred_colouration_chi.rds"))
 
 # post-hoc test
 chisq.posthoc.test(SVCpred_colouration_chi, method = "bonferroni")
-
-
-abundance <- c(5,100,5,5,5,5,5,5,5,5,5,5,100,100,100,100)
-survey <- c("SVC", "SVC", "roving", "roving", "roving", "roving")
-species <- c("fish1", "fish1", "fish2", "fish2","fish1", "fish1", "fish2", "fish2")
-data <- data.frame(abundance, survey, species)
-chi.data <- table(data$species, data$survey)
-chisq.test(chi.data)
-chisq.posthoc.test(chi.data, method = "bonferroni")
-
-test.df <- as.table(cbind(c(1,2,3,4,5), c(101,102,103,104,105)))
-test.df <- transpose(test.df)
-
-chisq.posthoc.test(test.df)
-
-
-test.df <- as.table(cbind(c(30,40,60,120), c(50,70,60,80)))
-
-library(chisq.posthoc.test)
-
-chisq.posthoc.test(test.df)

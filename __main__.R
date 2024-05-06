@@ -37,12 +37,10 @@ source(here("./src/sizebin_reclassification.R"))
 # Model Dataframe Creation =====================================================
 
 # This script joins survey metadata, habitat trait, and species' trait values 
-# onto the cleaned fish dataframe before splitting it into the two dataframes
-# used in further analyses. One dataframe examines fish observations within 
-# SVC and transect surveys, while the other explores observations in SVC and 
-# roving surveys. The script additionally calculates log-transformed density 
-# differences between the survey types for each fish observation as well as 
-# average depths between the surveys. 
+# onto the cleaned fish dataframe before splitting it into the dataframes
+# used in further analyses. The script additionally calculates log-transformed 
+# density differences between the survey types for each fish observation as well 
+# as average depths between the surveys. 
 
 source(here("./src/model_dataframes.R"))
 
@@ -60,64 +58,6 @@ source(here("./src/model_dataframes.R"))
 source(here("./src/model_selection.R"))
 
 
-# Density Comparison ===========================================================
-
-# This script creates a dataframe of the average densities of each fish species
-# between SVC and transect surveys and SVC and roving surveys. It then tests
-# for differences in the average densities of species between surveys using 
-# Kruskal-Wallis one-way analysis of variance tests. 
-
-source(here("./src/density_comparison.R"))
-
-
-# SVC vs. Transect: Presence/Absence Comparison ================================
-
-# This script creates a dataframe of the total number of sessions each of 8 SVC
-# focal species was present in between SVC and transect surveys. The difference
-# in the total number of sessions across species as well as for each species
-# individually is then analyzed using Chi-Square tests and a barplot of the 
-# totals is created. 
-
-source(here("./src/SVCprey_presabs.R"))
-
-
-# SVC vs. Transect: Focal Species Density Comparison ===========================
-
-# This script creates a dataframe of the average density of each of 8 SVC focal
-# species recorded in SVC and transect surveys. The difference in average 
-# densities of all 8 species as well as each species individually between 
-# surveys are determined using Kruskal-Wallis one-way analysis of variance 
-# tests. A barplot of the average densities between surveys is also created. 
-
-source(here("./src/SVCprey_density.R"))
-
-
-# SVC vs. Roving: Presence/Absence Comparison ==================================
-
-# This script creates a dataframe of presence/absence recordings of species
-# across sessions for SVC and roving surveys in order to compare differences in 
-# recordings. A Chi-Square test is performed to determine whether a difference
-# between SVC and roving presence recordings exists. A barplot is created of 
-# presence recordings in sessions across the surveys for every species. 
-
-source(here("./src/SVCpred_chisquare.R"))
-
-
-# SVC vs. Roving: Focal Species Density Comparison =============================
-
-# This script creates a dataframe of the average density of each of 3 SVC focal
-# species recorded in both SVC and roving surveys. The difference in average 
-# densities of all 3 species as well as each species individually between 
-# surveys are determined using Kruskal-Wallis one-way analysis of variance 
-# tests. A barplot of the average densities between surveys is also created. 
-
-source(here("./src/SVCpred_density.R"))
-
-# Supplementary Trait FO Analyses ==============================================
-source(here("./src/SVCprey_trait_presabs.R"))
-source(here("./src/SVCpred_trait_presabs.R"))
-
-
 # Covariate Plots ==============================================================
 
 # This script creates boxplots and scatterplots of significant covariates from
@@ -127,10 +67,52 @@ source(here("./src/SVCpred_trait_presabs.R"))
 source(here("./src/covariate_plots.R"))
 
 
-# Density Barplots =============================================================
+# Heat Plots ===================================================================
 
-# This script creates and saves barplots of the density differences between 
-# survey types averaged across families (for SVC compared to transect surveys) 
-# and species (for SVC compared to roving surveys). 
+# This script creates heat plots comparing the difference in fish densities 
+# recorded between SVC and belt transect surveys across different levels of 
+# species colouration, shape, size, and site stony coral cover. 
 
-source(here("./src/density_barplots.R"))
+source(here("./src/heat_plots.R"))
+
+
+# SVC vs. Transect Analyses Including Anguilliformes ===========================
+
+# This script runs linear mixed effects models on the dataframes comparing log 
+# density differences between SVC and belt transect surveys including all traits 
+# from primary analyses and all Anguilliformes species (eels). A global model is 
+# created utilizing all appropriate traits and interactions, and a dredge is 
+# performed to examine the models of the highest likelihood. Included are tests 
+# of predictor collinearity and model fit. Results of this analyses are 
+# discussed in the Electronic Supplementary Material.
+
+source(here("./src/anguilliform_model_selection.R"))
+
+
+# Survey Area and Duration Analyses ============================================
+
+# This script runs linear mixed effects models on the dataframes comparing log 
+# density differences between survey types including all traits from primary
+# analyses along with differences in total survey area and duration. A global 
+# model is created for each dataframe (SVC vs. transect surveys and SVC vs. 
+# roving surveys) utilizing all appropriate traits and interactions, and a 
+# dredge is performed on each to examine the models of the highest likelihood. 
+# Included are tests of predictor collinearity and model fit. Results of these 
+# analyses are discussed in the Electronic Supplementary Material.
+
+source(here("./src/survey_area_duration_models.R"))
+
+
+# Density Comparison ===========================================================
+
+# These scripts compare the abundances of traits recorded on survey types as 
+# opposed to their densities. The first script examines differences in 
+# the abundances of traits between SVC and belt transect surveys and the second
+# examines differences between SVC and roving surveys. The traits examined are
+# those that were found to have a significant affect on density differences
+# between survey types from previous analyses. Differences in abundances are
+# compared via Chi-Square tests. The results of these analyses are discussed
+# in the Electronic Supplementary Material. 
+
+source(here("./src/SVCprey_trait_presabs.R"))
+source(here("./src/SVCpred_trait_presabs.R"))
