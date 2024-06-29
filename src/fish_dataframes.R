@@ -3,7 +3,8 @@
 ##########
 # This file compiles all individual fish observations from SVC, transect, and 
 # roving surveys into a matching format with associated size bins and 
-# abundances.
+# abundances. It splits these data into two dataframes for further analyses:
+# SVC vs. belt transect survey fish data and SVC vs. roving survey fish data.
 ##########
 ##########
 # AUTHOR: Iris M. George
@@ -157,34 +158,51 @@ write_csv(SVC_melt, here("./clean_data/SVC_lengths.csv"))
 # 5 < bin 2 <= 10, 10 < bin 3 <= 15, 15 < bin 4 <= 20, 20 < bin 5 <= 30, 
 # bin 6 > 30. 
 
-# SVC size bin column
-SVC_melt$size_bin = ifelse(SVC_melt$SVC_tl <= 5, 1, ifelse(SVC_melt$SVC_tl > 5 
-    & SVC_melt$SVC_tl <= 10, 2, ifelse(SVC_melt$SVC_tl > 10 & 
-    SVC_melt$SVC_tl <= 15, 3, ifelse(SVC_melt$SVC_tl > 15 & 
-    SVC_melt$SVC_tl <= 20, 4, ifelse(SVC_melt$SVC_tl > 20 & 
-    SVC_melt$SVC_tl <=30, 5, ifelse(SVC_melt$SVC_tl > 30, 6, NA)))))) 
+# SVC size bin column (for SVC vs. belt analysis)
+SVC_melt$size_bin_belt = ifelse(SVC_melt$SVC_tl <= 5, 1, 
+                         ifelse(SVC_melt$SVC_tl > 5 & SVC_melt$SVC_tl <= 10, 2, 
+                         ifelse(SVC_melt$SVC_tl > 10 & SVC_melt$SVC_tl <= 15, 3, 
+                         ifelse(SVC_melt$SVC_tl > 15 & SVC_melt$SVC_tl <= 20, 4, 
+                         ifelse(SVC_melt$SVC_tl > 20 & SVC_melt$SVC_tl <= 30, 5, 
+                         ifelse(SVC_melt$SVC_tl > 30, 6, NA)))))) 
 
-# selected session, species, size_bin, and abundance columns from SVC
-SVC_bins <- SVC_melt[,c(1,2,5,6)] 
+# SVC size bin column (for SVC vs. roving analysis)
+SVC_melt$size_bin_roving = ifelse(SVC_melt$SVC_tl < 5, 1, 
+                         ifelse(SVC_melt$SVC_tl >= 5 & SVC_melt$SVC_tl < 10, 2, 
+                         ifelse(SVC_melt$SVC_tl >= 10 & SVC_melt$SVC_tl < 15, 3, 
+                         ifelse(SVC_melt$SVC_tl >= 15 & SVC_melt$SVC_tl < 20, 4, 
+                         ifelse(SVC_melt$SVC_tl >= 20 & SVC_melt$SVC_tl < 30, 5, 
+                         ifelse(SVC_melt$SVC_tl >= 30, 6, NA)))))) 
+
+# selected session, species, size_bin, and abundance columns from SVC (for
+# belt analysis)
+SVC_bins_prey <- SVC_melt[,c(1,2,5,6)] 
+
+# selected session, species, size_bin, and abundance columns from SVC (for 
+# roving analysis)
+SVC_bins_pred <- SVC_melt[,c(1,2,5,7)] 
 
 # transect size bin column
 prey_fish$size_bin = ifelse(prey_fish$prey_tl <= 5, 1, 
    ifelse(prey_fish$prey_tl > 5 & prey_fish$prey_tl <= 10, 2, 
    ifelse(prey_fish$prey_tl > 10 & prey_fish$prey_tl <= 15, 3, 
    ifelse(prey_fish$prey_tl > 15 & prey_fish$prey_tl <= 20, 4, 
-   ifelse(prey_fish$prey_tl > 20 & prey_fish$prey_tl <=30, 5, 
+   ifelse(prey_fish$prey_tl > 20 & prey_fish$prey_tl <= 30, 5, 
    ifelse(prey_fish$prey_tl > 30, 6, NA))))))
 
 # selecting session, species, and size_bin columns from transect
 prey_bins <- prey_fish[,c(1,3,5)] 
 
+# remove all roving individuals <15cm 
+pred_fish <- subset(pred_fish, pred_tl >= 15)
+
 # roving size bin column
-pred_fish$size_bin = ifelse(pred_fish$pred_tl <= 5, 1, 
-    ifelse(pred_fish$pred_tl > 5 & pred_fish$pred_tl <= 10, 2, 
-    ifelse(pred_fish$pred_tl > 10 & pred_fish$pred_tl <= 15, 3, 
-    ifelse(pred_fish$pred_tl > 15 & pred_fish$pred_tl <= 20, 4, 
-    ifelse(pred_fish$pred_tl > 20 & pred_fish$pred_tl <=30, 5, 
-    ifelse(pred_fish$pred_tl > 30, 6, NA))))))
+pred_fish$size_bin = ifelse(pred_fish$pred_tl < 5, 1, 
+    ifelse(pred_fish$pred_tl >= 5 & pred_fish$pred_tl < 10, 2, 
+    ifelse(pred_fish$pred_tl >= 10 & pred_fish$pred_tl < 15, 3, 
+    ifelse(pred_fish$pred_tl >= 15 & pred_fish$pred_tl < 20, 4, 
+    ifelse(pred_fish$pred_tl >= 20 & pred_fish$pred_tl < 30, 5, 
+    ifelse(pred_fish$pred_tl >= 30, 6, NA))))))
 
 # selecting session, species, and size_bin columns from roving
 pred_bins <- pred_fish[,c(1,3,14)] 
@@ -196,8 +214,25 @@ pred_bins <- pred_fish[,c(1,3,14)]
 # and creates an additional column with the number of individuals in each size
 # bin. 
 
-# SVC abundance column 
-SVC_abun <- SVC_bins[, lapply(.SD, sum), by=list(session, species, size_bin)] 
+# SVC abundance column (for belt analysis)
+SVC_abun_prey <- SVC_bins_prey[, lapply(.SD, sum), 
+                               by=list(session, species, size_bin_belt)] 
+
+# rename SVC abundance column
+SVC_abun_prey  <- SVC_abun_prey %>% rename(SVC_prey_abundance = SVC_abundance)
+
+# rename SVC size bin column
+SVC_abun_prey  <- SVC_abun_prey %>% rename(size_bin = size_bin_belt)
+
+# SVC abundance column (for roving analysis)
+SVC_abun_pred <- SVC_bins_pred[, lapply(.SD, sum), 
+                               by=list(session, species, size_bin_roving)] 
+
+# rename SVC abundance column
+SVC_abun_pred  <- SVC_abun_pred %>% rename(SVC_pred_abundance = SVC_abundance)
+
+# rename SVC size bin column
+SVC_abun_pred  <- SVC_abun_pred %>% rename(size_bin = size_bin_roving)
 
 # transect abundance column
 prey_abun <- prey_bins %>% group_by(session, species, size_bin) %>% tally()
@@ -214,21 +249,31 @@ pred_abun <- pred_abun %>% rename(pred_abundance = n)
 
 # Joining Survey Fish Dataframes ===============================================
 
-# The following joins all three survey dataframes (SVC, transect, and roving) 
-# with their size bin and abundance columns into a single dataframe with all 
-# individual fish observations. 
+# The following joins all four survey dataframes (SVC, SVC [roving lengths] 
+# transect, and roving) with their size bin and abundance columns into a single 
+# dataframe with all individual fish observations. 
 
-# join transect and roving datasets
-prey_pred <- full_join(prey_abun, pred_abun, by = NULL, copy = FALSE) 
+# join SVC and roving data
+SVCpred_fish_data <- full_join(pred_abun, SVC_abun_pred, by = NULL, 
+                               copy = FALSE) 
 
-# join SVC to transect and roving dataset
-fish_data <- full_join(SVC_abun, prey_pred, by = NULL, copy = FALSE) 
+# remove size bins 1-3 from SVC vs. roving fish data (only individuals >=15cm)
+SVCpred_fish_data <- SVCpred_fish_data[SVCpred_fish_data$size_bin !="1",]
+SVCpred_fish_data <- SVCpred_fish_data[SVCpred_fish_data$size_bin !="2",]
+SVCpred_fish_data <- SVCpred_fish_data[SVCpred_fish_data$size_bin !="3",]
+
+# join SVC and belt data
+SVCprey_fish_data <- full_join(SVC_abun_prey, prey_abun, by = NULL, 
+                           copy = FALSE) 
 
 # replace NAs with values of 0
-fish_data[is.na(fish_data)] <- 0
+SVCpred_fish_data[is.na(SVCpred_fish_data)] <- 0
+SVCprey_fish_data[is.na(SVCprey_fish_data)] <- 0
 
 # order by session
-fish_data <- fish_data[order(session),]
+SVCpred_fish_data <- SVCpred_fish_data[order(SVCpred_fish_data$session),]
+SVCprey_fish_data <- SVCprey_fish_data[order(session),]
 
-# export fish dataframe
-write_csv(fish_data, here("./dataframes/fish_dataframe.csv"))
+# export fish dataframes
+write_csv(SVCpred_fish_data, here("./dataframes/SVCpred_fish_dataframe.csv"))
+write_csv(SVCprey_fish_data, here("./dataframes/SVCprey_fish_dataframe.csv"))

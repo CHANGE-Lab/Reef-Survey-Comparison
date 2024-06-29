@@ -21,13 +21,16 @@ library(tidyverse)
 library(here)
 
 # data
-fish_dataframe <- read_csv(here("./dataframes/fish_dataframe.csv"))
+SVCprey_fish_dataframe <- 
+  read_csv(here("./dataframes/SVCprey_fish_dataframe.csv"))
+SVCpred_fish_dataframe <- 
+  read_csv(here("./dataframes/SVCpred_fish_dataframe.csv"))
 SVC_lengths <- read_csv(here("./clean_data/SVC_lengths.csv"))
 prey_lengths <- read_csv(here("./clean_data/prey_fish_data.csv"))
 pred_lengths <- read_csv(here("./clean_data/pred_fish_data.csv"))
 
 
-# Determining Size Bin 1 Classification ========================================
+# SVC vs. Belt: Determining Size Bin 1 Classification ==========================
 
 # The following determines the mean and median lengths of size class 1 (<=5cm).
 
@@ -62,10 +65,10 @@ size_class_1 <- bind_rows(SVC_1, prey_1, pred_1)
 median(size_class_1$length) # = 4cm 
 
 # find mean
-mean(size_class_1$length) # = 3.63321cm
+mean(size_class_1$length) # = 3.634207cm
 
 
-# Determining Size Bin 2 Classification ========================================
+# SVC vs. Belt: Determining Size Bin 2 Classification ==========================
 
 # The following determines the mean and median lengths of size class 2 (>5cm, 
 # <=10cm).
@@ -104,10 +107,10 @@ size_class_2 <- bind_rows(SVC_2, prey_2, pred_2)
 median(size_class_2$length) # = 7cm 
 
 # find mean
-mean(size_class_2$length) # = 7.533217cm
+mean(size_class_2$length) # = 7.528017cm
 
 
-# Determining Size Bin 3 Classification ========================================
+# SVC vs. Belt: Determining Size Bin 3 Classification ==========================
 
 # The following determines the mean and median lengths of size class 3 (>10cm, 
 # <=15cm).
@@ -146,10 +149,10 @@ size_class_3 <- bind_rows(SVC_3, prey_3, pred_3)
 median(size_class_3$length) # = 13cm 
 
 # find mean
-mean(size_class_3$length) # = 12.91456cm
+mean(size_class_3$length) # = 12.9106cm
 
 
-# Determining Size Bin 4 Classification ========================================
+# SVC vs. Belt: Determining Size Bin 4 Classification ==========================
 
 # The following determines the mean and median lengths of size class 4 (>15cm, 
 # <=20cm).
@@ -164,9 +167,9 @@ pred_4 <- pred_lengths %>%
 
 # round SVC abundances
 SVC_4$abundance_round <- ifelse(SVC_4$SVC_abundance == 0.25, 1, 
-                         ifelse(SVC_4$SVC_abundance == 0.5, 1, 
-                         ifelse(SVC_4$SVC_abundance == 6.5, 7, 
-                         round(SVC_4$SVC_abundance, digits = 0))))
+                                ifelse(SVC_4$SVC_abundance == 0.5, 1, 
+                                       ifelse(SVC_4$SVC_abundance == 6.5, 7, 
+                                              round(SVC_4$SVC_abundance, digits = 0))))
 
 # duplicate SVC length rows by abundance 
 SVC_4 <- SVC_4[rep(row.names(SVC_4), SVC_4$abundance_round), 1:4]
@@ -188,10 +191,10 @@ size_class_4 <- bind_rows(SVC_4, prey_4, pred_4)
 median(size_class_4$length) # = 18cm 
 
 # find mean
-mean(size_class_4$length) # = 17.94356cm
+mean(size_class_4$length) # = 17.94324cm
 
 
-# Determining Size Bin 5 Classification ========================================
+# SVC vs. Belt: Determining Size Bin 5 Classification ==========================
 
 # The following determines the mean and median lengths of size class 5 (>20cm, 
 # <=30cm).
@@ -230,10 +233,10 @@ size_class_5 <- bind_rows(SVC_5, prey_5, pred_5)
 median(size_class_5$length) # = 25cm 
 
 # find mean
-mean(size_class_5$length) # = 24.92844cm
+mean(size_class_5$length) # = 24.92811cm
 
 
-# Determining Size Bin 6 Classification ========================================
+# SVC vs. Belt: Determining Size Bin 6 Classification ==========================
 
 # The following determines the mean and median lengths of size class 6 (>30cm).
 
@@ -268,28 +271,173 @@ size_class_6 <- bind_rows(SVC_6, prey_6, pred_6)
 median(size_class_6$length) # = 40cm 
 
 # find mean
-mean(size_class_6$length) # = 47.70199cm
+mean(size_class_6$length) # = 47.85287cm
 
 
-# Size Bin Reclassifying =======================================================
+# SVC vs. Belt: Size Bin Reclassifying =========================================
 
 # The following reclassifies size bins using the mean length within each bin. 
 
-# size bin 1 = 3.63321 cm
-# size bin 2 = 7.533217 cm
-# size bin 3 = 12.91456 cm
-# size bin 4 = 17.94356 cm
-# size bin 5 = 24.92844 cm
-# size bin 6 = 47.70199 cm
+# size bin 1 = 3.634207 cm
+# size bin 2 = 7.528017 cm
+# size bin 3 = 12.9106 cm
+# size bin 4 = 17.94324 cm
+# size bin 5 = 24.92811 cm
+# size bin 6 = 47.85287 cm
 
 # reclassifying fish dataframe size bins
-fish_dataframe$size_bin_lengths <- 
-  ifelse(fish_dataframe$size_bin == 1, 3.63321, 
-  ifelse(fish_dataframe$size_bin == 2, 7.533217, 
-  ifelse(fish_dataframe$size_bin == 3, 12.91456, 
-  ifelse(fish_dataframe$size_bin == 4, 17.94356, 
-  ifelse(fish_dataframe$size_bin == 5, 24.92844, 
-  ifelse(fish_dataframe$size_bin == 6, 47.70199, NA))))))
+SVCprey_fish_dataframe$size_bin_lengths <- 
+  ifelse(SVCprey_fish_dataframe$size_bin == 1, 3.634207, 
+  ifelse(SVCprey_fish_dataframe$size_bin == 2, 7.528017, 
+  ifelse(SVCprey_fish_dataframe$size_bin == 3, 12.9106, 
+  ifelse(SVCprey_fish_dataframe$size_bin == 4, 17.94324, 
+  ifelse(SVCprey_fish_dataframe$size_bin == 5, 24.92811, 
+  ifelse(SVCprey_fish_dataframe$size_bin == 6, 47.85287, NA))))))
 
 # update csv of fish dataframe
-write_csv(fish_dataframe, here("./dataframes/fish_dataframe.csv"))
+write_csv(SVCprey_fish_dataframe, 
+          here("./dataframes/SVCprey_fish_dataframe.csv"))
+
+
+# SVC vs. Roving: Determining Size Bin 4 Classification=========================
+
+# The following determines the mean and median lengths of size class 4 (>=15cm, 
+# <20cm).
+
+# extract lengths >=15cm, <20cm
+SR_SVC_4 <- SVC_lengths %>% 
+  filter(SVC_lengths$SVC_tl >= 15 & SVC_lengths$SVC_tl < 20)
+SR_prey_4 <- prey_lengths %>% 
+  filter(prey_lengths$prey_tl >= 15 & prey_lengths$prey_tl < 20)
+SR_pred_4 <- pred_lengths %>% 
+  filter(pred_lengths$pred_tl >= 15 & pred_lengths$pred_tl < 20)
+
+# round SVC abundances
+SR_SVC_4$abundance_round <- ifelse(SR_SVC_4$SVC_abundance == 0.25, 1, 
+                         ifelse(SR_SVC_4$SVC_abundance == 0.5, 1, 
+                         ifelse(SR_SVC_4$SVC_abundance == 6.5, 7, 
+                         round(SR_SVC_4$SVC_abundance, digits = 0))))
+
+# duplicate SVC length rows by abundance 
+SR_SVC_4 <- SR_SVC_4[rep(row.names(SR_SVC_4), 
+                           SR_SVC_4$abundance_round), 1:4]
+
+# select length and species columns
+SR_SVC_4 <- SR_SVC_4[,c(2,4)]
+SR_prey_4 <- SR_prey_4[,3:4]
+SR_pred_4 <- SR_pred_4[,3:4]
+
+# re-name length columns
+SR_SVC_4 <- rename(SR_SVC_4, length = SVC_tl)
+SR_prey_4 <- rename(SR_prey_4, length = prey_tl)
+SR_pred_4 <- rename(SR_pred_4, length = pred_tl)
+
+# bind together
+SVCpred_size_class_4 <- bind_rows(SR_SVC_4, SR_prey_4, SR_pred_4)
+
+# find median
+median(SVCpred_size_class_4$length) # = 16cm 
+
+# find mean
+mean(SVCpred_size_class_4$length) # = 16.60974cm
+
+
+# SVC vs. Roving: Determining Size Bin 5 Classification ========================
+
+# The following determines the mean and median lengths of size class 5 (>=20cm, 
+# <30cm).
+
+# extract lengths >=20cm, <30cm
+SR_SVC_5 <- SVC_lengths %>% 
+  filter(SVC_lengths$SVC_tl >= 20 & SVC_lengths$SVC_tl < 30)
+SR_prey_5 <- prey_lengths %>% 
+  filter(prey_lengths$prey_tl >= 20 & prey_lengths$prey_tl < 30)
+SR_pred_5 <- pred_lengths %>% 
+  filter(pred_lengths$pred_tl >= 20 & pred_lengths$pred_tl < 30)
+
+# round SVC abundances
+SR_SVC_5$abundance_round <- ifelse(SR_SVC_5$SVC_abundance == 0.25, 1, 
+                         ifelse(SR_SVC_5$SVC_abundance == 0.5, 1, 
+                         ifelse(SR_SVC_5$SVC_abundance == 6.5, 7, 
+                         round(SR_SVC_5$SVC_abundance, digits = 0))))
+
+# duplicate SVC length rows by abundance 
+SR_SVC_5 <- 
+  SR_SVC_5[rep(row.names(SR_SVC_5), SR_SVC_5$abundance_round), 1:4]
+
+# select length and species columns
+SR_SVC_5 <- SR_SVC_5[,c(2,4)]
+SR_prey_5 <- SR_prey_5[,3:4]
+SR_pred_5 <- SR_pred_5[,3:4]
+
+# re-name length columns
+SR_SVC_5 <- rename(SR_SVC_5, length = SVC_tl)
+SR_prey_5 <- rename(SR_prey_5, length = prey_tl)
+SR_pred_5 <- rename(SR_pred_5, length = pred_tl)
+
+# bind together
+SVCpred_size_class_5 <- bind_rows(SR_SVC_5, SR_prey_5, SR_pred_5)
+
+# find median
+median(SVCpred_size_class_5$length) # = 22cm 
+
+# find mean
+mean(SVCpred_size_class_5$length) # = 22.657cm
+
+
+# SVC vs. Roving: Determining Size Bin 6 Classification ========================
+
+# The following determines the mean and median lengths of size class 6 (>=30cm).
+
+# extract lengths >=30cm 
+SR_SVC_6 <- SVC_lengths %>% filter(SVC_lengths$SVC_tl >= 30)
+SR_prey_6 <- prey_lengths %>% filter(prey_lengths$prey_tl >= 30)
+SR_pred_6 <- pred_lengths %>% filter(pred_lengths$pred_tl >= 30)
+
+# round SVC abundances
+SR_SVC_6$abundance_round <- ifelse(SR_SVC_6$SVC_abundance == 0.25, 1, 
+                             ifelse(SR_SVC_6$SVC_abundance == 0.5, 1, 
+                             ifelse(SR_SVC_6$SVC_abundance == 6.5, 7, 
+                             round(SR_SVC_6$SVC_abundance, digits = 0))))
+
+# duplicate SVC length rows by abundance 
+SR_SVC_6 <- SR_SVC_6[rep(row.names(SR_SVC_6), 
+                           SR_SVC_6$abundance_round), 1:4]
+
+# select length and species columns
+SR_SVC_6 <- SR_SVC_6[,c(2,4)]
+SR_prey_6 <- SR_prey_6[,3:4]
+SR_pred_6 <- SR_pred_6[,3:4]
+
+# re-name length columns
+SR_SVC_6 <- rename(SR_SVC_6, length = SVC_tl)
+SR_prey_6 <- rename(SR_prey_6, length = prey_tl)
+SR_pred_6 <- rename(SR_pred_6, length = pred_tl)
+
+# bind together
+SVCpred_size_class_6 <- bind_rows(SR_SVC_6, SR_prey_6, SR_pred_6)
+
+# find median
+median(SVCpred_size_class_6$length) # = 35cm 
+
+# find mean
+mean(SVCpred_size_class_6$length) # = 42.62977cm
+
+
+# SVC vs. Roving: Size Bin Reclassifying =======================================
+
+# The following reclassifies size bins using the mean length within each bin. 
+
+# size bin 4 = 16.60974 cm
+# size bin 5 = 22.657 cm
+# size bin 6 = 42.62977 cm
+
+# reclassifying fish dataframe size bins
+SVCpred_fish_dataframe$size_bin_lengths <- 
+  ifelse(SVCpred_fish_dataframe$size_bin == 4, 16.60974, 
+  ifelse(SVCpred_fish_dataframe$size_bin == 5, 22.657, 
+  ifelse(SVCpred_fish_dataframe$size_bin == 6, 42.62977, NA)))
+
+# update csv of fish dataframe
+write_csv(SVCpred_fish_dataframe, 
+          here("./dataframes/SVCpred_fish_dataframe.csv"))

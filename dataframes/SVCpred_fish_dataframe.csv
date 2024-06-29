@@ -1,0 +1,1631 @@
+session,species,size_bin,pred_abundance,SVC_pred_abundance,size_bin_lengths
+141,black grouper,6,1,0,42.62977
+141,red grouper,6,1,0,42.62977
+141,spotted moray,6,4,0,42.62977
+141,trumpetfish,6,0,1,42.62977
+141,stoplight parrotfish,4,0,2,16.60974
+141,white grunt,4,0,16.25,16.60974
+141,striped parrotfish,4,0,2.75,16.60974
+141,stoplight parrotfish,6,0,1,42.62977
+141,white grunt,5,0,1,22.657
+141,striped parrotfish,5,0,1,22.657
+142,green moray,6,1,0,42.62977
+142,spotted scorpionfish,5,1,0,22.657
+142,trumpetfish,6,0,2,42.62977
+142,white grunt,5,0,1,22.657
+142,yellowtail snapper,4,0,11.25,16.60974
+143,graysby,4,2,1,16.60974
+143,graysby,5,4,0,22.657
+143,spotted moray,6,1,0,42.62977
+143,smooth trunkfish,5,0,1,22.657
+143,white grunt,4,0,1,16.60974
+143,redband parrotfish,4,0,4,16.60974
+144,black grouper,6,1,0,42.62977
+144,graysby,4,1,1,16.60974
+144,graysby,5,5,0,22.657
+144,graysby,6,2,0,42.62977
+144,lionfish,5,1,0,22.657
+144,lionfish,6,2,0,42.62977
+144,nassau grouper,6,1,0,42.62977
+144,spotted goatfish,5,0,2,22.657
+144,scrawled filefish,6,0,2,42.62977
+144,blue tang,4,0,1,16.60974
+144,princess parrotfish,4,0,1,16.60974
+144,princess parrotfish,5,0,2.75,22.657
+144,blue parrotfish,6,0,1,42.62977
+144,white grunt,5,0,1,22.657
+144,yellowtail parrotfish,6,0,1,42.62977
+144,orangespotted filefish,6,0,1,42.62977
+144,redband parrotfish,5,0,1,22.657
+144,spanish hogfish,4,0,1,16.60974
+144,stoplight parrotfish,6,0,1,42.62977
+144,cero,6,0,1,42.62977
+144,blue tang,5,0,2,22.657
+144,princess parrotfish,6,0,1.25,42.62977
+144,ocean surgeonfish,4,0,1,16.60974
+145,lionfish,5,1,0,22.657
+145,red grouper,6,2,0,42.62977
+145,trumpetfish,6,2,2,42.62977
+145,gray snapper,5,0,2,22.657
+145,white grunt,4,0,1,16.60974
+145,bluestriped grunt,4,0,1,16.60974
+146,spotted moray,6,2,1,42.62977
+146,white grunt,4,0,1,16.60974
+146,blue tang,4,0,1,16.60974
+146,atlantic spadefish,5,0,1,22.657
+146,bluestriped grunt,4,0,1,16.60974
+146,yellow chub,5,0,1,22.657
+146,yellow chub,6,0,12,42.62977
+146,gray snapper,5,0,1,22.657
+146,queen angelfish,5,0,1,22.657
+146,french angelfish,6,0,1,42.62977
+146,gray angelfish,6,0,1,42.62977
+146,yellowhead wrasse,4,0,1,16.60974
+146,bluestriped grunt,5,0,2,22.657
+146,white grunt,5,0,1,22.657
+146,blue tang,5,0,1,22.657
+146,atlantic spadefish,6,0,1,42.62977
+147,graysby,4,1,1,16.60974
+147,graysby,5,1,0,22.657
+147,lionfish,5,2,0,22.657
+147,lionfish,6,1,0,42.62977
+147,spotted moray,6,1,0,42.62977
+147,doctorfish,5,0,2,22.657
+147,trumpetfish,4,0,1,16.60974
+147,atlantic spadefish,6,0,20,42.62977
+147,porkfish,6,0,1,42.62977
+147,white grunt,4,0,1,16.60974
+147,hogfish,6,0,1,42.62977
+147,gray angelfish,6,0,1,42.62977
+147,queen angelfish,6,0,1,42.62977
+147,stoplight parrotfish,6,0,1,42.62977
+147,french angelfish,6,0,1,42.62977
+147,spotted goatfish,4,0,1,16.60974
+147,mutton snapper,6,0,1,42.62977
+147,scrawled filefish,6,0,1,42.62977
+147,blue parrotfish,6,0,1,42.62977
+147,trumpetfish,5,0,2,22.657
+147,redband parrotfish,4,0,1,16.60974
+147,princess parrotfish,5,0,0.5,22.657
+147,blue tang,4,0,1,16.60974
+147,clown wrasse,4,0,1,16.60974
+147,ocean surgeonfish,4,0,1,16.60974
+147,yellowhead wrasse,4,0,1,16.60974
+147,trumpetfish,6,0,1,42.62977
+147,striped parrotfish,5,0,1,22.657
+147,redband parrotfish,5,0,1,22.657
+147,princess parrotfish,6,0,1,42.62977
+148,coney,5,2,0,22.657
+148,graysby,4,3,1,16.60974
+148,graysby,5,2,0,22.657
+148,graysby,6,1,0,42.62977
+148,lionfish,5,6,0,22.657
+148,lionfish,6,2,0,42.62977
+148,mutton snapper,6,1,0,42.62977
+148,spotted moray,6,1,1,42.62977
+148,spotted scorpionfish,5,1,0,22.657
+148,spotted scorpionfish,6,1,0,42.62977
+148,doctorfish,4,0,2,16.60974
+148,squirrelfish,5,0,2,22.657
+148,white grunt,5,0,3,22.657
+148,porkfish,5,0,1,22.657
+148,smooth trunkfish,5,0,1,22.657
+148,scrawled filefish,6,0,1,42.62977
+148,cero,6,0,1,42.62977
+148,banded butterflyfish,4,0,1,16.60974
+148,gray angelfish,6,0,1,42.62977
+148,puddingwife,6,0,1,42.62977
+148,blue angelfish,6,0,1,42.62977
+148,redband parrotfish,4,0,1.25,16.60974
+148,squirrelfish,6,0,1,42.62977
+148,princess parrotfish,6,0,1,42.62977
+148,white grunt,6,0,1,42.62977
+148,redband parrotfish,5,0,1,22.657
+149,cubera snapper,6,1,0,42.62977
+149,gag grouper,6,1,0,42.62977
+149,red grouper,6,1,0,42.62977
+149,spotted moray,5,1,0,22.657
+149,spotted moray,6,2,1,42.62977
+149,blue tang,5,0,1,22.657
+149,ocean surgeonfish,4,0,1,16.60974
+149,striped parrotfish,4,0,2.75,16.60974
+149,white grunt,4,0,1,16.60974
+149,striped parrotfish,5,0,1,22.657
+149,white grunt,5,0,1,22.657
+150,goldentail moray,6,1,0,42.62977
+150,graysby,5,1,0,22.657
+150,scamp,6,1,0,42.62977
+150,ocean surgeonfish,4,0,2,16.60974
+150,stoplight parrotfish,4,0,1,16.60974
+150,gray snapper,5,0,7,22.657
+150,spotted moray,6,0,1,42.62977
+150,trumpetfish,6,0,1,42.62977
+150,stoplight parrotfish,5,0,1,22.657
+150,striped parrotfish,4,0,1,16.60974
+151,graysby,4,2,0,16.60974
+151,graysby,5,3,0,22.657
+151,green moray,6,1,0,42.62977
+151,spotted moray,5,1,0,22.657
+151,spotted goatfish,5,0,2,22.657
+151,stoplight parrotfish,5,0,2,22.657
+151,french angelfish,6,0,2,42.62977
+151,princess parrotfish,5,0,6,22.657
+151,blue runner,5,0,25,22.657
+151,porkfish,5,0,1,22.657
+151,queen parrotfish,5,0,1,22.657
+151,hogfish,5,0,1,22.657
+151,spanish hogfish,5,0,1,22.657
+151,knobbed porgy,6,0,1,42.62977
+151,chub sp.,6,0,1,42.62977
+151,gray snapper,6,0,1,42.62977
+151,spanish hogfish,4,0,1,16.60974
+151,redtail parrotfish,4,0,3.5,16.60974
+151,blue runner,6,0,75,42.62977
+151,redtail parrotfish,5,0,1.75,22.657
+151,ocean surgeonfish,5,0,1,22.657
+152,graysby,4,3,0,16.60974
+152,graysby,5,10,1,22.657
+152,graysby,6,2,0,42.62977
+152,lionfish,6,1,0,42.62977
+152,spotted scorpionfish,6,1,0,42.62977
+152,french grunt,4,0,2,16.60974
+152,blue tang,4,0,2,16.60974
+152,gray angelfish,6,0,2,42.62977
+152,creole wrasse,4,0,2,16.60974
+152,blue parrotfish,6,0,4,42.62977
+152,blue runner,5,0,75,22.657
+152,spotted goatfish,5,0,1,22.657
+152,white grunt,5,0,1,22.657
+152,rock beauty,4,0,1,16.60974
+152,princess parrotfish,5,0,1,22.657
+152,blue runner,6,0,225,42.62977
+152,striped parrotfish,4,0,1,16.60974
+152,rock beauty,5,0,1,22.657
+152,princess parrotfish,6,0,1,42.62977
+152,striped parrotfish,5,0,1,22.657
+153,graysby,5,1,0,22.657
+153,grouper sp.,5,1,0,22.657
+153,nassau grouper,6,1,0,42.62977
+153,spotted moray,6,3,0,42.62977
+153,yellowtail snapper,4,0,3,16.60974
+153,gray snapper,6,0,1,42.62977
+153,bluestriped grunt,5,0,1,22.657
+153,hogfish,5,0,1,22.657
+153,trumpetfish,6,0,1,42.62977
+153,white grunt,4,0,1,16.60974
+153,stoplight parrotfish,4,0,0.75,16.60974
+153,blue tang,4,0,1,16.60974
+153,white grunt,6,0,1,42.62977
+153,redband parrotfish,4,0,1,16.60974
+153,stoplight parrotfish,5,0,1,22.657
+154,gag grouper,5,1,0,22.657
+154,purplemouth moray,6,1,0,42.62977
+154,spotted moray,6,6,0,42.62977
+154,gray triggerfish,6,0,1,42.62977
+154,trumpetfish,6,0,1,42.62977
+154,gray angelfish,4,0,1,16.60974
+154,stoplight parrotfish,4,0,1,16.60974
+154,yellowtail snapper,4,0,1,16.60974
+155,graysby,4,2,1,16.60974
+155,graysby,5,1,0,22.657
+155,mutton snapper,6,1,0,42.62977
+155,rock hind,6,1,0,42.62977
+155,spotted moray,6,2,0,42.62977
+155,atlantic spadefish,5,0,1,22.657
+155,bar jack,4,0,28.25,16.60974
+155,doctorfish,4,0,1,16.60974
+155,stoplight parrotfish,6,0,1,42.62977
+155,porkfish,6,0,1,42.62977
+155,scrawled filefish,6,0,1,42.62977
+155,smooth trunkfish,5,0,1,22.657
+155,white grunt,5,0,1,22.657
+155,queen angelfish,6,0,1,42.62977
+155,blue runner,4,0,1,16.60974
+155,french angelfish,6,0,1,42.62977
+155,bar jack,5,0,9.75,22.657
+155,atlantic spadefish,6,0,1,42.62977
+155,redband parrotfish,5,0,1,22.657
+156,graysby,4,8,0,16.60974
+156,graysby,5,3,0,22.657
+156,lionfish,5,2,0,22.657
+156,spotted moray,6,2,0,42.62977
+156,spotted scorpionfish,6,1,0,42.62977
+156,spotfin butterflyfish,4,0,2,16.60974
+156,blue runner,5,0,5,22.657
+156,queen angelfish,6,0,1,42.62977
+156,ocean surgeonfish,4,0,1,16.60974
+156,cero,6,0,1,42.62977
+156,spotted goatfish,5,0,1,22.657
+156,french angelfish,6,0,1,42.62977
+156,squirrelfish,6,0,1,42.62977
+156,spanish hogfish,4,0,1,16.60974
+156,scrawled filefish,6,0,1,42.62977
+156,bar jack,5,0,1,22.657
+156,striped parrotfish,4,0,2.75,16.60974
+156,blue tang,4,0,1,16.60974
+156,yellowhead wrasse,4,0,1,16.60974
+156,striped parrotfish,5,0,1,22.657
+157,black grouper,6,1,0,42.62977
+157,lionfish,5,1,0,22.657
+157,mutton snapper,5,1,0,22.657
+157,nassau grouper,6,1,0,42.62977
+157,princess parrotfish,5,0,2,22.657
+157,bar jack,6,0,2,42.62977
+157,scrawled filefish,6,0,2,42.62977
+157,french angelfish,6,0,2,42.62977
+157,queen angelfish,5,0,1,22.657
+157,spanish hogfish,5,0,1,22.657
+157,gray angelfish,6,0,1,42.62977
+157,redtail parrotfish,6,0,1,42.62977
+157,rock beauty,5,0,1,22.657
+157,stoplight parrotfish,6,0,1,42.62977
+157,blue parrotfish,6,0,1,42.62977
+157,spotted goatfish,5,0,1,22.657
+157,midnight parrotfish,6,0,1,42.62977
+157,balloonfish,4,0,1,16.60974
+157,blue tang,4,0,2,16.60974
+157,ocean surgeonfish,4,0,3.5,16.60974
+157,ocean surgeonfish,5,0,1,22.657
+158,gag grouper,6,1,0,42.62977
+158,purplemouth moray,6,1,0,42.62977
+158,red grouper,6,1,0,42.62977
+158,spotted moray,6,3,0,42.62977
+158,doctorfish,5,0,2,22.657
+158,gray angelfish,6,0,2,42.62977
+158,bluestriped grunt,4,0,2,16.60974
+158,hogfish,6,0,1,42.62977
+158,porkfish,4,0,1,16.60974
+158,french grunt,4,0,1,16.60974
+158,rainbow parrotfish,6,0,1,42.62977
+158,white grunt,4,0,162.8,16.60974
+158,tomtate,4,0,1,16.60974
+158,white grunt,5,0,2.2,22.657
+159,black grouper,6,1,1,42.62977
+159,red grouper,5,1,0,22.657
+159,red grouper,6,3,0,42.62977
+159,doctorfish,4,0,2,16.60974
+159,porkfish,5,0,2,22.657
+159,gray snapper,6,0,2,42.62977
+159,midnight parrotfish,6,0,3,42.62977
+159,white grunt,4,0,9.5,16.60974
+159,bluestriped grunt,5,0,1,22.657
+159,trumpetfish,6,0,1,42.62977
+159,gray angelfish,5,0,1,22.657
+159,spotfin butterflyfish,4,0,1,16.60974
+159,white grunt,5,0,3.5,22.657
+159,blue tang,4,0,1,16.60974
+160,lionfish,4,5,0,16.60974
+160,lionfish,5,1,0,22.657
+160,red grouper,5,2,0,22.657
+160,red grouper,6,1,1,42.62977
+160,spotted moray,6,1,0,42.62977
+160,gray angelfish,4,0,2,16.60974
+160,porkfish,5,0,2,22.657
+160,gray snapper,4,0,3,16.60974
+160,bluestriped grunt,5,0,4,22.657
+160,doctorfish,4,0,1,16.60974
+160,black grouper,6,0,1,42.62977
+160,spotted trunkfish,6,0,1,42.62977
+160,white grunt,4,0,2,16.60974
+160,stoplight parrotfish,4,0,1,16.60974
+161,black grouper,6,1,0,42.62977
+161,coney,4,1,0,16.60974
+161,graysby,4,1,0,16.60974
+161,graysby,5,1,0,22.657
+161,lionfish,5,1,0,22.657
+161,mutton snapper,6,4,1,42.62977
+161,spotted moray,6,1,0,42.62977
+161,gray angelfish,6,0,2,42.62977
+161,bar jack,6,0,1,42.62977
+161,stoplight parrotfish,5,0,1,22.657
+161,spotted goatfish,4,0,1,16.60974
+161,ocean surgeonfish,4,0,1,16.60974
+161,striped parrotfish,4,0,1,16.60974
+162,spotted scorpionfish,5,1,0,22.657
+162,gray snapper,5,0,2,22.657
+162,porkfish,5,0,1,22.657
+162,bar jack,4,0,1,16.60974
+162,bluestriped grunt,4,0,0.75,16.60974
+162,gray snapper,6,0,1,42.62977
+162,bluestriped grunt,6,0,1,42.62977
+162,stoplight parrotfish,4,0,1,16.60974
+162,yellowtail snapper,4,0,1,16.60974
+162,white grunt,4,0,1,16.60974
+163,black grouper,6,1,0,42.62977
+163,mutton snapper,6,1,0,42.62977
+163,nassau grouper,6,1,0,42.62977
+163,red grouper,6,1,0,42.62977
+163,spotted moray,6,2,0,42.62977
+163,bluestriped grunt,4,0,3.5,16.60974
+163,bar jack,6,0,40,42.62977
+163,gray snapper,4,0,14.75,16.60974
+163,white grunt,4,0,3.25,16.60974
+163,bluestriped grunt,5,0,10.5,22.657
+163,white grunt,5,0,12.75,22.657
+163,gray snapper,5,0,5.25,22.657
+163,gray angelfish,4,0,1,16.60974
+164,lionfish,5,2,1,22.657
+164,rainbow parrotfish,6,0,2,42.62977
+164,doctorfish,4,0,1,16.60974
+164,hogfish,6,0,1,42.62977
+164,yellow jack,5,0,1,22.657
+164,blue parrotfish,6,0,1,42.62977
+164,white grunt,4,0,60.5,16.60974
+164,doctorfish,5,0,1,22.657
+164,white grunt,5,0,1,22.657
+165,graysby,4,6,1,16.60974
+165,graysby,5,2,0,22.657
+165,greater soapfish,5,1,0,22.657
+165,mutton snapper,6,1,0,42.62977
+165,stoplight parrotfish,5,0,1,22.657
+165,redtail parrotfish,6,0,1,42.62977
+165,white grunt,4,0,1,16.60974
+165,spanish hogfish,4,0,1,16.60974
+165,scrawled filefish,6,0,1,42.62977
+165,gray angelfish,5,0,1,22.657
+165,french angelfish,6,0,1,42.62977
+165,spotted trunkfish,6,0,1,42.62977
+165,trumpetfish,6,0,1,42.62977
+165,redband parrotfish,4,0,0.5,16.60974
+165,blue tang,4,0,1,16.60974
+165,redband parrotfish,5,0,1,22.657
+166,black grouper,6,2,1,42.62977
+166,coney,6,1,0,42.62977
+166,graysby,4,1,0,16.60974
+166,mutton snapper,6,1,1,42.62977
+166,nassau grouper,6,1,0,42.62977
+166,scrawled filefish,6,0,4,42.62977
+166,blue runner,4,0,45,16.60974
+166,blue parrotfish,6,0,1,42.62977
+166,balloonfish,4,0,1,16.60974
+166,barracuda,6,0,1,42.62977
+166,stoplight parrotfish,6,0,1,42.62977
+166,cero,6,0,1,42.62977
+166,queen angelfish,6,0,1,42.62977
+166,french angelfish,6,0,1,42.62977
+166,doctorfish,4,0,1,16.60974
+166,blue runner,5,0,135,22.657
+166,spotfin butterflyfish,4,0,1,16.60974
+166,princess parrotfish,4,0,1,16.60974
+168,black grouper,4,1,0,16.60974
+168,black grouper,6,1,0,42.62977
+168,gag grouper,6,1,0,42.62977
+168,green moray,6,1,0,42.62977
+168,lionfish,5,2,0,22.657
+168,lionfish,6,1,0,42.62977
+168,spotted moray,6,1,0,42.62977
+168,gray snapper,6,0,1,42.62977
+168,yellowtail snapper,6,0,1,42.62977
+169,black grouper,5,1,0,22.657
+169,black grouper,6,2,0,42.62977
+169,gag grouper,6,2,1,42.62977
+169,lionfish,5,1,0,22.657
+169,red grouper,6,4,0,42.62977
+169,gray snapper,5,0,1.25,22.657
+169,bluestriped grunt,5,0,6,22.657
+169,spotfin butterflyfish,4,0,1,16.60974
+169,balloonfish,5,0,1,22.657
+169,gray snapper,6,0,3.75,42.62977
+169,white grunt,4,0,0.75,16.60974
+169,blue tang,4,0,1,16.60974
+169,white grunt,6,0,1,42.62977
+170,gag grouper,6,2,0,42.62977
+170,red grouper,6,1,0,42.62977
+170,gray snapper,5,0,1,22.657
+170,gray angelfish,4,0,1,16.60974
+170,blue tang,4,0,1,16.60974
+170,rainbow parrotfish,6,0,1,42.62977
+170,hogfish,6,0,1,42.62977
+170,blue angelfish,6,0,1,42.62977
+170,trumpetfish,6,0,1,42.62977
+170,balloonfish,5,0,1,22.657
+170,gray snapper,6,0,1,42.62977
+170,bluestriped grunt,4,0,1,16.60974
+171,black grouper,6,1,0,42.62977
+171,graysby,4,2,1,16.60974
+171,graysby,5,1,0,22.657
+171,mutton snapper,6,1,1,42.62977
+171,spotted moray,6,1,0,42.62977
+171,ocean surgeonfish,4,0,5,16.60974
+171,white grunt,6,0,1,42.62977
+171,redtail parrotfish,6,0,1,42.62977
+171,barracuda,6,0,1,42.62977
+171,bar jack,4,0,1,16.60974
+171,spanish hogfish,6,0,1,42.62977
+171,french grunt,4,0,1,16.60974
+171,rock beauty,5,0,1,22.657
+171,redband parrotfish,4,0,1,16.60974
+171,scad sp.,4,0,3,16.60974
+172,black grouper,6,1,0,42.62977
+172,coney,6,1,0,42.62977
+172,graysby,5,3,0,22.657
+172,graysby,6,3,0,42.62977
+172,mutton snapper,6,1,0,42.62977
+172,red hind,6,1,0,42.62977
+172,blue tang,4,0,1,16.60974
+172,white grunt,5,0,1,22.657
+172,hogfish,6,0,1,42.62977
+172,coney,5,0,1,22.657
+172,spotted goatfish,4,0,1,16.60974
+172,graysby,4,0,1,16.60974
+172,gray angelfish,6,0,1,42.62977
+172,rock beauty,5,0,1,22.657
+173,black grouper,6,1,0,42.62977
+173,graysby,4,4,1,16.60974
+173,graysby,5,7,1,22.657
+173,mutton snapper,6,1,1,42.62977
+173,red hind,5,1,0,22.657
+173,spotted moray,6,3,0,42.62977
+173,french grunt,4,0,2,16.60974
+173,bar jack,4,0,1.75,16.60974
+173,spotted goatfish,4,0,1,16.60974
+173,princess parrotfish,6,0,1,42.62977
+173,french angelfish,6,0,1,42.62977
+173,smooth trunkfish,5,0,1,22.657
+173,red grouper,6,0,1,42.62977
+173,gray angelfish,6,0,1,42.62977
+173,white grunt,5,0,1,22.657
+173,cero,6,0,1,42.62977
+173,ocean surgeonfish,4,0,3,16.60974
+173,bar jack,5,0,5.25,22.657
+173,redband parrotfish,4,0,1,16.60974
+173,creole wrasse,4,0,1.5,16.60974
+174,green moray,6,1,0,42.62977
+174,nassau grouper,6,1,0,42.62977
+174,white grunt,4,0,1,16.60974
+174,bluestriped grunt,5,0,10.25,22.657
+174,sailor's choice,5,0,7,22.657
+174,white grunt,5,0,33,22.657
+174,doctorfish,4,0,1,16.60974
+174,schoolmaster snapper,6,0,1,42.62977
+174,redtail parrotfish,6,0,1,42.62977
+174,bar jack,6,0,1,42.62977
+174,blue angelfish,5,0,1,22.657
+174,bluestriped grunt,6,0,30.75,42.62977
+174,sailor's choice,6,0,21,42.62977
+174,blue tang,4,0,1,16.60974
+174,white grunt,6,0,1,42.62977
+174,striped parrotfish,5,0,1,22.657
+175,black margate,6,2,0,42.62977
+175,gag grouper,6,1,0,42.62977
+175,graysby,4,7,2,16.60974
+175,graysby,5,2,0,22.657
+175,graysby,6,3,0,42.62977
+175,lionfish,6,1,0,42.62977
+175,nassau grouper,6,1,0,42.62977
+175,red grouper,6,1,0,42.62977
+175,spotted moray,6,2,0,42.62977
+175,smooth trunkfish,4,0,1,16.60974
+175,doctorfish,4,0,1,16.60974
+175,stoplight parrotfish,5,0,1,22.657
+175,cero,6,0,1,42.62977
+175,gray angelfish,6,0,1,42.62977
+175,balloonfish,5,0,1,22.657
+175,white grunt,6,0,1,42.62977
+175,blue parrotfish,6,0,1,42.62977
+175,smooth trunkfish,5,0,1,22.657
+175,doctorfish,5,0,1,22.657
+175,yellowhead wrasse,4,0,1,16.60974
+175,redband parrotfish,5,0,1,22.657
+176,gag grouper,6,1,0,42.62977
+176,graysby,4,5,1,16.60974
+176,graysby,5,4,0,22.657
+176,graysby,6,3,0,42.62977
+176,nassau grouper,6,2,0,42.62977
+176,spotted moray,6,1,0,42.62977
+176,spanish hogfish,6,0,1,42.62977
+176,french angelfish,6,0,1,42.62977
+176,gray angelfish,6,0,2,42.62977
+176,yellowtail snapper,4,0,1,16.60974
+176,cero,4,0,1,16.60974
+176,dog snapper,6,0,1,42.62977
+176,blue tang,4,0,2,16.60974
+176,french grunt,4,0,2.5,16.60974
+176,ocean surgeonfish,4,0,1,16.60974
+176,puddingwife,6,0,1,42.62977
+176,redband parrotfish,4,0,1,16.60974
+177,gag grouper,6,1,0,42.62977
+177,spotted moray,6,2,0,42.62977
+177,doctorfish,5,0,2,22.657
+177,blue runner,5,0,1,22.657
+177,rainbow parrotfish,6,0,4,42.62977
+177,queen angelfish,5,0,1,22.657
+177,blue angelfish,6,0,1,42.62977
+177,hogfish,6,0,1,42.62977
+177,black grouper,6,0,1,42.62977
+177,gray angelfish,6,0,1,42.62977
+177,french angelfish,6,0,1,42.62977
+177,blue runner,6,0,1,42.62977
+177,white grunt,4,0,1,16.60974
+178,barracuda,6,1,0,42.62977
+178,black grouper,6,1,0,42.62977
+178,graysby,4,9,0,16.60974
+178,graysby,5,4,0,22.657
+178,graysby,6,2,0,42.62977
+178,green moray,6,1,0,42.62977
+178,spotted moray,6,1,0,42.62977
+178,permit,6,0,2,42.62977
+178,porkfish,5,0,1,22.657
+178,squirrelfish,4,0,1,16.60974
+178,stoplight parrotfish,5,0,2,22.657
+178,creole wrasse,5,0,4,22.657
+178,white grunt,5,0,3,22.657
+178,ocean surgeonfish,4,0,0.25,16.60974
+178,redband parrotfish,4,0,0.5,16.60974
+178,rock beauty,5,0,1,22.657
+178,bluestriped grunt,5,0,1,22.657
+178,princess parrotfish,5,0,1,22.657
+178,gray angelfish,5,0,1,22.657
+178,trumpetfish,6,0,1,42.62977
+178,blue tang,4,0,2,16.60974
+178,french grunt,4,0,19.25,16.60974
+178,ocean surgeonfish,5,0,3.75,22.657
+178,redband parrotfish,5,0,3.5,22.657
+178,white grunt,6,0,9,42.62977
+178,porkfish,6,0,1,42.62977
+178,squirrelfish,6,0,1,42.62977
+178,stoplight parrotfish,6,0,1,42.62977
+178,blue tang,5,0,1,22.657
+178,french grunt,5,0,1,22.657
+178,redband parrotfish,6,0,1,42.62977
+179,barracuda,6,2,0,42.62977
+179,goldentail moray,5,1,0,22.657
+179,graysby,4,3,2,16.60974
+179,graysby,5,6,0,22.657
+179,green moray,6,2,0,42.62977
+179,spotted moray,6,1,0,42.62977
+179,stoplight parrotfish,4,0,1,16.60974
+179,princess parrotfish,5,0,4,22.657
+179,white grunt,4,0,3,16.60974
+179,ocean surgeonfish,4,0,1.75,16.60974
+179,smooth trunkfish,4,0,1,16.60974
+179,stoplight parrotfish,5,0,1,22.657
+179,ocean surgeonfish,5,0,5.25,22.657
+179,redband parrotfish,4,0,1.5,16.60974
+179,blue tang,4,0,1.25,16.60974
+179,spanish hogfish,5,0,1,22.657
+179,stoplight parrotfish,6,0,1,42.62977
+179,white grunt,5,0,1,22.657
+179,bluehead wrasse,4,0,1,16.60974
+179,redband parrotfish,5,0,1,22.657
+179,yellowhead wrasse,4,0,1,16.60974
+180,graysby,4,6,1,16.60974
+180,graysby,5,2,0,22.657
+180,graysby,6,2,0,42.62977
+180,spotted moray,5,1,0,22.657
+180,stoplight parrotfish,5,0,1,22.657
+180,spotted goatfish,4,0,1,16.60974
+180,white grunt,4,0,4,16.60974
+180,hogfish,5,0,1,22.657
+180,queen parrotfish,5,0,1,22.657
+180,trumpetfish,6,0,1,42.62977
+180,blue tang,4,0,2,16.60974
+180,stoplight parrotfish,6,0,2,42.62977
+180,spotted goatfish,5,0,3,22.657
+180,ocean surgeonfish,4,0,2.75,16.60974
+180,smooth trunkfish,4,0,4.25,16.60974
+180,striped parrotfish,4,0,3.25,16.60974
+180,redband parrotfish,4,0,1.25,16.60974
+180,princess parrotfish,4,0,1.5,16.60974
+180,striped parrotfish,5,0,1,22.657
+180,redband parrotfish,5,0,1,22.657
+180,princess parrotfish,5,0,1,22.657
+180,ocean surgeonfish,5,0,1,22.657
+180,smooth trunkfish,5,0,1,22.657
+180,yellowhead wrasse,4,0,1,16.60974
+180,white grunt,5,0,1,22.657
+182,goldentail moray,5,1,0,22.657
+182,red grouper,5,2,0,22.657
+182,red grouper,6,3,2,42.62977
+182,spotted moray,4,1,0,16.60974
+182,spotted moray,5,1,0,22.657
+182,spotted moray,6,1,0,42.62977
+182,stoplight parrotfish,5,0,2,22.657
+182,porkfish,5,0,2,22.657
+182,rainbow parrotfish,6,0,2,42.62977
+182,bluestriped grunt,4,0,8.5,16.60974
+182,hogfish,5,0,2,22.657
+182,mahogany snapper,4,0,10,16.60974
+182,white grunt,4,0,14,16.60974
+182,gray snapper,5,0,1,22.657
+182,gray angelfish,6,0,1,42.62977
+182,gray triggerfish,5,0,1,22.657
+182,bluestriped grunt,5,0,24.5,22.657
+182,mahogany snapper,5,0,29,22.657
+182,hogfish,4,0,0.25,16.60974
+182,blue tang,4,0,1,16.60974
+182,bluestriped grunt,6,0,1,42.62977
+182,white grunt,5,0,1,22.657
+182,mahogany snapper,6,0,1,42.62977
+185,gag grouper,6,1,0,42.62977
+185,lionfish,6,1,0,42.62977
+185,red grouper,6,1,0,42.62977
+185,spotted moray,6,1,0,42.62977
+185,porkfish,5,0,2,22.657
+185,gray angelfish,6,0,1,42.62977
+185,midnight parrotfish,6,0,1,42.62977
+185,gray snapper,5,0,1,22.657
+185,bluestriped grunt,4,0,4,16.60974
+185,white grunt,4,0,8.75,16.60974
+185,bluestriped grunt,5,0,2,22.657
+185,white grunt,5,0,1,22.657
+185,french grunt,4,0,1,16.60974
+186,black grouper,6,1,0,42.62977
+186,gray snapper,6,4,0,42.62977
+186,red hind,6,1,0,42.62977
+186,bar jack,4,0,4,16.60974
+186,white grunt,5,0,1,22.657
+186,schoolmaster snapper,5,0,1,22.657
+186,chub sp.,6,0,1,42.62977
+186,graysby,5,0,1,22.657
+186,gray angelfish,5,0,1,22.657
+186,blue tang,4,0,1,16.60974
+186,stoplight parrotfish,4,0,1,16.60974
+186,bar jack,5,0,1,22.657
+187,coney,5,1,1,22.657
+187,graysby,4,7,0,16.60974
+187,graysby,5,2,1,22.657
+187,greater soapfish,5,1,0,22.657
+187,lionfish,6,4,0,42.62977
+187,mutton snapper,6,1,0,42.62977
+187,gray angelfish,6,0,2,42.62977
+187,blue parrotfish,6,0,4,42.62977
+187,atlantic spadefish,6,0,4,42.62977
+187,white grunt,5,0,1,22.657
+187,cero,6,0,1,42.62977
+187,spotted goatfish,4,0,1,16.60974
+187,trumpetfish,5,0,1,22.657
+187,squirrelfish,5,0,1,22.657
+187,blue angelfish,6,0,1,42.62977
+187,porkfish,5,0,1,22.657
+187,scrawled cowfish,5,0,1,22.657
+187,stoplight parrotfish,6,0,1,42.62977
+187,queen angelfish,6,0,1,42.62977
+187,princess parrotfish,4,0,0.25,16.60974
+187,ocean surgeonfish,4,0,1,16.60974
+187,redband parrotfish,5,0,1,22.657
+187,doctorfish,4,0,1,16.60974
+187,princess parrotfish,5,0,1,22.657
+187,striped parrotfish,4,0,1,16.60974
+188,coney,4,1,0,16.60974
+188,graysby,4,4,0,16.60974
+188,lionfish,4,1,0,16.60974
+188,lionfish,5,1,0,22.657
+188,lionfish,6,4,0,42.62977
+188,spotted moray,6,1,0,42.62977
+188,squirrelfish,6,0,1,42.62977
+188,stoplight parrotfish,5,0,1,22.657
+188,rock beauty,4,0,1,16.60974
+188,queen angelfish,6,0,1,42.62977
+188,mutton snapper,6,0,1,42.62977
+188,gray triggerfish,5,0,1,22.657
+188,hogfish,5,0,1,22.657
+188,scrawled filefish,6,0,1,42.62977
+188,trumpetfish,6,0,1,42.62977
+188,ocean surgeonfish,4,0,3,16.60974
+188,doctorfish,4,0,1,16.60974
+188,redband parrotfish,4,0,1,16.60974
+189,graysby,4,5,1,16.60974
+189,graysby,5,2,0,22.657
+189,graysby,6,1,0,42.62977
+189,bar jack,5,0,1,22.657
+189,spotted scorpionfish,6,0,1,42.62977
+189,spotted goatfish,5,0,1,22.657
+189,spotfin butterflyfish,4,0,1,16.60974
+189,trumpetfish,5,0,1,22.657
+189,blue runner,5,0,1,22.657
+189,scrawled filefish,6,0,1,42.62977
+189,spanish hogfish,6,0,1,42.62977
+189,gray angelfish,5,0,1,22.657
+189,ocean surgeonfish,4,0,3.75,16.60974
+189,creole wrasse,5,0,1,22.657
+190,black grouper,6,3,1,42.62977
+190,coney,6,1,0,42.62977
+190,graysby,4,1,0,16.60974
+190,graysby,5,4,0,22.657
+190,graysby,6,1,0,42.62977
+190,mutton snapper,6,1,1,42.62977
+190,nassau grouper,6,2,0,42.62977
+190,blue runner,4,0,4.5,16.60974
+190,rock beauty,6,0,1,42.62977
+190,gray angelfish,6,0,1,42.62977
+190,bar jack,5,0,1,22.657
+190,spanish hogfish,5,0,1,22.657
+190,blue tang,4,0,2,16.60974
+190,blue runner,5,0,13.5,22.657
+190,blue tang,5,0,1,22.657
+190,ocean surgeonfish,5,0,1,22.657
+190,striped parrotfish,5,0,1,22.657
+190,redband parrotfish,4,0,1,16.60974
+191,spotted moray,6,4,0,42.62977
+192,black grouper,6,2,0,42.62977
+192,green moray,6,1,0,42.62977
+192,nassau grouper,6,2,0,42.62977
+192,spotted moray,6,2,0,42.62977
+192,bluestriped grunt,4,0,2,16.60974
+192,yellowtail snapper,4,0,7,16.60974
+192,mahogany snapper,5,0,1,22.657
+192,gray angelfish,4,0,1,16.60974
+192,white grunt,4,0,14,16.60974
+192,stoplight parrotfish,4,0,3.5,16.60974
+192,white grunt,5,0,7,22.657
+192,blue tang,4,0,1,16.60974
+192,bluestriped grunt,5,0,1,22.657
+192,yellowtail snapper,5,0,1,22.657
+192,redband parrotfish,4,0,1,16.60974
+192,stoplight parrotfish,5,0,1,22.657
+193,graysby,4,8,1,16.60974
+193,graysby,5,1,0,22.657
+193,graysby,6,1,0,42.62977
+193,green moray,6,1,0,42.62977
+193,lionfish,6,1,0,42.62977
+193,mutton snapper,6,1,0,42.62977
+193,spotted moray,6,1,0,42.62977
+193,longspine squirrelfish,4,0,1,16.60974
+193,scrawled filefish,6,0,2,42.62977
+193,princess parrotfish,5,0,3,22.657
+193,ocean surgeonfish,4,0,15,16.60974
+193,white grunt,5,0,1,22.657
+193,gray angelfish,6,0,1,42.62977
+193,rock beauty,4,0,2,16.60974
+193,blue tang,4,0,2,16.60974
+193,redband parrotfish,4,0,6,16.60974
+193,redband parrotfish,5,0,3,22.657
+193,longspine squirrelfish,5,0,1,22.657
+193,bandtail puffer,4,0,1,16.60974
+193,yellowhead wrasse,4,0,1,16.60974
+193,ocean surgeonfish,5,0,1,22.657
+194,graysby,4,1,1,16.60974
+194,red hind,6,1,0,42.62977
+194,spotted moray,6,3,0,42.62977
+194,scrawled filefish,6,0,2,42.62977
+194,blue parrotfish,6,0,3,42.62977
+194,blue tang,4,0,4,16.60974
+194,ocean surgeonfish,4,0,17.25,16.60974
+194,stoplight parrotfish,5,0,12,22.657
+194,doctorfish,4,0,3.75,16.60974
+194,longspine squirrelfish,4,0,1,16.60974
+194,orangespotted filefish,4,0,1,16.60974
+194,queen angelfish,5,0,1,22.657
+194,spotted trunkfish,5,0,1,22.657
+194,doctorfish,5,0,11.25,22.657
+194,ocean surgeonfish,5,0,5.75,22.657
+194,redband parrotfish,4,0,1,16.60974
+195,graysby,5,1,0,22.657
+195,spotted moray,6,1,0,42.62977
+195,gray snapper,5,0,5,22.657
+195,white grunt,5,0,1,22.657
+195,porkfish,5,0,1,22.657
+195,schoolmaster snapper,5,0,1,22.657
+195,hogfish,4,0,1,16.60974
+195,yellowtail snapper,5,0,1,22.657
+195,trumpetfish,6,0,1,42.62977
+195,gray angelfish,4,0,1,16.60974
+195,sand diver,6,0,1,42.62977
+195,saucereye porgy,5,0,1,22.657
+195,stoplight parrotfish,5,0,1,22.657
+196,lionfish,4,1,0,16.60974
+196,red grouper,6,2,0,42.62977
+196,white grunt,4,0,1,16.60974
+197,graysby,4,5,1,16.60974
+197,graysby,5,1,0,22.657
+197,lionfish,4,1,0,16.60974
+197,lionfish,5,1,0,22.657
+197,nassau grouper,6,1,0,42.62977
+197,striped parrotfish,4,0,1,16.60974
+197,scrawled filefish,6,0,1,42.62977
+197,blue tang,4,0,1,16.60974
+197,ocean surgeonfish,4,0,1,16.60974
+198,graysby,4,4,0,16.60974
+198,graysby,5,9,1,22.657
+198,graysby,6,3,0,42.62977
+198,nassau grouper,6,1,0,42.62977
+198,spotted moray,5,1,0,22.657
+198,blue tang,4,0,2,16.60974
+198,white grunt,5,0,2,22.657
+198,scrawled filefish,6,0,3,42.62977
+198,redtail parrotfish,6,0,1,42.62977
+198,cero,6,0,1,42.62977
+198,yellowtail parrotfish,6,0,1,42.62977
+198,smooth trunkfish,5,0,1,22.657
+198,balloonfish,5,0,1,22.657
+198,stoplight parrotfish,6,0,1,42.62977
+198,striped parrotfish,4,0,1,16.60974
+199,red grouper,6,1,0,42.62977
+199,bar jack,4,0,1,16.60974
+199,ocean surgeonfish,4,0,1,16.60974
+199,white grunt,4,0,2.75,16.60974
+199,white grunt,5,0,1,22.657
+199,bluestriped grunt,4,0,1,16.60974
+200,red grouper,6,2,0,42.62977
+200,white grunt,4,0,2,16.60974
+200,bar jack,4,0,1,16.60974
+200,atlantic spadefish,6,0,4,42.62977
+200,gray snapper,4,0,1.75,16.60974
+200,yellowtail snapper,5,0,1,22.657
+200,hogfish,4,0,1,16.60974
+200,trumpetfish,6,0,1,42.62977
+200,bluestriped grunt,5,0,1,22.657
+200,schoolmaster snapper,5,0,1,22.657
+200,gray angelfish,6,0,1,42.62977
+200,queen angelfish,5,0,1,22.657
+200,midnight parrotfish,4,0,1,16.60974
+200,gray snapper,5,0,5.25,22.657
+200,tomtate,4,0,26.25,16.60974
+200,stoplight parrotfish,4,0,1,16.60974
+200,blue tang,4,0,1,16.60974
+200,bar jack,5,0,1,22.657
+201,graysby,4,3,1,16.60974
+201,graysby,5,3,0,22.657
+201,graysby,6,1,0,42.62977
+201,lionfish,5,1,0,22.657
+201,purplemouth moray,6,1,0,42.62977
+201,blue tang,4,0,2,16.60974
+201,mackerel scad,4,0,7.5,16.60974
+201,porkfish,5,0,1,22.657
+201,princess parrotfish,6,0,1,42.62977
+201,blue angelfish,5,0,1,22.657
+201,french grunt,4,0,1,16.60974
+201,redtail parrotfish,6,0,1,42.62977
+201,scrawled filefish,6,0,1,42.62977
+201,mackerel scad,5,0,22.5,22.657
+201,ocean surgeonfish,4,0,1,16.60974
+201,redband parrotfish,5,0,1,22.657
+202,barracuda,6,1,0,42.62977
+202,black grouper,6,1,0,42.62977
+202,graysby,4,2,1,16.60974
+202,graysby,5,6,0,22.657
+202,graysby,6,1,0,42.62977
+202,green moray,6,1,0,42.62977
+202,princess parrotfish,5,0,2,22.657
+202,stoplight parrotfish,6,0,2,42.62977
+202,ocean surgeonfish,4,0,2,16.60974
+202,white grunt,5,0,1,22.657
+202,french grunt,5,0,1,22.657
+202,scrawled filefish,6,0,1,42.62977
+202,gray angelfish,6,0,1,42.62977
+202,queen angelfish,6,0,1,42.62977
+202,redtail parrotfish,6,0,1,42.62977
+202,cero,6,0,1,42.62977
+202,blue tang,4,0,1,16.60974
+202,ocean surgeonfish,5,0,1,22.657
+203,black grouper,6,2,0,42.62977
+203,nassau grouper,6,1,0,42.62977
+203,rock hind,5,1,0,22.657
+203,sailor's choice,5,0,15,22.657
+203,bluestriped grunt,5,0,49,22.657
+203,schoolmaster snapper,4,0,2,16.60974
+203,white grunt,4,0,10,16.60974
+203,hogfish,5,0,1,22.657
+203,cero,6,0,1,42.62977
+203,yellow chub,5,0,1,22.657
+203,white grunt,5,0,33,22.657
+203,schoolmaster snapper,5,0,6,22.657
+203,sailor's choice,6,0,1,42.62977
+203,bluestriped grunt,6,0,1,42.62977
+204,gag grouper,6,1,0,42.62977
+204,goldentail moray,6,1,0,42.62977
+204,graysby,5,4,0,22.657
+204,green moray,6,1,0,42.62977
+204,lionfish,4,2,0,16.60974
+204,lionfish,5,1,0,22.657
+204,nassau grouper,6,1,0,42.62977
+204,spotted moray,6,2,0,42.62977
+204,doctorfish,4,0,2,16.60974
+204,white grunt,6,0,2,42.62977
+204,cero,5,0,1,22.657
+204,blue parrotfish,6,0,3,42.62977
+204,graysby,4,0,1,16.60974
+204,rainbow parrotfish,6,0,1,42.62977
+204,yellowtail snapper,4,0,1,16.60974
+204,spanish hogfish,5,0,1,22.657
+204,gray angelfish,5,0,1,22.657
+204,hogfish,6,0,1,42.62977
+204,scrawled filefish,6,0,1,42.62977
+204,french angelfish,5,0,1,22.657
+204,trumpetfish,5,0,1,22.657
+204,cero,6,0,2,42.62977
+205,black grouper,6,6,1,42.62977
+205,graysby,4,4,0,16.60974
+205,graysby,5,7,0,22.657
+205,lionfish,5,1,0,22.657
+205,hogfish,5,0,1,22.657
+205,cero,5,0,1,22.657
+205,scrawled cowfish,6,0,1,42.62977
+205,rainbow parrotfish,6,0,1,42.62977
+205,scrawled filefish,6,0,1,42.62977
+205,gray angelfish,5,0,1,22.657
+205,blue tang,4,0,2,16.60974
+205,ocean surgeonfish,4,0,1,16.60974
+206,black grouper,6,5,0,42.62977
+206,gag grouper,6,7,1,42.62977
+206,goldentail moray,6,1,0,42.62977
+206,graysby,4,1,0,16.60974
+206,graysby,5,1,0,22.657
+206,mutton snapper,6,1,0,42.62977
+206,cero,6,0,2,42.62977
+206,doctorfish,4,0,2,16.60974
+206,hogfish,5,0,1,22.657
+206,white grunt,6,0,1,42.62977
+206,rainbow parrotfish,6,0,1,42.62977
+207,black grouper,6,1,1,42.62977
+207,graysby,4,3,1,16.60974
+207,graysby,5,3,0,22.657
+207,spotted moray,6,1,0,42.62977
+207,spotfin butterflyfish,4,0,1,16.60974
+207,porkfish,5,0,2,22.657
+207,white grunt,4,0,6.75,16.60974
+207,longspine squirrelfish,5,0,1,22.657
+207,bluestriped grunt,5,0,1,22.657
+207,rock beauty,5,0,1,22.657
+207,spotted goatfish,4,0,1,16.60974
+207,hogfish,5,0,1,22.657
+207,stoplight parrotfish,6,0,1,42.62977
+207,redtail parrotfish,5,0,1,22.657
+207,spanish hogfish,6,0,1,42.62977
+207,trumpetfish,5,0,1,22.657
+207,white grunt,5,0,20.25,22.657
+207,redband parrotfish,4,0,6.5,16.60974
+207,french grunt,4,0,2.25,16.60974
+207,spotfin butterflyfish,5,0,1,22.657
+207,striped parrotfish,5,0,1,22.657
+207,porkfish,6,0,1,42.62977
+207,blue tang,4,0,1,16.60974
+207,redband parrotfish,5,0,1,22.657
+207,creole wrasse,4,0,1,16.60974
+208,barracuda,6,4,2,42.62977
+208,graysby,4,4,0,16.60974
+208,graysby,5,5,0,22.657
+208,purplemouth moray,6,1,0,42.62977
+208,spotted moray,6,1,0,42.62977
+208,redband parrotfish,5,0,2,22.657
+208,smooth trunkfish,4,0,1,16.60974
+208,rock beauty,4,0,1,16.60974
+208,blue tang,4,0,1,16.60974
+208,striped parrotfish,5,0,1,22.657
+208,white grunt,5,0,1,22.657
+208,stoplight parrotfish,6,0,1,42.62977
+208,ocean surgeonfish,4,0,1,16.60974
+209,barracuda,6,1,1,42.62977
+209,graysby,4,6,0,16.60974
+209,graysby,5,5,0,22.657
+209,graysby,6,1,0,42.62977
+209,purplemouth moray,5,1,0,22.657
+209,spotted moray,6,2,0,42.62977
+209,blue tang,4,0,2,16.60974
+209,ocean surgeonfish,4,0,1,16.60974
+209,queen parrotfish,6,0,1,42.62977
+209,spotted goatfish,4,0,1,16.60974
+209,princess parrotfish,4,0,1,16.60974
+209,french grunt,4,0,1,16.60974
+209,smooth trunkfish,5,0,1,22.657
+209,coney,5,0,1,22.657
+209,redtail parrotfish,6,0,1,42.62977
+209,creole wrasse,4,0,30,16.60974
+209,redband parrotfish,4,0,2.5,16.60974
+209,yellowhead wrasse,4,0,1,16.60974
+209,redband parrotfish,5,0,1,22.657
+210,green moray,6,1,0,42.62977
+210,lionfish,4,1,0,16.60974
+210,lionfish,5,2,1,22.657
+210,purplemouth moray,5,2,0,22.657
+210,red grouper,4,2,1,16.60974
+210,red grouper,5,6,0,22.657
+210,red grouper,6,3,1,42.62977
+210,spotted moray,6,3,0,42.62977
+210,hogfish,4,0,1,16.60974
+210,gray triggerfish,5,0,3,22.657
+210,gray snapper,5,0,16,22.657
+210,bluestriped grunt,5,0,20,22.657
+210,white grunt,4,0,1,16.60974
+210,white grunt,5,0,14,22.657
+210,porkfish,5,0,1,22.657
+210,yellowtail snapper,4,0,2,16.60974
+210,hogfish,6,0,1,42.62977
+210,queen angelfish,4,0,1,16.60974
+210,bluestriped grunt,6,0,1,42.62977
+210,white grunt,6,0,1,42.62977
+211,black grouper,6,1,0,42.62977
+211,green moray,6,1,0,42.62977
+211,gray snapper,5,0,6,22.657
+211,bluestriped grunt,4,0,13.5,16.60974
+211,hogfish,6,0,1,42.62977
+211,gray angelfish,6,0,1,42.62977
+211,spanish hogfish,5,0,1,22.657
+211,bluestriped grunt,5,0,43.5,22.657
+211,white grunt,4,0,1,16.60974
+212,black grouper,6,1,0,42.62977
+212,lionfish,4,1,0,16.60974
+212,lionfish,6,1,0,42.62977
+212,red grouper,5,1,0,22.657
+212,red grouper,6,1,1,42.62977
+212,yellowtail snapper,4,0,2,16.60974
+212,white grunt,4,0,11.25,16.60974
+212,gray snapper,6,0,1,42.62977
+212,blue parrotfish,6,0,1,42.62977
+212,white grunt,5,0,3.75,22.657
+212,yellowtail snapper,5,0,1,22.657
+213,gag grouper,6,2,0,42.62977
+213,lionfish,5,1,0,22.657
+213,purplemouth moray,6,3,0,42.62977
+213,red grouper,6,2,0,42.62977
+213,yellowtail snapper,4,0,2,16.60974
+213,bluestriped grunt,4,0,4,16.60974
+213,gray snapper,4,0,4.5,16.60974
+213,yellow jack,5,0,30,22.657
+213,queen angelfish,4,0,1,16.60974
+213,blue angelfish,5,0,1,22.657
+213,gray angelfish,5,0,1,22.657
+213,hogfish,6,0,1,42.62977
+213,stoplight parrotfish,6,0,1,42.62977
+213,yellowhead wrasse,4,0,1,16.60974
+213,gray snapper,5,0,12.5,22.657
+213,white grunt,4,0,7.75,16.60974
+213,yellow jack,6,0,10,42.62977
+213,blue parrotfish,6,0,1,42.62977
+213,gray snapper,6,0,1,42.62977
+213,white grunt,5,0,1,22.657
+214,gag grouper,6,2,0,42.62977
+214,red grouper,6,2,2,42.62977
+214,hogfish,5,0,1,22.657
+214,porkfish,6,0,2,42.62977
+214,bluestriped grunt,5,0,2,22.657
+214,yellow jack,5,0,2,22.657
+214,gray snapper,5,0,3,22.657
+214,french angelfish,4,0,1,16.60974
+214,blue angelfish,6,0,1,42.62977
+214,gray angelfish,5,0,1,22.657
+214,yellowtail snapper,5,0,1,22.657
+214,black grouper,5,0,1,22.657
+214,blue tang,4,0,1,16.60974
+214,saucereye porgy,4,0,1,16.60974
+214,hogfish,6,0,1,42.62977
+214,white grunt,4,0,1,16.60974
+215,coney,5,2,1,22.657
+215,coney,6,1,0,42.62977
+215,graysby,4,2,0,16.60974
+215,graysby,5,2,0,22.657
+215,lionfish,5,2,0,22.657
+215,lionfish,6,1,0,42.62977
+215,spotted moray,6,1,0,42.62977
+215,spotfin butterflyfish,4,0,2,16.60974
+215,spotted goatfish,5,0,1,22.657
+215,doctorfish,5,0,2,22.657
+215,rock beauty,4,0,1,16.60974
+215,redtail parrotfish,6,0,2,42.62977
+215,ocean surgeonfish,4,0,3,16.60974
+215,stoplight parrotfish,6,0,1,42.62977
+215,blue tang,4,0,1,16.60974
+215,squirrelfish,6,0,1,42.62977
+215,striped parrotfish,4,0,1,16.60974
+215,cero,6,0,1,42.62977
+215,blue parrotfish,6,0,1,42.62977
+215,gray angelfish,6,0,1,42.62977
+215,blue angelfish,6,0,1,42.62977
+215,rainbow parrotfish,6,0,1,42.62977
+215,redband parrotfish,4,0,0.5,16.60974
+215,spotted goatfish,6,0,1,42.62977
+215,rock beauty,5,0,1,22.657
+215,ocean surgeonfish,5,0,1,22.657
+215,redband parrotfish,5,0,1,22.657
+216,goldentail moray,6,1,0,42.62977
+216,graysby,4,5,0,16.60974
+216,spotted moray,6,1,0,42.62977
+216,white grunt,4,0,1,16.60974
+216,french angelfish,5,0,1,22.657
+216,gray angelfish,6,0,2,42.62977
+216,french grunt,4,0,1,16.60974
+216,yellowtail snapper,4,0,1,16.60974
+216,mutton snapper,6,0,1,42.62977
+216,princess parrotfish,5,0,1,22.657
+216,midnight parrotfish,6,0,1,42.62977
+216,trumpetfish,5,0,1,22.657
+216,striped parrotfish,5,0,2,22.657
+216,white grunt,5,0,1,22.657
+216,ocean surgeonfish,4,0,1,16.60974
+216,french angelfish,6,0,1,42.62977
+216,creole wrasse,4,0,1,16.60974
+217,black grouper,6,3,0,42.62977
+217,gag grouper,6,5,2,42.62977
+217,purplemouth moray,6,1,0,42.62977
+217,red grouper,6,10,0,42.62977
+217,spotted moray,6,3,0,42.62977
+217,hogfish,4,0,1,16.60974
+217,atlantic spadefish,5,0,3,22.657
+217,gray angelfish,4,0,1,16.60974
+217,gray snapper,5,0,8,22.657
+217,townsend angelfish,5,0,1,22.657
+217,black grouper,5,0,1,22.657
+217,ocean surgeonfish,5,0,1,22.657
+217,bluestriped grunt,4,0,24,16.60974
+217,white grunt,4,0,72,16.60974
+217,tomtate,4,0,250,16.60974
+217,hogfish,5,0,1,22.657
+217,gray angelfish,5,0,1,22.657
+217,lane snapper,4,0,1,16.60974
+217,stoplight parrotfish,4,0,1,16.60974
+217,yellowtail snapper,4,0,1,16.60974
+217,redband parrotfish,4,0,1,16.60974
+217,princess parrotfish,4,0,1,16.60974
+217,bluestriped grunt,5,0,1,22.657
+217,white grunt,5,0,3,22.657
+218,lionfish,5,1,0,22.657
+218,purplemouth moray,6,2,0,42.62977
+218,red grouper,6,1,0,42.62977
+218,spotted moray,6,2,0,42.62977
+218,spotted scorpionfish,5,2,0,22.657
+218,bar jack,5,0,2,22.657
+218,gray angelfish,5,0,2,22.657
+218,hogfish,5,0,5,22.657
+218,rainbow parrotfish,6,0,1,42.62977
+218,stoplight parrotfish,5,0,1,22.657
+218,porkfish,4,0,1,16.60974
+218,yellowtail snapper,4,0,0.5,16.60974
+218,porkfish,5,0,1,22.657
+218,ocean surgeonfish,4,0,1,16.60974
+218,hogfish,6,0,1,42.62977
+218,yellowtail snapper,5,0,1,22.657
+218,white grunt,4,0,1.5,16.60974
+219,black grouper,6,1,0,42.62977
+219,gag grouper,6,3,0,42.62977
+219,lionfish,4,1,0,16.60974
+219,nassau grouper,6,1,0,42.62977
+219,red grouper,6,1,0,42.62977
+219,spotted moray,6,2,0,42.62977
+219,bluestriped grunt,4,0,6,16.60974
+219,bluestriped grunt,5,0,3,22.657
+219,stoplight parrotfish,4,0,0.75,16.60974
+219,yellowtail snapper,4,0,3.5,16.60974
+219,white grunt,4,0,42,16.60974
+219,doctorfish,4,0,1,16.60974
+219,redband parrotfish,4,0,1,16.60974
+219,stoplight parrotfish,5,0,1,22.657
+219,white grunt,5,0,1.75,22.657
+219,tomtate,4,0,2,16.60974
+220,black grouper,6,1,0,42.62977
+220,goldentail moray,6,1,0,42.62977
+220,graysby,4,1,0,16.60974
+220,graysby,5,4,0,22.657
+220,graysby,6,2,0,42.62977
+220,mutton snapper,6,1,0,42.62977
+220,red grouper,6,1,0,42.62977
+220,spotted moray,6,1,0,42.62977
+220,saucereye porgy,5,0,1,22.657
+220,white grunt,5,0,3,22.657
+220,blue tang,4,0,2,16.60974
+220,stoplight parrotfish,5,0,4,22.657
+220,redtail parrotfish,5,0,1,22.657
+220,smooth trunkfish,4,0,1,16.60974
+220,hogfish,5,0,1,22.657
+220,redband parrotfish,4,0,2.5,16.60974
+220,saucereye porgy,6,0,1,42.62977
+220,rock beauty,4,0,1,16.60974
+220,ocean surgeonfish,4,0,1,16.60974
+220,redband parrotfish,5,0,1,22.657
+220,stoplight parrotfish,6,0,1,42.62977
+221,barracuda,6,1,0,42.62977
+221,graysby,4,4,0,16.60974
+221,graysby,5,2,0,22.657
+221,graysby,6,1,0,42.62977
+221,green moray,6,1,0,42.62977
+221,red grouper,6,1,0,42.62977
+221,red hind,6,1,0,42.62977
+221,queen angelfish,5,0,2,22.657
+221,princess parrotfish,5,0,2,22.657
+221,french angelfish,5,0,3,22.657
+221,redband parrotfish,4,0,2.25,16.60974
+221,redband parrotfish,5,0,1,22.657
+221,ocean surgeonfish,4,0,1,16.60974
+222,black grouper,6,1,0,42.62977
+222,graysby,4,1,1,16.60974
+222,graysby,5,6,0,22.657
+222,mutton snapper,6,1,2,42.62977
+222,spotted moray,5,1,0,22.657
+222,spotted moray,6,1,0,42.62977
+222,scrawled filefish,6,0,2,42.62977
+222,princess parrotfish,4,0,3,16.60974
+222,bar jack,5,0,8,22.657
+222,queen angelfish,5,0,1,22.657
+222,ocean surgeonfish,4,0,6,16.60974
+222,redband parrotfish,4,0,2,16.60974
+222,redband parrotfish,5,0,1,22.657
+222,striped parrotfish,4,0,1,16.60974
+223,graysby,5,7,1,22.657
+223,graysby,6,1,0,42.62977
+223,mutton snapper,6,1,2,42.62977
+223,nassau grouper,6,1,0,42.62977
+223,scrawled filefish,6,0,2,42.62977
+223,blue parrotfish,6,0,3,42.62977
+223,queen angelfish,5,0,1,22.657
+223,stoplight parrotfish,5,0,1,22.657
+223,smooth trunkfish,4,0,1,16.60974
+223,scrawled cowfish,6,0,1,42.62977
+223,princess parrotfish,4,0,2,16.60974
+223,graysby,4,0,2.75,16.60974
+223,redband parrotfish,4,0,1.5,16.60974
+223,blue tang,4,0,1,16.60974
+223,ocean surgeonfish,4,0,1,16.60974
+223,redband parrotfish,5,0,1,22.657
+224,black grouper,6,9,0,42.62977
+224,gag grouper,6,1,0,42.62977
+224,goldentail moray,6,1,0,42.62977
+224,lionfish,5,1,0,22.657
+224,mutton snapper,6,1,0,42.62977
+224,purplemouth moray,6,3,0,42.62977
+224,red grouper,6,1,0,42.62977
+224,spotted moray,6,5,0,42.62977
+224,gray snapper,5,0,6,22.657
+224,red grouper,5,0,1,22.657
+224,midnight parrotfish,6,0,1,42.62977
+224,mahogany snapper,5,0,1,22.657
+224,porcupinefish,6,0,1,42.62977
+224,yellowtail snapper,4,0,4.5,16.60974
+224,french grunt,4,0,1,16.60974
+224,stoplight parrotfish,5,0,1,22.657
+224,yellowtail snapper,5,0,1,22.657
+224,white grunt,4,0,1,16.60974
+225,black grouper,6,2,0,42.62977
+225,green moray,6,1,0,42.62977
+225,lionfish,4,1,0,16.60974
+225,lionfish,5,2,1,22.657
+225,red grouper,5,1,0,22.657
+225,red grouper,6,1,0,42.62977
+225,soapfish sp.,4,1,0,16.60974
+225,spotted moray,4,2,0,16.60974
+225,spotted moray,5,1,0,22.657
+225,spotted moray,6,3,0,42.62977
+225,hogfish,5,0,2,22.657
+225,yellowtail snapper,4,0,1.5,16.60974
+225,bluestriped grunt,4,0,4.5,16.60974
+225,yellowtail snapper,5,0,4.5,22.657
+225,bluestriped grunt,5,0,13.5,22.657
+225,redband parrotfish,4,0,1,16.60974
+225,hogfish,6,0,1,42.62977
+225,white grunt,4,0,1,16.60974
+226,black grouper,6,2,0,42.62977
+226,gag grouper,6,1,0,42.62977
+226,red grouper,5,2,0,22.657
+226,red grouper,6,1,0,42.62977
+226,spotted moray,4,1,0,16.60974
+226,spotted moray,6,2,0,42.62977
+226,seabream,5,0,2,22.657
+226,rainbow parrotfish,6,0,1,42.62977
+226,bluestriped grunt,4,0,2,16.60974
+226,white grunt,4,0,3.25,16.60974
+226,white grunt,5,0,1,22.657
+226,stoplight parrotfish,4,0,1,16.60974
+227,black grouper,6,1,0,42.62977
+227,graysby,4,4,0,16.60974
+227,graysby,5,2,0,22.657
+227,graysby,6,2,0,42.62977
+227,yellowtail snapper,6,0,2,42.62977
+227,white grunt,5,0,2,22.657
+227,ocean surgeonfish,4,0,4,16.60974
+227,mutton snapper,6,0,1,42.62977
+227,smooth trunkfish,5,0,1,22.657
+227,redband parrotfish,4,0,2,16.60974
+227,ocean surgeonfish,5,0,1,22.657
+227,redband parrotfish,5,0,1,22.657
+228,black grouper,6,1,0,42.62977
+228,graysby,5,3,0,22.657
+228,yellowtail snapper,5,0,2,22.657
+228,ocean surgeonfish,4,0,2,16.60974
+228,bar jack,5,0,9,22.657
+228,gray angelfish,5,0,1,22.657
+228,redband parrotfish,4,0,0.5,16.60974
+228,striped parrotfish,4,0,1,16.60974
+228,redband parrotfish,5,0,1,22.657
+228,bar jack,6,0,1,42.62977
+229,graysby,5,1,0,22.657
+229,graysby,6,1,0,42.62977
+229,greater soapfish,5,1,0,22.657
+229,green moray,6,1,0,42.62977
+229,blue parrotfish,6,0,2,42.62977
+229,gray angelfish,5,0,2,22.657
+229,graysby,4,0,2,16.60974
+229,scrawled filefish,6,0,2,42.62977
+229,blue tang,4,0,3,16.60974
+229,queen angelfish,4,0,1,16.60974
+229,saucereye porgy,4,0,1,16.60974
+229,white grunt,4,0,1,16.60974
+229,hogfish,5,0,1,22.657
+229,redband parrotfish,4,0,1.75,16.60974
+229,creole wrasse,4,0,6.25,16.60974
+229,rock beauty,4,0,1,16.60974
+229,blue tang,5,0,1,22.657
+229,redband parrotfish,5,0,1,22.657
+229,ocean surgeonfish,4,0,1,16.60974
+230,coney,6,1,0,42.62977
+230,graysby,4,2,0,16.60974
+230,greater soapfish,5,2,0,22.657
+230,nassau grouper,6,1,0,42.62977
+230,gray snapper,6,0,4,42.62977
+230,bar jack,4,0,8,16.60974
+230,hogfish,5,0,37.5,22.657
+230,blue tang,4,0,3,16.60974
+230,smooth trunkfish,5,0,1,22.657
+230,ocean surgeonfish,4,0,3.75,16.60974
+230,redband parrotfish,4,0,1.75,16.60974
+230,hogfish,6,0,12.5,42.62977
+230,queen angelfish,5,0,1,22.657
+230,redband parrotfish,5,0,1,22.657
+230,striped parrotfish,4,0,1,16.60974
+230,blue tang,5,0,1,22.657
+230,bar jack,5,0,1,22.657
+231,graysby,4,2,0,16.60974
+231,graysby,5,5,0,22.657
+231,mutton snapper,6,1,0,42.62977
+231,nassau grouper,6,1,0,42.62977
+231,rock hind,6,1,0,42.62977
+231,spotted scorpionfish,5,1,0,22.657
+231,hogfish,5,0,18.75,22.657
+231,jolthead porgy,5,0,1,22.657
+231,doctorfish,5,0,1,22.657
+231,redband parrotfish,4,0,3.5,16.60974
+231,hogfish,6,0,56.25,42.62977
+231,ocean surgeonfish,4,0,1,16.60974
+231,redband parrotfish,5,0,1,22.657
+232,graysby,4,5,0,16.60974
+232,graysby,5,7,0,22.657
+232,greater soapfish,6,1,0,42.62977
+232,nassau grouper,6,1,0,42.62977
+232,red hind,6,1,0,42.62977
+232,french angelfish,4,0,1,16.60974
+232,squirrelfish,4,0,1,16.60974
+232,squirrelfish,5,0,3,22.657
+232,french angelfish,5,0,1,22.657
+233,black grouper,6,1,0,42.62977
+233,graysby,5,9,0,22.657
+233,greater soapfish,4,1,0,16.60974
+233,green moray,6,1,0,42.62977
+233,spotted moray,6,1,0,42.62977
+233,hogfish,4,0,1,16.60974
+233,french grunt,4,0,1,16.60974
+233,stoplight parrotfish,5,0,1,22.657
+233,bar jack,5,0,1,22.657
+234,coney,5,1,0,22.657
+234,coney,6,1,0,42.62977
+234,graysby,4,3,0,16.60974
+234,graysby,5,6,0,22.657
+234,spotted moray,6,1,0,42.62977
+234,gray angelfish,5,0,2,22.657
+234,stoplight parrotfish,4,0,1,16.60974
+234,hogfish,5,0,1,22.657
+234,stoplight parrotfish,5,0,1,22.657
+235,graysby,4,2,0,16.60974
+235,graysby,5,4,0,22.657
+235,nassau grouper,6,1,0,42.62977
+235,caesar grunt,4,0,2,16.60974
+235,bar jack,4,0,1,16.60974
+235,princess parrotfish,4,0,1,16.60974
+235,yellowtail snapper,4,0,2,16.60974
+235,hogfish,4,0,2.75,16.60974
+235,hogfish,5,0,1,22.657
+236,graysby,4,2,0,16.60974
+236,green moray,6,1,0,42.62977
+236,hogfish,4,0,2,16.60974
+236,porkfish,5,0,1,22.657
+236,queen angelfish,4,0,1,16.60974
+236,princess parrotfish,4,0,1,16.60974
+236,yellowtail snapper,5,0,1,22.657
+236,squirrelfish,4,0,1,16.60974
+236,redband parrotfish,4,0,2.75,16.60974
+236,stoplight parrotfish,5,0,1,22.657
+236,hogfish,5,0,1,22.657
+236,redband parrotfish,5,0,1,22.657
+236,caesar grunt,4,0,1,16.60974
+237,graysby,4,3,0,16.60974
+237,green moray,6,1,0,42.62977
+237,yellowtail snapper,4,0,11,16.60974
+237,barracuda,6,0,1,42.62977
+238,graysby,4,4,0,16.60974
+238,graysby,6,1,0,42.62977
+240,graysby,4,4,0,16.60974
+240,graysby,5,4,0,22.657
+240,bar jack,4,0,2,16.60974
+240,gray angelfish,4,0,1,16.60974
+240,bar jack,5,0,1,22.657
+242,coney,6,1,0,42.62977
+242,graysby,4,1,0,16.60974
+242,graysby,5,5,0,22.657
+242,green moray,6,1,0,42.62977
+242,rock hind,6,1,0,42.62977
+242,squirrelfish,4,0,2,16.60974
+242,hogfish,4,0,1,16.60974
+242,queen angelfish,5,0,2,22.657
+242,hogfish,5,0,1,22.657
+242,striped parrotfish,4,0,1,16.60974
+243,graysby,4,1,0,16.60974
+243,red hind,5,1,0,22.657
+243,bar jack,5,0,5,22.657
+243,trumpetfish,5,0,1,22.657
+243,hogfish,4,0,1,16.60974
+243,blue angelfish,4,0,1,16.60974
+244,amberjack,6,6,0,42.62977
+244,black grouper,6,1,0,42.62977
+244,coney,5,1,0,22.657
+244,graysby,4,1,1,16.60974
+244,graysby,5,5,0,22.657
+244,graysby,6,1,0,42.62977
+244,squirrelfish,5,0,2,22.657
+245,barracuda,6,5,1,42.62977
+245,graysby,4,3,0,16.60974
+245,graysby,5,6,0,22.657
+245,princess parrotfish,5,0,2,22.657
+245,queen angelfish,5,0,1,22.657
+246,spotted scorpionfish,5,1,0,22.657
+246,gray angelfish,5,0,2,22.657
+246,gray snapper,4,0,2.5,16.60974
+246,hogfish,4,0,0.25,16.60974
+246,rainbow parrotfish,6,0,1,42.62977
+246,hogfish,5,0,2.75,22.657
+246,bluestriped grunt,4,0,14,16.60974
+246,gray snapper,5,0,6.5,22.657
+246,bar jack,4,0,9.75,16.60974
+246,bluestriped grunt,5,0,7,22.657
+246,stoplight parrotfish,4,0,2,16.60974
+246,blue tang,4,0,1,16.60974
+246,hogfish,6,0,1,42.62977
+246,bar jack,5,0,1,22.657
+246,yellowtail snapper,4,0,1,16.60974
+246,stoplight parrotfish,5,0,1,22.657
+246,gray snapper,6,0,1,42.62977
+247,green moray,6,1,0,42.62977
+247,red grouper,6,3,3,42.62977
+247,sharptail eel,6,1,0,42.62977
+247,ocean surgeonfish,4,0,2,16.60974
+247,blue tang,4,0,2,16.60974
+247,blue parrotfish,4,0,4,16.60974
+247,hogfish,5,0,6,22.657
+247,white grunt,4,0,25.499999999999996,16.60974
+247,gray snapper,5,0,1,22.657
+247,rainbow parrotfish,6,0,1,42.62977
+247,bluestriped grunt,5,0,1,22.657
+247,white grunt,5,0,76.49999999999999,22.657
+247,doctorfish,4,0,1,16.60974
+248,purplemouth moray,6,2,0,42.62977
+248,red grouper,6,1,1,42.62977
+248,spotted moray,6,1,0,42.62977
+248,hogfish,4,0,1,16.60974
+248,gray snapper,4,0,1.5,16.60974
+248,hogfish,5,0,3,22.657
+248,saucereye porgy,4,0,1,16.60974
+248,doctorfish,4,0,3,16.60974
+248,bluestriped grunt,4,0,6.5,16.60974
+248,gray angelfish,4,0,2.5,16.60974
+248,gray snapper,5,0,3.5,22.657
+248,white grunt,4,0,21.5,16.60974
+248,bluestriped grunt,5,0,3.25,22.657
+248,gray angelfish,5,0,1.25,22.657
+248,blue tang,4,0,1,16.60974
+248,yellowtail snapper,5,0,1,22.657
+248,white grunt,5,0,1,22.657
+248,hogfish,6,0,1,42.62977
+248,gray snapper,6,0,1,42.62977
+249,purplemouth moray,6,1,0,42.62977
+249,red grouper,5,1,0,22.657
+249,red grouper,6,1,0,42.62977
+249,spotted moray,6,2,0,42.62977
+249,yellow jack,5,0,2,22.657
+249,hogfish,5,0,4,22.657
+249,atlantic spadefish,5,0,11,22.657
+249,gray angelfish,4,0,1,16.60974
+249,doctorfish,4,0,1,16.60974
+249,gray snapper,4,0,6.5,16.60974
+249,bluestriped grunt,4,0,9.5,16.60974
+249,yellowtail snapper,4,0,3,16.60974
+249,gray snapper,5,0,3.25,22.657
+249,yellowtail snapper,5,0,1.5,22.657
+249,white grunt,4,0,5.75,16.60974
+249,redband parrotfish,4,0,1,16.60974
+249,blue tang,4,0,1,16.60974
+249,gray angelfish,5,0,1,22.657
+249,doctorfish,5,0,1,22.657
+249,atlantic spadefish,6,0,1,42.62977
+249,bluestriped grunt,5,0,1,22.657
+249,redband parrotfish,5,0,1,22.657
+249,tomtate,4,0,3,16.60974
+250,black grouper,6,1,0,42.62977
+250,gag grouper,6,1,1,42.62977
+250,spotted moray,6,1,0,42.62977
+250,porkfish,4,0,1,16.60974
+250,bar jack,6,0,2,42.62977
+250,bluestriped grunt,4,0,1,16.60974
+250,atlantic spadefish,5,0,1,22.657
+250,hogfish,5,0,4,22.657
+250,bluestriped grunt,5,0,3,22.657
+250,atlantic spadefish,6,0,3,42.62977
+250,white grunt,4,0,37.5,16.60974
+250,white grunt,5,0,18.75,22.657
+250,porkfish,5,0,1,22.657
+250,yellowtail snapper,4,0,1,16.60974
+250,hogfish,6,0,1,42.62977
+251,black grouper,5,1,0,22.657
+251,black grouper,6,1,0,42.62977
+251,gag grouper,6,1,0,42.62977
+251,mutton snapper,6,1,0,42.62977
+251,red grouper,6,3,0,42.62977
+251,spotted moray,6,1,0,42.62977
+251,lionfish,5,0,2,22.657
+251,yellowtail snapper,4,0,3,16.60974
+251,blue runner,6,0,3,42.62977
+251,bluestriped grunt,5,0,49,22.657
+251,white grunt,4,0,77.7,16.60974
+251,tomtate,4,0,97.5,16.60974
+251,stoplight parrotfish,4,0,1,16.60974
+251,white grunt,5,0,1.05,22.657
+252,black grouper,5,1,0,22.657
+252,gag grouper,6,2,0,42.62977
+252,green moray,6,1,0,42.62977
+252,red grouper,6,1,0,42.62977
+252,gray angelfish,5,0,2,22.657
+252,hogfish,6,0,2,42.62977
+252,yellowtail parrotfish,4,0,2,16.60974
+252,yellow jack,5,0,3,22.657
+252,bluestriped grunt,4,0,4,16.60974
+252,gray snapper,4,0,5,16.60974
+252,blue runner,5,0,6,22.657
+252,seabream,4,0,1,16.60974
+252,porkfish,4,0,1,16.60974
+252,white grunt,4,0,1.75,16.60974
+252,gray snapper,5,0,1,22.657
+252,white grunt,5,0,1,22.657
+253,black grouper,5,3,0,22.657
+253,black grouper,6,1,1,42.62977
+253,gag grouper,6,1,0,42.62977
+253,red grouper,6,2,0,42.62977
+253,spotted moray,6,3,1,42.62977
+253,gray snapper,5,0,17.25,22.657
+253,atlantic spadefish,5,0,1,22.657
+253,red grouper,5,0,1,22.657
+253,gray angelfish,4,0,1,16.60974
+253,rainbow parrotfish,6,0,1,42.62977
+253,green moray,6,0,1,42.62977
+253,hogfish,6,0,1,42.62977
+253,gray snapper,6,0,5.75,42.62977
+253,blue tang,4,0,1,16.60974
+264,bluestriped grunt,4,0,33,16.60974
+264,white grunt,4,0,68,16.60974
+264,black grunt,4,0,25.499999999999996,16.60974
+264,caesar grunt,4,0,150,16.60974
+264,black grunt,5,0,76.49999999999999,22.657
+264,schoolmaster snapper,4,0,22.75,16.60974
+264,gray angelfish,4,0,1,16.60974
+264,bluestriped grunt,5,0,1,22.657
+264,white grunt,5,0,1,22.657
+265,gray angelfish,5,0,2,22.657
+266,queen angelfish,5,0,2,22.657
+266,black grouper,6,0,1,42.62977
+266,hogfish,6,0,1,42.62977
+266,cero,5,0,1,22.657
+267,rainbow parrotfish,6,0,2,42.62977
+267,french angelfish,4,0,2,16.60974
+267,blue parrotfish,5,0,1,22.657
+267,spanish grunt,4,0,2,16.60974
+267,blue tang,4,0,1,16.60974
+268,porcupinefish,4,0,1,16.60974
+269,mahogany snapper,4,0,1,16.60974
+270,porkfish,5,0,1,22.657
+271,gray snapper,4,0,2,16.60974
+271,bluestriped grunt,4,0,4,16.60974
+271,caesar grunt,4,0,8,16.60974
+271,gray snapper,5,0,1,22.657
+271,redband parrotfish,4,0,1,16.60974
+271,stoplight parrotfish,4,0,1,16.60974
+272,chub sp.,5,0,1,22.657
+272,red grouper,5,0,1,22.657
+272,gray angelfish,4,0,1,16.60974
+272,white grunt,4,0,3,16.60974
+272,gray angelfish,5,0,1,22.657
+273,caesar grunt,4,0,2,16.60974
+273,gray snapper,4,0,14.75,16.60974
+273,mahogany snapper,5,0,1,22.657
+273,spotted moray,6,0,1,42.62977
+273,hogfish,4,0,1,16.60974
+273,gray snapper,5,0,5.25,22.657
+273,hogfish,5,0,1,22.657
+274,gray snapper,4,0,14,16.60974
+274,barracuda,6,0,1,42.62977
+274,gray snapper,5,0,1,22.657
+274,bluestriped grunt,4,0,1,16.60974
+274,lane snapper,4,0,1,16.60974

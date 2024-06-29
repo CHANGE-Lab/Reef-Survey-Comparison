@@ -32,6 +32,7 @@ library(ggpubr)
 library(patchwork)
 library(performance)
 library(here)
+library(ggpubr)
 
 # data
 SVCprey_model_data <- read_csv(here("./dataframes/SVCprey_dataframe.csv"))
@@ -88,10 +89,10 @@ SVCprey_global_a <- lme(log_difference~habitat+octocoral_c+stony_c+relief_c+
 
 # model summary
 summary(SVCprey_global_a)
-AICc(SVCprey_global_a) # 33754.43
+AICc(SVCprey_global_a) # 33753.8
 
 # covariate VIF values
-vif(SVCprey_global_a) # aggregation behaviour VIF = 5.254327
+vif(SVCprey_global_a) # aggregation behaviour VIF = 5.262840
 
 # random effects plot
 plot(ranef(SVCprey_global_a))
@@ -147,6 +148,14 @@ SVCpred_model_data_ta$relief_c <- SVCpred_model_data_ta$relief_cm -
 SVCpred_model_data_ta$size_bin_c <- SVCpred_model_data_ta$size_bin_lengths - 
   mean(SVCpred_model_data_ta$size_bin_lengths)
 
+# maximum length
+SVCpred_model_data_ta$max_length_c <- SVCpred_model_data_ta$max_length - 
+  mean(SVCpred_model_data_ta$max_length)
+
+# average depth
+SVCpred_model_data_ta$average_depth_c <- SVCpred_model_data_ta$average_depth - 
+  mean(SVCpred_model_data_ta$average_depth)
+
 # area difference
 SVCpred_model_data_ta$area_dif_c <- SVCpred_model_data_ta$SVCpred_area_dif - 
   mean(SVCpred_model_data_ta$SVCpred_area_dif)
@@ -163,46 +172,84 @@ SVCpred_model_data_ta$speed_dif_c <- SVCpred_model_data_ta$SVCpred_speed_dif -
 # SVC vs. Roving: Global Model (difference in time and area included) ==========
 
 # The following creates the SVC vs. Roving survey global model utilizing the 
-# best fit global model obtained prior to centering.
+# best fit global model obtained prior to inclusion of survey time and area 
+# differences. 
 
+# correlation test on time and area difference
+ggscatter(SVCpred_model_data_ta, x = "area_dif_c", y = "time_dif_c", 
+          add = "reg.line", conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson",
+          xlab = "Area Difference", ylab = "Time Difference")
+
+shapiro.test(SVCpred_model_data_ta$area_dif_c)
+shapiro.test(SVCpred_model_data_ta$time_dif_c)
+
+cor.test(SVCpred_model_data_ta$area_dif_c, SVCpred_model_data_ta$time_dif_c,
+         method = "spearman")
+
+# correlation test on SVC time and area
+ggscatter(SVCpred_model_data_ta, x = "SVC_area", y = "SVC_time", 
+          add = "reg.line", conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson",
+          xlab = "SVC Area", ylab = "SVC Time")
+
+shapiro.test(SVCpred_model_data_ta$SVC_area)
+shapiro.test(SVCpred_model_data_ta$SVC_time)
+
+cor.test(SVCpred_model_data_ta$SVC_area, SVCpred_model_data_ta$SVC_time,
+         method = "spearman")
+
+# correlation test on roving time and area
+ggscatter(SVCpred_model_data_ta, x = "pred_area", y = "pred_time", 
+          add = "reg.line", conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson",
+          xlab = "Roving Area", ylab = "Roving Time")
+
+shapiro.test(SVCpred_model_data_ta$pred_area)
+shapiro.test(SVCpred_model_data_ta$pred_time)
+
+cor.test(SVCpred_model_data_ta$pred_area, SVCpred_model_data_ta$pred_time,
+         method = "spearman")
+# global model
 SVCpred_ta <- lme(log_difference~habitat+octocoral_c+stony_c+relief_c+nocturnal+
-                    max_length+cryptic_behaviour+average_depth+size_bin_c+
+                    max_length_c+cryptic_behaviour+size_bin_c+
                     colouration+shape+position+area_dif_c+time_dif_c, 
                   random = list(~1|site, ~1|species_order), 
                   SVCpred_model_data_ta) 
-summary(SVCpred_ta) # AIC = 1289.737
-AICc(SVCpred_ta) # AICc = 1291.691
-vif(SVCpred_ta) 
-# habitat, max_length, average_depth, colouration, shape, position >5
-
-SVCpred_ta2 <- lme(log_difference~habitat+octocoral_c+stony_c+relief_c+
-                     nocturnal+cryptic_behaviour+size_bin_c+colouration+shape+
-                     area_dif_c+time_dif_c, 
-                   random = list(~1|site, ~1|species_order), 
-                   SVCpred_model_data_ta) 
-summary(SVCpred_ta2) # AIC = 1267.223
-AICc(SVCpred_ta2) # AICc = 1268.611
-vif(SVCpred_ta2) # all good 
+summary(SVCpred_ta) # AIC = 1077.946
+AICc(SVCpred_ta) # AICc = 1080.097
+vif(SVCpred_ta) # colouration, position >5
 
 # random effects plot
-plot(ranef(SVCpred_ta2))
+plot(ranef(SVCpred_ta))
 
 # residuals plot
-res_SVCpred_ta2 = residuals(SVCpred_ta2)
-plot(res_SVCpred_ta2) 
+res_SVCpred_ta = residuals(SVCpred_ta)
+plot(res_SVCpred_ta) 
 
 # qq plot
-qqnorm(res_SVCpred_ta2) 
-qqline(res_SVCpred_ta2)
+qqnorm(res_SVCpred_ta) 
+qqline(res_SVCpred_ta)
 
 # model plot
-plot(SVCpred_ta2) 
+plot(SVCpred_ta) 
+
+# remove coloration from SVCpred_ta
+SVCpred_ta2 <- lme(log_difference~habitat+octocoral_c+stony_c+relief_c+
+                     nocturnal+max_length_c+cryptic_behaviour+size_bin_c+
+                    shape+position+area_dif_c+time_dif_c, 
+                  random = list(~1|site, ~1|species_order), 
+                  SVCpred_model_data_ta) 
+summary(SVCpred_ta2) # AIC = 1075.612
+AICc(SVCpred_ta2) # AICc = 1077.312
+vif(SVCpred_ta2) # all good 
+
 
 
 # SVC vs. Roving: Dredge (difference in time and area included) ================
 
 # dredge
-SVCpred_dredge_ta <- dredge(SVCpred_ta2)
+SVCpred_dredge_ta <- dredge(SVCpred_ta)
 SVCpred_dredge_ta
 
 # save dredge results 
@@ -236,45 +283,38 @@ saveRDS(SVCpred_confidence_ta,
 # SVC vs. Roving: Global Model (difference in speed included) ==================
 
 # The following creates the SVC vs. Roving survey global model utilizing the 
-# best fit global model obtained prior to centering.
+# best fit global model obtained prior to inclusion of survey time and area 
+# differences. 
 
 SVCpred_s <- lme(log_difference~habitat+octocoral_c+stony_c+relief_c+nocturnal+
-                   max_length+cryptic_behaviour+average_depth+size_bin_c+
+                   max_length_c+cryptic_behaviour+size_bin_c+
                    colouration+shape+position+speed_dif_c, 
                  random = list(~1|site, ~1|species_order), 
                  SVCpred_model_data_ta) 
 summary(SVCpred_s) # AIC = 1276.7
 AICc(SVCpred_s) # AICc = 1278.454
 vif(SVCpred_s) 
-# habitat, max_length, average_depth, colouration, shape, position >5
-
-SVCpred_s2 <- lme(log_difference~habitat+octocoral_c+stony_c+relief_c+nocturnal+
-                    cryptic_behaviour+size_bin_c+colouration+shape+speed_dif_c, 
-                  random = list(~1|site, ~1|species_order), 
-                  SVCpred_model_data_ta) 
-summary(SVCpred_s2) # AIC = 1254.423
-AICc(SVCpred_s2) # AICc = 1255.644
-vif(SVCpred_s2) # all good 
+# colouration, position >5
 
 # random effects plot
-plot(ranef(SVCpred_s2))
+plot(ranef(SVCpred_s))
 
 # residuals plot
-res_SVCpred_s2 = residuals(SVCpred_s2)
-plot(res_SVCpred_s2) 
+res_SVCpred_ta = residuals(SVCpred_s)
+plot(res_SVCpred_s) 
 
 # qq plot
-qqnorm(res_SVCpred_s2) 
-qqline(res_SVCpred_s2)
+qqnorm(res_SVCpred_s) 
+qqline(res_SVCpred_s)
 
 # model plot
-plot(SVCpred_s2) 
+plot(SVCpred_s) 
 
 
 # SVC vs. Roving: Dredge (difference survey speed) =============================
 
 # dredge
-SVCpred_dredge_s <- dredge(SVCpred_s2)
+SVCpred_dredge_s <- dredge(SVCpred_s)
 SVCpred_dredge_s
 
 # save dredge results 

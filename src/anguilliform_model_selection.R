@@ -64,6 +64,11 @@ SVCprey_anguilliform_data$max_length_c <- SVCprey_anguilliform_data$max_length -
 SVCprey_anguilliform_data$depth_c <- SVCprey_anguilliform_data$average_depth - 
   mean(SVCprey_anguilliform_data$average_depth)
 
+# area difference
+SVCprey_anguilliform_data$area_dif_c <- 
+  SVCprey_anguilliform_data$SVCprey_area_dif - 
+  mean(SVCprey_anguilliform_data$SVCprey_area_dif)
+
 
 # SVC vs. Transect: Anguilliform Global Model ==================================
 
@@ -78,7 +83,7 @@ SVCprey_anguilliform_data$depth_c <- SVCprey_anguilliform_data$average_depth -
 SVCprey_anguilliform_global <- lme(log_difference~habitat+octocoral_c+stony_c+
                                      relief_c+size_bin_c*colouration+nocturnal+
                                      position+max_length+behavior+
-                                     cryptic_behaviour+depth_c+shape, 
+                                     cryptic_behaviour+depth_c+shape+area_dif_c, 
                       random = list(~1|site, ~1|species_order), 
                       SVCprey_anguilliform_data) 
 
@@ -93,7 +98,8 @@ vif(SVCprey_anguilliform_global)
 SVCprey_anguilliform_global2 <- lme(log_difference~habitat+octocoral+stony+
                                       relief_cm+size_bin_lengths*colouration+
                                       nocturnal+position+max_length+behavior+
-                                      cryptic_behaviour+average_depth, 
+                                      cryptic_behaviour+average_depth+
+                                      area_dif_c, 
                                    random = list(~1|site, ~1|species_order), 
                                    SVCprey_anguilliform_data) 
 

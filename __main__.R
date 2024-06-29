@@ -76,6 +76,15 @@ source(here("./src/covariate_plots.R"))
 source(here("./src/heat_plots.R"))
 
 
+# Calculating Trait Proportions ================================================
+
+# This script calculates the proportion of each trait level present in all 
+# individual observations of each survey method (SVC, belt transect, and 
+# roving). 
+
+source(here("./src/trait_proportions.R"))
+
+
 # SVC vs. Transect Analyses Including Anguilliformes ===========================
 
 # This script runs linear mixed effects models on the dataframes comparing log 
@@ -101,18 +110,3 @@ source(here("./src/anguilliform_model_selection.R"))
 # analyses are discussed in the Electronic Supplementary Material.
 
 source(here("./src/survey_area_duration_models.R"))
-
-
-# Density Comparison ===========================================================
-
-# These scripts compare the abundances of traits recorded on survey types as 
-# opposed to their densities. The first script examines differences in 
-# the abundances of traits between SVC and belt transect surveys and the second
-# examines differences between SVC and roving surveys. The traits examined are
-# those that were found to have a significant affect on density differences
-# between survey types from previous analyses. Differences in abundances are
-# compared via Chi-Square tests. The results of these analyses are discussed
-# in the Electronic Supplementary Material. 
-
-source(here("./src/SVCprey_trait_presabs.R"))
-source(here("./src/SVCpred_trait_presabs.R"))
