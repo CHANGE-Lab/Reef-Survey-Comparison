@@ -20,6 +20,7 @@
 library(tidyverse)
 library(nlme)
 library(lme4)
+library(lmerTest)
 library(car)
 library(arm)
 library(MuMIn)
@@ -31,6 +32,7 @@ library(ggpubr)
 library(patchwork)
 library(performance)
 library(here)
+library(DHARMa)
 
 # data
 SVCprey_model_data <- read_csv(here("./dataframes/SVCprey_dataframe.csv"))
@@ -91,10 +93,11 @@ SVCprey_global_c <- lme(log_difference~habitat+octocoral_c+stony_c+relief_c+
 
 # model summary
 summary(SVCprey_global_c)
-AICc(SVCprey_global_c) # 33754.56
+AICc(SVCprey_global_c) # 33754.79
 
 # covariate VIF values
 vif(SVCprey_global_c) # aggregation behaviour VIF = 5.253781
+check_collinearity(SVCprey_global_c)
 
 # random effects plot
 plot(ranef(SVCprey_global_c))
@@ -109,6 +112,9 @@ qqline(res_SVCprey_global_c)
 
 # model plot
 plot(SVCprey_global_c) 
+
+# model diagnostic plots
+check_model(SVCprey_global_c)
 
 
 # SVC vs. Transect: Dredge =====================================================
@@ -174,9 +180,13 @@ setDT(SVCprey_model_avg_plot, keep.rownames = "Coefficient")
 # remove spaces from column headers
 names(SVCprey_model_avg_plot) <- gsub(" ", "", names(SVCprey_model_avg_plot)) 
 
-# add binary significance column
-SVCprey_model_avg_plot$significance <- 
-  ifelse(SVCprey_model_avg_plot$`Pr(>|z|)` < 0.05, "sig", "nonsig")
+# add significance column
+SVCprey_model_avg_plot <- SVCprey_model_avg_plot %>%
+  mutate(significance = case_when(
+    `Pr(>|z|)` < 0.05 ~ "sig",
+    `Pr(>|z|)` >= 0.05 & `Pr(>|z|)` <=0.1 ~ "margsig",
+    TRUE ~ "nonsig"
+  ))
 
 # change names of coefficients
 SVCprey_model_avg_plot[2,1] = "Shoaling"
@@ -185,13 +195,13 @@ SVCprey_model_avg_plot[4,1] = "Colorful"
 SVCprey_model_avg_plot[5,1] = "Neutral"
 SVCprey_model_avg_plot[6,1] = "Silvering"
 SVCprey_model_avg_plot[7,1] = "Patch"
-SVCprey_model_avg_plot[8,1] = "Max. length"
-SVCprey_model_avg_plot[9,1] = "Octocoral cover"
+SVCprey_model_avg_plot[8,1] = "Max. Length"
+SVCprey_model_avg_plot[9,1] = "Octocoral Cover"
 SVCprey_model_avg_plot[10,1] = "Elongated"
 SVCprey_model_avg_plot[11,1] = "Fusiform"
 SVCprey_model_avg_plot[12,1] = "Globiform"
 SVCprey_model_avg_plot[13,1] = "Size Class"
-SVCprey_model_avg_plot[14,1] = "Stony Coral"
+SVCprey_model_avg_plot[14,1] = "Stony Coral Cover"
 SVCprey_model_avg_plot[15,1] = "Elongated:Size Class"
 SVCprey_model_avg_plot[16,1] = "Fusiform:Size Class"
 SVCprey_model_avg_plot[17,1] = "Globiform:Size Class"
@@ -211,10 +221,12 @@ SVCprey_coef_CI <- ggplot(data=SVCprey_model_avg_plot[1:21],
   geom_hline(yintercept=0, color = "grey40",linetype="dashed", lwd=1.5)+
   geom_errorbar(aes(ymin=CI.min, ymax=CI.max), colour="grey65", 
                 width=.2,lwd=1) +
-  geom_point(size=5, aes(shape = significance))+ 
+  geom_point(size=5, aes(shape = significance, color = significance))+ 
   theme_classic(base_size = 20)+ 
-  scale_shape_manual(values = c(1,16))+
-  ylim(c(-2.5, 2.25)) +
+  scale_shape_manual(values = c("sig" = 16, "margsig" = 16, "nonsig" = 1))+
+  scale_color_manual(values = c("sig" = "black", "margsig" = "grey65", 
+                                "nonsig" = "black")) +
+  ylim(c(-1.5, 1.5)) +
   coord_flip() +
   theme(legend.position = "none",
         axis.title.y =element_blank(),  #remove y axis labels
@@ -260,175 +272,315 @@ SVCpred_model_data$average_depth_c <- SVCpred_model_data$average_depth -
 SVCpred_model_data$area_dif_c <- SVCpred_model_data$SVCpred_area_dif - 
   mean(SVCpred_model_data$SVCpred_area_dif)
 
+# re-scale variables 
+# (due to warnings in models regarding differences in predictor scales)
+SVCpred_model_data <- SVCpred_model_data %>%
+  mutate(
+    octocoral_scaled = scale(octocoral_c)[,1],
+    stony_scaled = scale(stony_c)[,1],
+    relief_scaled = scale(relief_c)[,1],
+    max_length_scaled = scale(max_length_c)[,1],
+    average_depth_scaled = scale(average_depth_c)[,1],
+    size_bin_scaled = scale(size_bin_c)[,1],
+    area_dif_scaled = scale(area_dif_c)[,1])
+
 
 # SVC vs. Roving: Global Model =================================================
 
-# The following creates the SVC vs. Roving survey global model utilizing the 
-# best fit global model obtained prior to centering.
+# make raw density difference variable
+SVCpred_model_data$raw_difference <- 
+  SVCpred_model_data$SVC_density - SVCpred_model_data$pred_density
 
-# global mdoel
-SVCpred_c <- lme(log_difference~habitat+octocoral_c+stony_c+relief_c+nocturnal+
-                   max_length_c+cryptic_behaviour+average_depth_c+size_bin_c+
-                   colouration+shape+position+area_dif_c, 
-                 random = list(~1|site, ~1|species_order), 
-                 SVCpred_model_data) 
-summary(SVCpred_c) # AIC = 1417.306
-AICc(SVCpred_c) # AICc = 1418.83
-vif(SVCpred_c) 
-# habitat, average_depth, colouration, shape, position >5
+# look at distribution of raw differences
+hist(SVCpred_model_data$raw_difference)
 
-# remove habitat from SVCpred_c
-SVCpred_c2 <- lme(log_difference~octocoral_c+stony_c+relief_c+nocturnal+
-                    max_length_c+cryptic_behaviour+average_depth_c+size_bin_c+
-                    colouration+shape+position+area_dif_c, 
-                  random = list(~1|site, ~1|species_order), 
-                  SVCpred_model_data) 
-summary(SVCpred_c2) # AIC = 1414.457 
-AICc(SVCpred_c2) # AICc = 1415.817
-vif(SVCpred_c2) # colouration, shape, position > 5 
+# find minimum log density difference
+min(SVCpred_model_data$raw_difference) # -0.02339181
 
-# remove colouration from SVCpred_c
-SVCpred_c3 <- lme(log_difference~habitat+octocoral_c+stony_c+relief_c+nocturnal+
-                   max_length_c+cryptic_behaviour+average_depth_c+size_bin_c+
-                   shape+position+area_dif_c, 
-                 random = list(~1|site, ~1|species_order), 
-                 SVCpred_model_data) 
-summary(SVCpred_c3) # AIC = 1422.377
-AICc(SVCpred_c3) # AICc = 1423.583
-vif(SVCpred_c3) 
-# habitat, average_depth, shape > 5
+# add 0.02439181 to all log density differences (scaling to positive)
+SVCpred_model_data$pos_raw_difference <- 
+  SVCpred_model_data$raw_difference + 0.02439181
 
-# remove average depth from SVCpred_c
-SVCpred_c4 <- lme(log_difference~habitat+octocoral_c+stony_c+relief_c+nocturnal+
-                    max_length_c+cryptic_behaviour+size_bin_c+colouration+
-                    shape+position+area_dif_c, 
-                  random = list(~1|site, ~1|species_order), 
-                  SVCpred_model_data) 
-summary(SVCpred_c4) # AIC = 1407.806
-AICc(SVCpred_c4) # AICc = 1409.166
-vif(SVCpred_c4) # colouration, shape, position VIF > 5 
+# multiply raw values by 1000
+SVCpred_model_data$pos_raw_dif_scaled <- 
+  SVCpred_model_data$pos_raw_difference*1000
 
-# remove shape from SVCpred_c
-SVCpred_c5 <- lme(log_difference~habitat+octocoral_c+stony_c+relief_c+nocturnal+
-                   max_length_c+cryptic_behaviour+average_depth_c+size_bin_c+
-                   colouration+position+area_dif_c, 
-                 random = list(~1|site, ~1|species_order), 
-                 SVCpred_model_data) 
-summary(SVCpred_c5) # AIC = 1419.323
-AICc(SVCpred_c5) # AICc = 1420.683
-vif(SVCpred_c5) 
-# habitat, average_depth >5
+# create new column of rounded density differences
+SVCpred_model_data <- SVCpred_model_data %>%
+  mutate(whole_scaled_raw_difference = round(pos_raw_dif_scaled))
 
-# remove position from SVCpred_c
-SVCpred_c6 <- lme(log_difference~habitat+octocoral_c+stony_c+relief_c+nocturnal+
-                   max_length_c+cryptic_behaviour+average_depth_c+size_bin_c+
-                   colouration+shape+area_dif_c, 
-                 random = list(~1|site, ~1|species_order), 
-                 SVCpred_model_data) 
-summary(SVCpred_c6) # AIC = 1415.684
-AICc(SVCpred_c6) # AICc = 1417.044
-vif(SVCpred_c6) 
-# habitat, average_depth >5
+# look at rounded density difference distribution
+hist(SVCpred_model_data$whole_scaled_raw_difference)
 
-# remove shape from SVCpred_c2
-SVCpred_c7 <- lme(log_difference~octocoral_c+stony_c+relief_c+nocturnal+
-                    max_length_c+cryptic_behaviour+average_depth_c+size_bin_c+
-                    colouration+position+area_dif_c, 
-                  random = list(~1|site, ~1|species_order), 
-                  SVCpred_model_data) 
-summary(SVCpred_c7) # AIC = 1416.43
-AICc(SVCpred_c7) # AICc = 1417.637
-vif(SVCpred_c7) # all good
+# global model with negative binomial distribution
+SVCpred_raw_nb_ran <- glmer.nb(whole_scaled_raw_difference ~ habitat +
+                                 octocoral_scaled + stony_scaled+
+                                 relief_scaled+nocturnal + max_length_scaled +
+                                 cryptic_behaviour + average_depth_scaled + 
+                                 size_bin_scaled +
+                                 colouration + shape + position + 
+                                 area_dif_scaled +
+                                 (1 | site) + (1 | species_order),
+                               data = SVCpred_model_data)
+# model fit is singular
+summary(SVCpred_raw_nb_ran)
+AICc(SVCpred_raw_nb_ran) # AICc = 2998.58
+vif(SVCpred_raw_nb_ran)
 
-# remove position from SVCpred_c2
-SVCpred_c8 <- lme(log_difference~octocoral_c+stony_c+relief_c+nocturnal+
-                    max_length_c+cryptic_behaviour+average_depth_c+size_bin_c+
-                    colouration+shape+area_dif_c, 
-                  random = list(~1|site, ~1|species_order), 
-                  SVCpred_model_data) 
-summary(SVCpred_c8) # AIC = 1412.787 
-AICc(SVCpred_c8) # AICc = 1413.993
-vif(SVCpred_c8) # all good
+# global model with negative binomial distribution & scaled predictors
+SVCpred_raw_nb_ran <- glm.nb(whole_scaled_raw_difference ~ habitat+
+                               scale(octocoral)+scale(stony)+
+                               scale(relief_cm)+nocturnal+
+                               scale(max_length)+
+                               cryptic_behaviour+scale(average_depth) + 
+                               scale(size_bin_lengths)+
+                               colouration+shape+position+
+                               scale(SVCpred_area_dif),
+                             data = SVCpred_model_data)
+summary(SVCpred_raw_nb_ran)
+AICc(SVCpred_raw_nb_ran) # AICc = 2998.58
+vif(SVCpred_raw_nb_ran)
 
-# remove shape from SVCpred_c4
-SVCpred_c9 <- lme(log_difference~habitat+octocoral_c+stony_c+relief_c+nocturnal+
-                    max_length_c+cryptic_behaviour+size_bin_c+colouration+
-                    position+area_dif_c, 
-                  random = list(~1|site, ~1|species_order), 
-                  SVCpred_model_data) 
-summary(SVCpred_c9) # AIC = 1409.528
-AICc(SVCpred_c9) # AICc = 1410.734
-vif(SVCpred_c9) # all good
+# global model with random effects removed 
+SVCpred_raw_nb <- glm.nb(whole_scaled_raw_difference ~ habitat+octocoral_scaled+
+                           stony_scaled+relief_scaled+nocturnal+
+                           max_length_scaled+cryptic_behaviour+
+                           average_depth_scaled + size_bin_scaled+
+                           colouration+shape+position+area_dif_scaled, 
+                         data = SVCpred_model_data)
+summary(SVCpred_raw_nb)
+AICc(SVCpred_raw_nb) # AICc = 2994.263
+vif(SVCpred_raw_nb)
 
-# remove position from SVCpred_c4
-SVCpred_c10 <- lme(log_difference~habitat+octocoral_c+stony_c+relief_c+nocturnal+
-                    max_length_c+cryptic_behaviour+size_bin_c+colouration+
-                    shape+area_dif_c, 
-                  random = list(~1|site, ~1|species_order), 
-                  SVCpred_model_data) 
-summary(SVCpred_c10) # AIC = 1406.033
-AICc(SVCpred_c10) # AICc = 1407.239
-vif(SVCpred_c10) # all good 
-# *BEST MODEL FIT*
+# remove habitat from global
+SVCpred_raw_nb_1 <- glm.nb(whole_scaled_raw_difference ~ octocoral_scaled+
+                             stony_scaled+relief_scaled+nocturnal+
+                             max_length_scaled+cryptic_behaviour+
+                             average_depth_scaled + size_bin_scaled+
+                             colouration+shape+position+area_dif_scaled, 
+                           data = SVCpred_model_data)
+summary(SVCpred_raw_nb_1)
+AICc(SVCpred_raw_nb_1) # AICc = 2992.873
+vif(SVCpred_raw_nb_1)
 
-# residuals plot
-res_SVCpred_global_c = residuals(SVCpred_c10)
-plot(res_SVCpred_global_c) 
+# remove max length from global 
+SVCpred_raw_nb_2 <- glm.nb(whole_scaled_raw_difference ~ habitat+
+                             octocoral_scaled+stony_scaled+
+                             relief_scaled+nocturnal+
+                             cryptic_behaviour+average_depth_scaled + 
+                             size_bin_scaled+
+                             colouration+shape+position+area_dif_scaled, 
+                           data = SVCpred_model_data)
+summary(SVCpred_raw_nb_2)
+AICc(SVCpred_raw_nb_2) # AICc = 2993.511
+vif(SVCpred_raw_nb_2)
 
-# qq plot
-qqnorm(res_SVCpred_global_c) 
-qqline(res_SVCpred_global_c)
-hist(res_SVCpred_global_c)
+# remove depth from global
+SVCpred_raw_nb_3 <- glm.nb(whole_scaled_raw_difference ~ habitat+
+                             octocoral_scaled+stony_scaled+
+                             relief_scaled+nocturnal+max_length_scaled+
+                             cryptic_behaviour+ size_bin_scaled+
+                             colouration+shape+position+area_dif_scaled, 
+                           data = SVCpred_model_data)
+summary(SVCpred_raw_nb_3)
+AICc(SVCpred_raw_nb_3) # AICc = 2992.206
+vif(SVCpred_raw_nb_3)
+
+# remove colour from global
+SVCpred_raw_nb_4 <- glm.nb(whole_scaled_raw_difference ~ habitat+
+                             octocoral_scaled+stony_scaled+
+                             relief_scaled+nocturnal+max_length_scaled+
+                             cryptic_behaviour+average_depth_scaled + 
+                             size_bin_scaled+shape+position+area_dif_scaled, 
+                           data = SVCpred_model_data)
+summary(SVCpred_raw_nb_4)
+AICc(SVCpred_raw_nb_4) # AICc = 2991.313
+vif(SVCpred_raw_nb_4)
+
+# remove shape from global
+SVCpred_raw_nb_5 <- glm.nb(whole_scaled_raw_difference ~ habitat+
+                             octocoral_scaled+stony_scaled+
+                             relief_scaled+nocturnal+max_length_scaled+
+                             cryptic_behaviour+average_depth_scaled + 
+                             size_bin_scaled+colouration+position+
+                             area_dif_scaled, 
+                           data = SVCpred_model_data)
+summary(SVCpred_raw_nb_5)
+AICc(SVCpred_raw_nb_5) # AICc = 2996.495
+vif(SVCpred_raw_nb_5)
+
+# remove position from global
+SVCpred_raw_nb_6 <- glm.nb(whole_scaled_raw_difference ~ habitat+
+                             octocoral_scaled+stony_scaled+
+                             relief_scaled+nocturnal+max_length_scaled+
+                             cryptic_behaviour+average_depth_scaled + 
+                             size_bin_scaled+
+                             colouration+shape+area_dif_scaled, 
+                           data = SVCpred_model_data)
+summary(SVCpred_raw_nb_6)
+AICc(SVCpred_raw_nb_6) # AICc = 2993.336
+vif(SVCpred_raw_nb_6)
+
+# remove max length from 1
+SVCpred_raw_nb_7 <- glm.nb(whole_scaled_raw_difference ~ octocoral_scaled+
+                             stony_scaled+relief_scaled+nocturnal+
+                             cryptic_behaviour+average_depth_scaled + 
+                             size_bin_scaled+
+                             colouration+shape+position+area_dif_scaled, 
+                           data = SVCpred_model_data)
+summary(SVCpred_raw_nb_7)
+AICc(SVCpred_raw_nb_7) # AICc = 2992.143
+vif(SVCpred_raw_nb_7)
+
+# remove colour from 1
+SVCpred_raw_nb_8 <- glm.nb(whole_scaled_raw_difference ~ octocoral_scaled+
+                             stony_scaled+
+                             relief_scaled+nocturnal+max_length_scaled+
+                             cryptic_behaviour+average_depth_scaled + 
+                             size_bin_scaled+
+                             shape+position+area_dif_scaled, 
+                           data = SVCpred_model_data)
+summary(SVCpred_raw_nb_8)
+AICc(SVCpred_raw_nb_8) # AICc = 2989.855
+vif(SVCpred_raw_nb_8)
+
+# remove shape from 1
+SVCpred_raw_nb_9 <- glm.nb(whole_scaled_raw_difference ~ octocoral_scaled+
+                             stony_scaled+
+                             relief_scaled+nocturnal+max_length_scaled+
+                             cryptic_behaviour+average_depth_scaled + 
+                             size_bin_scaled+
+                             colouration+position+area_dif_scaled, 
+                           data = SVCpred_model_data)
+summary(SVCpred_raw_nb_9)
+AICc(SVCpred_raw_nb_9) # AICc = 2994.928
+vif(SVCpred_raw_nb_9)
+
+# remove position from 1
+SVCpred_raw_nb_10 <- glm.nb(whole_scaled_raw_difference ~ octocoral_scaled+
+                              stony_scaled+
+                              relief_scaled+nocturnal+max_length_scaled+
+                              cryptic_behaviour+average_depth_scaled + 
+                              size_bin_scaled+
+                              colouration+shape+area_dif_scaled, 
+                            data = SVCpred_model_data,
+                            na.action = na.fail)
+summary(SVCpred_raw_nb_10)
+AICc(SVCpred_raw_nb_10) # AICc = 2991.792
+vif(SVCpred_raw_nb_10)
+# ALL GOOD 
+
+# remove depth from 2
+SVCpred_raw_nb_12 <- glm.nb(whole_scaled_raw_difference ~ habitat+
+                              octocoral_scaled+stony_scaled+
+                              relief_scaled+nocturnal+
+                              cryptic_behaviour+ size_bin_scaled+
+                              colouration+shape+position+area_dif_scaled, 
+                            data = SVCpred_model_data)
+summary(SVCpred_raw_nb_12)
+AICc(SVCpred_raw_nb_12) # AICc = 2991.409
+vif(SVCpred_raw_nb_12)
+
+# remove position from 2
+SVCpred_raw_nb_13 <- glm.nb(whole_scaled_raw_difference ~ habitat+
+                              octocoral_scaled+stony_scaled+
+                              relief_scaled+nocturnal+
+                              cryptic_behaviour+average_depth_scaled + 
+                              size_bin_scaled+
+                              colouration+shape+area_dif_scaled, 
+                            data = SVCpred_model_data)
+summary(SVCpred_raw_nb_13)
+AICc(SVCpred_raw_nb_13) # AICc = 2992
+vif(SVCpred_raw_nb_13)
+
+# remove colour from 3
+SVCpred_raw_nb_15 <- glm.nb(whole_scaled_raw_difference ~ habitat+
+                              octocoral_scaled+stony_scaled+
+                              relief_scaled+nocturnal+max_length_scaled+
+                              cryptic_behaviour+ size_bin_scaled+
+                              shape+position+area_dif_scaled, 
+                            data = SVCpred_model_data)
+summary(SVCpred_raw_nb_15)
+AICc(SVCpred_raw_nb_15) # AICc = 2989.282
+vif(SVCpred_raw_nb_15)
+
+# remove shape from 3
+SVCpred_raw_nb_16 <- glm.nb(whole_scaled_raw_difference ~ habitat+
+                              octocoral_scaled+stony_scaled+
+                              relief_scaled+nocturnal+max_length_scaled+
+                              cryptic_behaviour+ size_bin_scaled+
+                              colouration+position+area_dif_scaled, 
+                            data = SVCpred_model_data,
+                            na.action = na.fail)
+summary(SVCpred_raw_nb_16)
+AICc(SVCpred_raw_nb_16) # AICc = 2994.38
+vif(SVCpred_raw_nb_16)
+# ALL GOOD
+
+# remove position from 3
+SVCpred_raw_nb_17 <- glm.nb(whole_scaled_raw_difference ~ habitat+
+                              octocoral_scaled+stony_scaled+
+                              relief_scaled+nocturnal+max_length_scaled+
+                              cryptic_behaviour+ size_bin_scaled+
+                              colouration+shape+area_dif_scaled, 
+                            data = SVCpred_model_data,
+                            na.action = na.fail)
+summary(SVCpred_raw_nb_17)
+AICc(SVCpred_raw_nb_17) # AICc = 2991.242
+vif(SVCpred_raw_nb_17)
+# ALL GOOD
+
+# remove shape from 4
+SVCpred_raw_nb_20 <- glm.nb(whole_scaled_raw_difference ~ habitat+
+                              octocoral_scaled+stony_scaled+
+                              relief_scaled+nocturnal+max_length_scaled+
+                              cryptic_behaviour+average_depth_scaled + 
+                              size_bin_scaled+
+                              position+area_dif_scaled, 
+                            data = SVCpred_model_data)
+summary(SVCpred_raw_nb_20)
+AICc(SVCpred_raw_nb_20) # AICc = 2992.676
+vif(SVCpred_raw_nb_20)
+
+# MODELS WITH MOST PREDICTORS AND VIFS <3:
+# 10 -> habitat & position removed (AICc = 2991.792; stony sig, shape marginal)
+# 16 -> depth & shape removed (AICc = 2994.38; crypsis sig, stony marginal)
+# 17 -> depth & position removed (AICc = 2991.38; stony & shape marginal)
+# Global -> shape sig, stony marginal 
+# Based on significance in global model and hypotheses, think we should use 10
 
 
 # SVC vs. Roving: Dredge =======================================================
 
-# dredge
-SVCpred_dredge_c <- dredge(SVCpred_c10)
-SVCpred_dredge_c 
-
-# save dredge results 
-saveRDS(SVCpred_dredge_c, here("./outputs/SVCpred_dredge_centred.rds"))
+# dredge on nb 10 
+SVCpred_dredge_nb_10 <- dredge(SVCpred_raw_nb_10)
+SVCpred_dredge_nb_10 
+sum(get.models(SVCpred_dredge_nb_10, subset = delta < 4) %>% lengths() > 0) # 46
 
 # subset dredge
-SVCpred_dredge_c_sub <- subset(SVCpred_dredge_c, delta < 4) 
+SVCpred_dredge_nb_10_sub <- subset(SVCpred_dredge_nb_10, delta < 4) 
 
 # model average 
-SVCpred_model_average_c <- model.avg(SVCpred_dredge_c_sub)
-SVCpred_model_avg_summary_c <- summary(SVCpred_model_average_c)
-
-# save model average
-saveRDS(SVCpred_model_average_c, 
-        here("./outputs/SVCpred_dredge_average_centred.rds"))
-
-# read in saved average
-SVCpred_model_average_c <- 
-  read_rds(here("./outputs/SVCpred_dredge_average_centred.rds"))
-SVCpred_model_avg_summary <- summary(SVCpred_model_average_c)
+SVCpred_model_average_nb_10 <- model.avg(SVCpred_dredge_nb_10_sub)
+SVCpred_model_avg_summary_nb_10 <- summary(SVCpred_model_average_nb_10)
 
 # covariate confidence intervals
-SVCpred_confidence_c <- confint(SVCpred_model_average_c)
-summary(SVCpred_confidence_c)
-
-# save confidence intervals
-saveRDS(SVCpred_confidence_c, here("./outputs/SVCpred_dredge_CI_centred.rds"))
-
-# read in saved CIs
-SVCpred_confidence_redo_cont <- 
-  read_rds(here("./outputs/SVCpred_dredge_CI_centred.rds"))
+SVCpred_confidence_nb_10 <- confint(SVCpred_model_average_nb_10)
+summary(SVCpred_confidence_nb_10)
 
 
-# SVC vs. Roving: Model Plot ===================================================
+# SVC vs. Roving: Model Plot =================================================
 
 # The following creates a visual representation of predictors in the top models
 # comparing SVC and roving survey density differences. Predictor values are 
 # displayed along with their confidence intervals and significance. 
 
 # select conditional coefficient estimates 
-SVCpred_model_avg_plot<-as.data.frame(SVCpred_model_avg_summary$coefmat.subset) 
+SVCpred_model_avg_plot <- 
+  as.data.frame(SVCpred_model_avg_summary_nb_10$coefmat.subset) 
 
 # select confidence intervals 
-SVCpred_CI <- as.data.frame(SVCpred_confidence_redo_cont) 
+SVCpred_CI <- as.data.frame(SVCpred_confidence_nb_10) 
 
 # put confidence intervals into coefficient dataframe
 SVCpred_model_avg_plot$CI.min <-SVCpred_CI$`2.5 %` 
@@ -440,36 +592,51 @@ setDT(SVCpred_model_avg_plot, keep.rownames = "Coefficient")
 # remove spaces from column headers
 names(SVCpred_model_avg_plot) <- gsub(" ", "", names(SVCpred_model_avg_plot)) 
 
-# add binary significance column
-SVCpred_model_avg_plot$significance <- 
-  ifelse(SVCpred_model_avg_plot$`Pr(>|z|)` < 0.05, "sig", "nonsig")
+# add significance column
+SVCpred_model_avg_plot <- SVCpred_model_avg_plot %>%
+  mutate(significance = case_when(
+    `Pr(>|z|)` < 0.05 ~ "sig",
+    `Pr(>|z|)` >= 0.05 & `Pr(>|z|)` <=0.1 ~ "margsig",
+    TRUE ~ "nonsig"
+  ))
 
-# change labels
-SVCpred_model_avg_plot[2,1] <- "Area Dif."
-SVCpred_model_avg_plot[3,1] <- "Neutral"
-SVCpred_model_avg_plot[4,1] <- "Silvering"
-SVCpred_model_avg_plot[5,1] <- "Fusiform"
-SVCpred_model_avg_plot[6,1] <- "Crypsis"
+# change names of coefficients
+SVCpred_model_avg_plot[2,1] = "Crypsis"
+SVCpred_model_avg_plot[3,1] = "Fusiform"
+SVCpred_model_avg_plot[4,1] = "Stony Coral Cover"
+SVCpred_model_avg_plot[5,1] = "Max. Length"
+SVCpred_model_avg_plot[6,1] = "Avg. Depth"
+SVCpred_model_avg_plot[7,1] = "Octocoral Cover"
+SVCpred_model_avg_plot[8,1] = "Nocturnality"
+SVCpred_model_avg_plot[9,1] = "Vertical Relief"
+SVCpred_model_avg_plot[10,1] = "Size Class"
+SVCpred_model_avg_plot[11,1] = "Area Dif."
+SVCpred_model_avg_plot[12,1] = "Neutral"
+SVCpred_model_avg_plot[13,1] = "Silvering"
 
 # change order of rows
-SVCpred_model_avg_plot <- SVCpred_model_avg_plot[c(2,4,3,5,6),]
+SVCpred_model_avg_plot <- 
+  SVCpred_model_avg_plot[c(4,7,9,11,6,13,12,3,10,8,5,2),]
 
-# plot with confidence intervals 
-SVCpred_coef_CI <- ggplot(data=SVCpred_model_avg_plot[1:9,], 
+# plot 
+SVCpred_coef_CI <- ggplot(data=SVCpred_model_avg_plot[1:13], 
                           aes(x=Coefficient, y=Estimate))+ 
   geom_hline(yintercept=0, color = "grey40",linetype="dashed", lwd=1.5)+
   geom_errorbar(aes(ymin=CI.min, ymax=CI.max), colour="grey65", 
                 width=.2,lwd=1) +
-  geom_point(size=5, aes(shape = significance))+ 
+  geom_point(size=5, aes(shape = significance, color = significance))+ 
   theme_classic(base_size = 20)+ 
-  scale_shape_manual(values = c(1,16))+
-  ylim(c(-2.5,2.25)) +
+  scale_shape_manual(values = c("sig" = 16, "margsig" = 16, "nonsig" = 1))+
+  scale_color_manual(values = c("sig" = "black", "margsig" = "grey65", 
+                                "nonsig" = "black")) +
+  ylim(c(-0.21, 0.21)) +
   coord_flip() +
   theme(legend.position = "none",
-        axis.title.y=element_blank(),  #remove y axis labels
-        axis.title = element_text(size = 34),
+        axis.title.y =element_blank(),  #remove y axis labels
+        axis.title.x =element_blank(),
+        axis.title = element_text(size = 30),
         axis.text = element_text(size = 16, color = "black")) +
   scale_x_discrete(limits=SVCpred_model_avg_plot$Coefficient)
 
-# save model plot
+# save model plot 
 ggsave(here("./figures/SVCpred_coef_plot_CIs_centred.png"), SVCpred_coef_CI)

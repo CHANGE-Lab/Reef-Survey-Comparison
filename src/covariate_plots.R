@@ -148,6 +148,10 @@ SVCpred_model_data$position2 <-
 SVCpred_model_data$nocturnal2 <- ifelse(SVCpred_model_data$nocturnal == 1,
                                         "Nocturnal", "Diurnal")
 
+# re-name crypsis levels
+SVCpred_model_data$crypsis <- ifelse(SVCpred_model_data$cryptic_behaviour == 1,
+                                        "Present", "Absent")
+
 
 # SVC vs. Transect Survey Plots ================================================
 
@@ -199,37 +203,6 @@ prey_octo <- ggplot(SVCprey_model_data, aes(x = octocoral,
              colour = "grey40")
 ggsave(here("./visuals/SVCprey_octocoral_scatter.png"), prey_octo)
 
-# cryptic behaviour boxplot
-prey_cryptic <- ggplot(SVCprey_model_data, aes(x = cryptic_behaviour2, 
-                y = log_difference,fill = cryptic_behaviour2)) + 
-  geom_boxplot() +
-  theme_classic() + xlab("Cryptic Behaviour") + 
-  ylab(bquote("Log Density Difference " (individuals/m^2))) +
-  theme(axis.title = element_text(size = 30)) +
-  theme(axis.text= element_text(size = 28)) +
-  theme(legend.position = "none") +
-  # scale_fill_brewer(palette = "YlGnBu") +
-  scale_fill_manual(values = c("gray88", "gray44")) +
-  geom_hline(yintercept = 0,
-             linetype = "dashed",
-             colour = "grey40")
-ggsave(here("./visuals/SVCprey_cryptic_box.png"), prey_cryptic)
-
-# size bin boxplot
-TukeyHSD(aov(log_difference~size_bin_char, SVCprey_model_data))
-prey_size <- ggplot(SVCprey_model_data, aes(x = size_bin_char, 
-             y = log_difference, fill = size_bin_char)) + 
-  geom_boxplot(show.legend = FALSE) + 
-  theme_classic() + 
-  xlab("Size Class") + 
-  ylab(bquote("Log Density Difference " (individuals/m^2))) +
-  theme(axis.title = element_text(size = 48)) + 
-  theme(axis.text= element_text(size = 44)) + 
-  theme(legend.position = "none") + 
-  scale_fill_brewer(palette = "YlGnBu") + 
-  geom_hline(yintercept = 0, linetype = "dashed", colour = "grey40")
-ggsave(here("./visuals/SVCprey_size_box.png"), prey_size)
-
 # colouration boxplot
 TukeyHSD(aov(log_difference~coloration2, SVCprey_model_data))
 prey_colour <- ggplot(SVCprey_model_data, aes(x = coloration2, 
@@ -260,34 +233,6 @@ prey_behav <- ggplot(SVCprey_model_data, aes(x = behavior2, y = log_difference,
   scale_fill_brewer(palette = "Greys") + 
   geom_hline(yintercept = 0, linetype = "dashed", colour = "grey40")
 ggsave(here("./visuals/SVCprey_behaviour_box.png"), prey_behav)
-
-# nocturnality boxplot
-prey_nocturn <- ggplot(SVCprey_model_data, aes(x = nocturnal, 
-                                               y = log_difference, 
-                                             fill = nocturnal)) + 
-  geom_boxplot(show.legend = FALSE) + 
-  theme_classic() + 
-  xlab("Nocturnality") + 
-  ylab(bquote("Log Density Difference " (individuals/m^2))) +
-  theme(axis.title = element_text(size = 30)) + 
-  theme(axis.text= element_text(size = 28)) + 
-  theme(legend.position = "none") + 
-  scale_fill_brewer(palette = "Greys") + 
-  geom_hline(yintercept = 0, linetype = "dashed", colour = "grey40")
-
-# position boxplot
-prey_position <- ggplot(SVCprey_model_data, aes(x = position, 
-                                                y = log_difference, 
-                                               fill = position)) + 
-  geom_boxplot(show.legend = FALSE) + 
-  theme_classic() + 
-  xlab("Water Column Position") + 
-  ylab(bquote("Log Density Difference " (individuals/m^2))) +
-  theme(axis.title = element_text(size = 30)) + 
-  theme(axis.text= element_text(size = 28)) + 
-  theme(legend.position = "none") + 
-  scale_fill_brewer(palette = "Greys") + 
-  geom_hline(yintercept = 0, linetype = "dashed", colour = "grey40")
 
 # maximum lengths scatterplot
 prey_max <- ggplot(SVCprey_model_data, aes(x = max_length, 
@@ -436,28 +381,17 @@ mean(SVCprey_model_data$prey_density[SVCprey_model_data$shape == 'fusiform' &
 # The following creates scatterplots and boxplots of significant predictors 
 # from the SVC vs. roving survey linear mixed effects model.
 
-# colouration boxplot
-TukeyHSD(aov(log_difference~colouration, SVCpred_model_data))
-pred_colour <- ggplot(SVCpred_model_data, aes(x = coloration2, 
-                                              y = log_difference, 
-                                             fill = coloration2)) + 
-  geom_boxplot() +
-  theme_classic() + xlab("Coloration") + 
-  ylab(bquote(" ")) +
-  theme(axis.title = element_text(size = 35)) + 
-  theme(axis.text= element_text(size = 28)) + 
-  theme(legend.position = "none") +
-  scale_fill_manual(values = 
-                      c("chocolate4", "navajowhite1", "grey90")) +
-  geom_hline(yintercept = 0,
-             linetype = "dashed",
-             colour = "grey40")
-ggsave(here("./figures/SVCpred_colour_box.png"), pred_colour)
+# make raw density difference variable
+SVCpred_model_data$raw_difference <- 
+  SVCpred_model_data$SVC_density - SVCpred_model_data$pred_density
+
+# look at distribution of raw differences
+hist(SVCpred_model_data$raw_difference)
 
 # shape boxplot
-TukeyHSD(aov(log_difference~shape, SVCpred_model_data))
-pred_shape <- ggplot(SVCpred_model_data, aes(x = shape2, y = log_difference, 
-                               fill = shape)) + 
+TukeyHSD(aov(raw_difference~shape, SVCpred_model_data))
+pred_shape <- ggplot(SVCpred_model_data, aes(x = shape2, y = raw_difference, 
+                               fill = shape2)) + 
   geom_boxplot() +
   theme_classic() + xlab("Body Shape") + 
   ylab(bquote(" ")) +
@@ -470,11 +404,29 @@ pred_shape <- ggplot(SVCpred_model_data, aes(x = shape2, y = log_difference,
              colour = "grey40")
 ggsave(here("./figures/SVCpred_shape_box.png"), pred_shape)
 
-# survey area difference scatterplot
-pred_area_dif <- ggplot(SVCpred_model_data, aes(x = SVCpred_area_dif, 
-                                           y = log_difference)) + 
+# crypsis boxplot
+# make crypsis categorical
+SVCpred_model_data$cryptic_behaviour <- as.character(SVCpred_model_data$cryptic_behaviour) 
+TukeyHSD(aov(raw_difference~cryptic_behaviour, SVCpred_model_data))
+pred_crypsis <- ggplot(SVCpred_model_data, aes(x = crypsis, y = raw_difference, 
+                                             fill = crypsis)) + 
+  geom_boxplot() +
+  theme_classic() + xlab("Crypsis") + 
+  ylab(bquote(" ")) +
+  theme(axis.title = element_text(size = 35)) + 
+  theme(axis.text= element_text(size = 30)) + 
+  theme(legend.position = "none") +
+  scale_fill_brewer(palette = "Greys") +
+  geom_hline(yintercept = 0,
+             linetype = "dashed",
+             colour = "grey40")
+ggsave(here("./figures/SVCpred_crypsis_box.png"), pred_crypsis)
+
+# stony coral scatterplot
+pred_stony <- ggplot(SVCpred_model_data, aes(x = stony, 
+                                                y = raw_difference)) + 
   geom_jitter(width = 1, height = 0.1)  +
-  theme_classic() + xlab("Survey Area Difference") + 
+  theme_classic() + xlab("Stony Coral Cover (%)") + 
   ylab(bquote(" ")) +
   theme(axis.title = element_text(size = 35)) + 
   theme(axis.text= element_text(size = 28)) + 
@@ -482,4 +434,13 @@ pred_area_dif <- ggplot(SVCpred_model_data, aes(x = SVCpred_area_dif,
   geom_hline(yintercept = 0,
              linetype = "dashed",
              colour = "grey40")
-ggsave(here("./figures/SVCpred_area_dif_scatter.png"), pred_area_dif)
+ggsave(here("./figures/SVCpred_stony_scatter.png"), pred_stony)
+
+# figure out point that correlation line crosses 0
+mod <- lm(raw_difference ~ stony, data = SVCpred_model_data)
+coefs <- coef(mod)
+intercept <- coefs[1]
+slope <- coefs[2]
+
+x_at_y0 <- -intercept / slope
+x_at_y0
